@@ -1,0 +1,2528 @@
+<!DOCTYPE html>
+<html lang="mk">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Digital Survival – Школско Издание</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --bg:#0b0f1a;--panel:#131a2e;--card:#182038;--card2:#1e2a48;
+  --border:#253558;--b2:#2d4070;
+  --blue:#4f8ef7;--cyan:#18e4d4;--green:#2ecc71;--red:#e74c3c;
+  --yellow:#f1c40f;--purple:#9b59b6;--orange:#e67e22;--pink:#e91e8c;
+  --text:#ecf0f1;--muted:#7f8c9a;--dim:#1e2a40;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
+
+/* STARS BACKGROUND */
+body::before{content:'';position:fixed;inset:0;background:
+  radial-gradient(ellipse at 20% 50%,#0d1f4410 0%,transparent 60%),
+  radial-gradient(ellipse at 80% 20%,#1a0d4410 0%,transparent 60%);
+  pointer-events:none;z-index:0}
+
+/* SCROLLBAR */
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-thumb{background:var(--b2);border-radius:3px}
+
+/* HEADER */
+header{width:100%;background:linear-gradient(135deg,#0d1525,#142040,#0d1525);border-bottom:2px solid var(--cyan);padding:12px 24px;display:flex;align-items:center;gap:14px;position:sticky;top:0;z-index:200;box-shadow:0 4px 20px #18e4d420}
+.logo-emoji{font-size:2rem;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.1)}}
+.logo-text{font-size:1.3rem;font-weight:900;color:var(--cyan);text-shadow:0 0 20px var(--cyan)}
+.logo-sub{font-size:.7rem;color:var(--muted);font-family:'JetBrains Mono',monospace;margin-top:1px}
+.htag{margin-left:auto;font-size:.75rem;color:var(--cyan);opacity:.7;font-family:'JetBrains Mono',monospace}
+
+/* SCREENS */
+.screen{width:100%;max-width:920px;margin:0 auto;padding:20px 16px;display:none;flex-direction:column;align-items:center;gap:16px;position:relative;z-index:1}
+.screen.active{display:flex}
+.fullpage{position:fixed;inset:0;background:var(--bg);z-index:400;overflow-y:auto;display:none;padding:20px}
+.fullpage.active{display:block}
+
+/* BUTTONS */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;border:none;border-radius:12px;padding:11px 24px;font-size:.9rem;font-weight:800;cursor:pointer;transition:all .2s;font-family:'Nunito',sans-serif;letter-spacing:.02em}
+.btn:hover{transform:translateY(-3px);box-shadow:0 8px 24px #0006}
+.btn:active{transform:translateY(0)}
+.btn-primary{background:linear-gradient(135deg,var(--cyan),var(--blue));color:#fff}
+.btn-green{background:linear-gradient(135deg,var(--green),#27ae60);color:#fff}
+.btn-red{background:linear-gradient(135deg,var(--red),#c0392b);color:#fff}
+.btn-purple{background:linear-gradient(135deg,var(--purple),#8e44ad);color:#fff}
+.btn-yellow{background:linear-gradient(135deg,var(--yellow),#f39c12);color:#000}
+.btn-orange{background:linear-gradient(135deg,var(--orange),#d35400);color:#fff}
+.btn-ghost{background:transparent;border:2px solid var(--border);color:var(--muted)}
+.btn-ghost:hover{border-color:var(--cyan);color:var(--cyan)}
+.btn:disabled{opacity:.35;pointer-events:none;transform:none!important}
+.btn-sm{padding:7px 14px;font-size:.78rem}
+.btn-lg{padding:15px 36px;font-size:1.05rem}
+
+/* CARDS */
+.card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:20px;width:100%;position:relative}
+.card-glow{box-shadow:0 0 30px #18e4d415;border-color:var(--b2)}
+.card-green{border-color:#2ecc7144;box-shadow:0 0 20px #2ecc7115}
+.card-red{border-color:#e74c3c44;box-shadow:0 0 20px #e74c3c15}
+.card-yellow{border-color:#f1c40f44;box-shadow:0 0 20px #f1c40f15}
+.card-purple{border-color:#9b59b644;box-shadow:0 0 20px #9b59b615}
+
+/* ── INTRO SCREEN ── */
+.hero{text-align:center;padding:30px 20px 20px}
+.hero h1{font-size:clamp(2.2rem,6vw,4rem);font-weight:900;line-height:1;margin-bottom:12px;background:linear-gradient(135deg,var(--cyan),var(--blue),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero-emoji{font-size:3.5rem;margin-bottom:10px;display:block;animation:float 3s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.hero p{color:var(--muted);font-size:.95rem;max-width:500px;margin:0 auto;line-height:1.7}
+.feature-pills{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:14px}
+.pill{padding:5px 14px;border-radius:20px;font-size:.75rem;font-weight:700;border:1.5px solid}
+.pill-cyan{background:#18e4d415;color:var(--cyan);border-color:var(--cyan)44}
+.pill-green{background:#2ecc7115;color:var(--green);border-color:var(--green)44}
+.pill-purple{background:#9b59b615;color:var(--purple);border-color:var(--purple)44}
+.pill-orange{background:#e67e2215;color:var(--orange);border-color:var(--orange)44}
+.pill-red{background:#e74c3c15;color:var(--red);border-color:var(--red)44}
+
+/* PLAYER TAGS */
+.ptag{background:var(--panel);border:2px solid var(--border);border-radius:10px;padding:8px 14px;font-size:.85rem;font-weight:700;cursor:pointer;transition:all .2s;user-select:none}
+.ptag:hover{border-color:var(--b2)}
+.ptag.sel{border-color:var(--cyan);background:#18e4d415;color:var(--cyan)}
+.players-wrap{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+
+/* ROUND SELECTOR */
+.rsel-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px}
+.rsel-card{background:var(--panel);border:2px solid var(--border);border-radius:14px;padding:14px;cursor:pointer;transition:all .22s;display:flex;align-items:center;gap:12px;user-select:none}
+.rsel-card:hover{border-color:var(--b2);transform:translateY(-2px)}
+.rsel-card.on{border-color:var(--cyan);background:#18e4d412;box-shadow:0 0 14px #18e4d420}
+.rsel-card .ri{font-size:1.8rem;flex-shrink:0}
+.rsel-card .rt{font-size:.82rem;font-weight:800}
+.rsel-card .rd{font-size:.68rem;color:var(--muted);margin-top:2px}
+.rsel-check{width:20px;height:20px;border-radius:5px;border:2px solid var(--border);margin-left:auto;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:.75rem;transition:all .2s}
+.rsel-card.on .rsel-check{background:var(--cyan);border-color:var(--cyan);color:#000}
+.preset-strip{display:flex;gap:6px;flex-wrap:wrap}
+.pset{background:var(--panel);border:1.5px solid var(--border);border-radius:8px;padding:5px 12px;font-size:.73rem;font-weight:700;cursor:pointer;color:var(--muted);font-family:'Nunito',sans-serif;transition:all .2s}
+.pset:hover{border-color:var(--cyan);color:var(--cyan)}
+
+/* ── GAME SCREEN ── */
+.topbar{width:100%;background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:12px 18px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.tb-item{display:flex;flex-direction:column}
+.tb-label{font-size:.6rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);font-family:'JetBrains Mono',monospace}
+.tb-val{font-size:1rem;font-weight:800;color:var(--cyan)}
+.tbar-wrap{margin-left:auto;display:flex;flex-direction:column;align-items:flex-end;gap:3px}
+.tbar{height:5px;background:var(--dim);border-radius:3px;overflow:hidden;width:100px}
+.tfill{height:100%;background:linear-gradient(90deg,var(--green),var(--yellow),var(--red));border-radius:3px;transition:width 1s linear}
+.tsec{font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--muted);text-align:right}
+
+/* PLAYER CARDS */
+.pcards-row{width:100%;display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
+.pcard{background:var(--card);border:2px solid var(--border);border-radius:14px;padding:12px 10px;text-align:center;width:110px;transition:all .35s;position:relative;overflow:visible}
+.pcard .av{font-size:2rem;margin-bottom:2px}
+.pcard .pn{font-size:.78rem;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pcard .ps{font-size:.6rem;color:var(--muted);margin-top:2px;font-family:'JetBrains Mono',monospace}
+.pcard.alive{border-color:var(--green)}
+.pcard.active-turn{border-color:var(--cyan);box-shadow:0 0 16px var(--cyan)44;animation:glow-turn 1s ease-in-out infinite alternate}
+@keyframes glow-turn{from{box-shadow:0 0 8px var(--cyan)44}to{box-shadow:0 0 22px var(--cyan)88}}
+.pcard.elim{border-color:var(--red);opacity:.38;filter:grayscale(.9)}
+.pcard.winner{border-color:gold;box-shadow:0 0 24px #ffd70055;animation:winner-pulse 1.5s infinite}
+@keyframes winner-pulse{0%,100%{box-shadow:0 0 16px gold44}50%{box-shadow:0 0 32px gold}}
+.pbadge{position:absolute;top:-9px;left:50%;transform:translateX(-50%);font-size:.52rem;font-weight:900;padding:2px 8px;border-radius:5px;text-transform:uppercase;white-space:nowrap;letter-spacing:.05em}
+.score-minibar{width:100%;height:5px;background:var(--dim);border-radius:3px;overflow:hidden;margin-top:5px}
+.score-minifill{height:100%;border-radius:3px;transition:width .4s}
+
+/* PROGRESS DOTS */
+.pdots-row{width:100%;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.dot{width:9px;height:9px;border-radius:50%;background:var(--dim);transition:all .3s;flex-shrink:0}
+.dot.ok{background:var(--green);box-shadow:0 0 5px var(--green)}
+.dot.ng{background:var(--red)}
+.dot.cur{background:var(--cyan);animation:dot-blink .8s infinite}
+@keyframes dot-blink{0%,100%{opacity:1}50%{opacity:.3}}
+
+/* QUIZ CARD */
+.quiz-card{width:100%;background:var(--card);border:1px solid var(--border);border-radius:18px;overflow:hidden;box-shadow:0 8px 32px #0004}
+.quiz-header{padding:18px 22px 12px;background:linear-gradient(135deg,var(--card),var(--card2))}
+.quiz-rtype{display:inline-flex;align-items:center;gap:6px;padding:3px 12px;border-radius:20px;font-size:.7rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px;border:1.5px solid}
+.quiz-who{font-size:.75rem;font-weight:700;color:var(--muted);margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.quiz-q{font-size:1.05rem;font-weight:700;line-height:1.55;color:var(--text)}
+.quiz-choices{display:flex;flex-direction:column;gap:8px;padding:16px 22px 20px}
+.choice{background:var(--panel);border:2px solid var(--border);border-radius:12px;padding:13px 16px;cursor:pointer;font-size:.88rem;font-weight:600;transition:all .2s;display:flex;align-items:center;gap:10px;line-height:1.4}
+.choice:hover{border-color:var(--cyan);background:#18e4d40a;transform:translateX(4px)}
+.choice.c-correct{border-color:var(--green);background:#2ecc7118;color:var(--green)}
+.choice.c-wrong{border-color:var(--red);background:#e74c3c18;color:var(--red)}
+.choice.c-disabled{pointer-events:none}
+.choice-letter{width:26px;height:26px;border-radius:7px;background:var(--dim);display:flex;align-items:center;justify-content:center;font-size:.78rem;font-weight:900;flex-shrink:0;transition:all .2s}
+.choice.c-correct .choice-letter{background:var(--green);color:#fff}
+.choice.c-wrong .choice-letter{background:var(--red);color:#fff}
+
+/* FEEDBACK */
+.fb{border-radius:12px;padding:14px 18px;font-size:.86rem;font-weight:600;line-height:1.6;margin-top:10px;display:flex;align-items:flex-start;gap:10px}
+.fb-icon{font-size:1.3rem;flex-shrink:0}
+.fb.fb-ok{background:#2ecc7115;border:1.5px solid var(--green)55;color:#a8f0c8}
+.fb.fb-ng{background:#e74c3c15;border:1.5px solid var(--red)55;color:#f5a9a0}
+.fb.fb-info{background:#4f8ef715;border:1.5px solid var(--blue)55;color:#a8c8f8}
+.fb.fb-warn{background:#f1c40f15;border:1.5px solid var(--yellow)55;color:#fde68a}
+
+/* ── MINI GAME SELECTOR ── */
+.mini-selector{width:100%;text-align:center}
+.mini-selector h2{font-size:1.3rem;font-weight:900;color:var(--yellow);margin-bottom:6px}
+.mini-selector p{font-size:.85rem;color:var(--muted);margin-bottom:18px}
+.mini-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;max-width:560px;margin:0 auto}
+.mini-opt{background:var(--card);border:2px solid var(--border);border-radius:16px;padding:20px 14px;cursor:pointer;transition:all .22s;text-align:center}
+.mini-opt:hover{border-color:var(--cyan);transform:translateY(-4px);box-shadow:0 10px 24px #0005}
+.mini-opt .moi{font-size:2.6rem;margin-bottom:8px;display:block}
+.mini-opt .mon{font-size:.85rem;font-weight:800}
+.mini-opt .mod{font-size:.7rem;color:var(--muted);margin-top:3px}
+
+/* ── STROOP ── */
+.stroop-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:14px 0}
+.stroop-card{background:var(--card2);border:2px solid var(--border);border-radius:14px;padding:24px;text-align:center;font-size:1.6rem;font-weight:900;letter-spacing:.05em;transition:color .5s;position:relative}
+.stroop-label{font-size:.65rem;color:var(--muted);position:absolute;top:6px;left:10px;font-family:'JetBrains Mono',monospace}
+.stroop-phase{text-align:center;font-weight:800;font-size:.9rem;min-height:1.5em;margin:8px 0;color:var(--yellow)}
+.pinput-row{display:flex;align-items:center;gap:8px;padding:8px 12px;background:var(--panel);border:1.5px solid var(--border);border-radius:10px;margin-bottom:6px;transition:border-color .2s}
+.pinput-row.submitted-ok{border-color:var(--green)}
+.pinput-row.submitted-ng{border-color:var(--red)}
+.pinput-row .pil{font-size:.78rem;font-weight:800;min-width:76px}
+.pinput-row input{flex:1;background:transparent;border:none;outline:none;color:var(--text);font-family:'Nunito',sans-serif;font-size:.85rem}
+.pinput-row input:disabled{opacity:.5}
+
+/* ── BOMB GAME (PER PLAYER) ── */
+#sc-bomb{background:var(--bg)}
+.bomb-phase-banner{text-align:center;background:linear-gradient(135deg,var(--card),var(--card2));border:1.5px solid var(--border);border-radius:14px;padding:20px;margin-bottom:14px}
+.bomb-phase-banner h3{font-size:1.1rem;font-weight:900;margin-bottom:4px}
+.bomb-ready-screen{text-align:center;padding:30px 20px}
+.bomb-ready-screen .br-av{font-size:4rem;margin-bottom:10px}
+.bomb-ready-screen h3{font-size:1.2rem;font-weight:900;margin-bottom:6px;color:var(--cyan)}
+.bomb-ready-screen p{font-size:.85rem;color:var(--muted);margin-bottom:20px}
+.bomb-grid-reveal{display:grid;gap:8px;justify-content:center;margin:14px auto}
+.bcell{width:70px;height:70px;background:var(--card2);border:2px solid var(--border);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.9rem;cursor:pointer;transition:all .25s;user-select:none}
+.bcell:hover{border-color:var(--blue)}
+.bcell.b-bomb{border-color:var(--red)88}
+.bcell.b-marked-bomb{border-color:var(--red);background:#e74c3c22;animation:bomb-shake .3s ease}
+.bcell.b-marked-safe{border-color:var(--green);background:#2ecc7122}
+@keyframes bomb-shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+.bomb-mode-bar{display:flex;gap:10px;justify-content:center;margin:12px 0}
+.bmode-btn{padding:10px 22px;border-radius:10px;border:2px solid var(--border);background:var(--panel);color:var(--muted);font-size:.88rem;font-weight:800;cursor:pointer;transition:all .2s;font-family:'Nunito',sans-serif}
+.bmode-btn.bm-bomb{border-color:var(--red);background:#e74c3c18;color:var(--red)}
+.bmode-btn.bm-safe{border-color:var(--green);background:#2ecc7118;color:var(--green)}
+.bomb-player-header{display:flex;align-items:center;gap:12px;margin-bottom:16px;padding-bottom:14px;border-bottom:1px solid var(--border)}
+.bomb-progress-strip{display:flex;gap:6px;justify-content:center;flex-wrap:wrap;margin-bottom:12px}
+.bprog{width:32px;height:32px;border-radius:8px;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:1.1rem;transition:all .2s}
+.bprog.bprog-wait{background:var(--dim);color:var(--muted)}
+.bprog.bprog-ok{border-color:var(--green);background:#2ecc7122}
+.bprog.bprog-ng{border-color:var(--red);background:#e74c3c22}
+.bprog.bprog-cur{border-color:var(--cyan);background:#18e4d415;animation:dot-blink .8s infinite}
+
+/* ── WORD MATCH GAME ── */
+.wm-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin:14px 0}
+.wm-col h4{font-size:.75rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:10px;font-family:'JetBrains Mono',monospace}
+.wm-item{background:var(--panel);border:2px solid var(--border);border-radius:10px;padding:11px 14px;cursor:pointer;font-size:.88rem;font-weight:700;margin-bottom:6px;transition:all .2s;text-align:center;user-select:none}
+.wm-item:hover{border-color:var(--cyan)}
+.wm-item.wm-selected{border-color:var(--yellow);background:#f1c40f18;color:var(--yellow)}
+.wm-item.wm-matched{border-color:var(--green);background:#2ecc7118;color:var(--green);pointer-events:none}
+.wm-item.wm-wrong{border-color:var(--red);animation:bomb-shake .3s}
+
+/* ── ELIMINATION SCREEN ── */
+.elim-card{max-width:560px;width:100%;margin:0 auto}
+.elim-entry{background:var(--card);border:1.5px solid var(--border);border-radius:12px;padding:14px 18px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;transition:all .2s;margin-bottom:7px}
+.elim-entry:hover{border-color:var(--cyan);transform:translateX(4px)}
+.elim-entry.ee-elim{border-left:4px solid var(--red)}
+.elim-entry.ee-safe{border-left:4px solid var(--green)}
+.ee-left{display:flex;align-items:center;gap:12px}
+.winner-banner{background:linear-gradient(135deg,#1a130022,#1a0a0022);border:2px solid #ffd70066;border-radius:14px;padding:20px;text-align:center;margin-top:14px}
+.continue-btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:18px}
+
+/* ── PLAYER DETAIL ── */
+.qa-item{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px;margin-bottom:8px;cursor:pointer;transition:all .2s}
+.qa-item:hover{border-color:var(--b2)}
+.qa-item.qai-ok{border-left:3px solid var(--green)}
+.qa-item.qai-ng{border-left:3px solid var(--red)}
+.qa-item.qai-skip{border-left:3px solid var(--muted)}
+.qa-summary{display:flex;align-items:center;gap:10px}
+.qa-expand{max-height:0;overflow:hidden;transition:max-height .35s ease}
+.qa-expand.open{max-height:500px}
+.qcd{padding:9px 12px;border-radius:8px;font-size:.82rem;display:flex;align-items:flex-start;gap:8px;margin-bottom:4px;font-weight:600}
+.qcd-correct{background:#2ecc7112;border:1px solid var(--green)44;color:#a8f0c8}
+.qcd-wrong{background:#e74c3c12;border:1px solid var(--red)44;color:#f5a9a0}
+.qcd-neutral{background:var(--panel);border:1px solid var(--border);color:var(--muted)}
+.stat-box{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px;text-align:center;flex:1}
+.stat-num{font-size:2rem;font-weight:900;font-family:'JetBrains Mono',monospace}
+
+/* ── RESULT SCREEN ── */
+.trophy-anim{font-size:5rem;animation:trophy-bounce 1s ease infinite alternate}
+@keyframes trophy-bounce{from{transform:scale(1) rotate(-5deg)}to{transform:scale(1.1) rotate(5deg)}}
+.final-entry{background:var(--card);border:1.5px solid var(--border);border-radius:12px;padding:14px 18px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;transition:all .2s;margin-bottom:7px}
+.final-entry:hover{border-color:var(--cyan);transform:translateX(3px)}
+.final-entry.fe-winner{border-color:gold;background:linear-gradient(135deg,#1a130015,#2a1c0015)}
+
+/* ── NOTIF TOAST ── */
+.toast{position:fixed;bottom:24px;right:20px;background:var(--card);border-radius:12px;padding:12px 18px;font-size:.85rem;font-weight:700;z-index:900;transform:translateY(100px);transition:transform .3s;display:flex;align-items:center;gap:8px;max-width:280px;box-shadow:0 8px 24px #0006}
+.toast.show{transform:translateY(0)}
+.toast.t-ok{border-left:4px solid var(--green)}
+.toast.t-ng{border-left:4px solid var(--red)}
+.toast.t-info{border-left:4px solid var(--cyan)}
+.toast.t-warn{border-left:4px solid var(--yellow)}
+
+/* BG CANVAS */
+#bgc{position:fixed;inset:0;pointer-events:none;z-index:0;opacity:0;transition:opacity .6s}
+#bgc.vis{opacity:1}
+
+/* MISC */
+.tag{display:inline-flex;align-items:center;padding:3px 10px;border-radius:20px;font-size:.68rem;font-weight:800;text-transform:uppercase;letter-spacing:.05em;border:1.5px solid}
+.t-red{background:#e74c3c15;color:var(--red);border-color:var(--red)44}
+.t-green{background:#2ecc7115;color:var(--green);border-color:var(--green)44}
+.t-blue{background:#4f8ef715;color:var(--blue);border-color:var(--blue)44}
+.t-purple{background:#9b59b615;color:var(--purple);border-color:var(--purple)44}
+.t-orange{background:#e67e2215;color:var(--orange);border-color:var(--orange)44}
+.t-yellow{background:#f1c40f15;color:var(--yellow);border-color:var(--yellow)44}
+.t-gray{background:#33405515;color:var(--muted);border-color:#33405555}
+.divider{width:100%;height:1px;background:linear-gradient(90deg,transparent,var(--b2),transparent);margin:4px 0}
+input[type=text]{background:var(--panel);border:2px solid var(--border);border-radius:10px;padding:8px 13px;color:var(--text);font-family:'Nunito',sans-serif;font-size:.87rem;font-weight:600;outline:none;transition:border-color .2s}
+input[type=text]:focus{border-color:var(--cyan)}
+.section-title{font-size:.8rem;font-weight:900;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.section-title::after{content:'';flex:1;height:1px;background:var(--border)}
+
+/* ── STREAK ── */
+.streak-badge{display:inline-flex;align-items:center;gap:5px;background:linear-gradient(135deg,#f39c12,#e67e22);color:#fff;padding:4px 12px;border-radius:20px;font-size:.78rem;font-weight:900;animation:streak-pop .4s ease}
+@keyframes streak-pop{0%{transform:scale(.5);opacity:0}70%{transform:scale(1.2)}100%{transform:scale(1);opacity:1}}
+/* ── CONFETTI ── */
+.confetti-wrap{position:fixed;inset:0;pointer-events:none;z-index:1000;overflow:hidden}
+.conf{position:absolute;width:10px;height:10px;border-radius:2px;animation:conf-fall linear forwards}
+@keyframes conf-fall{0%{transform:translateY(-20px) rotate(0deg);opacity:1}100%{transform:translateY(110vh) rotate(720deg);opacity:0}}
+/* ── DIFFICULTY ── */
+.diff-selector{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:10px 0}
+.diff-btn{padding:10px 22px;border-radius:12px;border:2px solid var(--border);background:var(--panel);color:var(--muted);font-size:.85rem;font-weight:800;cursor:pointer;transition:all .2s;font-family:'Nunito',sans-serif}
+.diff-btn:hover{transform:translateY(-2px)}
+.diff-btn.easy.sel{border-color:var(--green);background:#2ecc7120;color:var(--green)}
+.diff-btn.medium.sel{border-color:var(--yellow);background:#f1c40f20;color:var(--yellow)}
+.diff-btn.hard.sel{border-color:var(--red);background:#e74c3c20;color:var(--red)}
+/* ── BADGES ── */
+.badge-display{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin:14px 0}
+.badge-item{background:var(--card2);border:2px solid var(--border);border-radius:14px;padding:14px 16px;text-align:center;min-width:110px;transition:all .3s}
+.badge-item.earned{border-color:gold;background:linear-gradient(135deg,#1a130015,#2a1c0020);box-shadow:0 0 16px #ffd70033;animation:badge-pop .5s ease}
+.badge-item.locked{opacity:.35;filter:grayscale(1)}
+@keyframes badge-pop{0%{transform:scale(.7) rotate(-10deg)}70%{transform:scale(1.15) rotate(3deg)}100%{transform:scale(1) rotate(0deg)}}
+.badge-icon{font-size:2rem;margin-bottom:5px}
+.badge-name{font-size:.72rem;font-weight:800;line-height:1.3}
+.badge-desc{font-size:.6rem;color:var(--muted);margin-top:3px}
+/* ── TIP CARD ── */
+.tip-card{background:linear-gradient(135deg,#0a1e3090,#18e4d415);border:1.5px solid #18e4d444;border-radius:14px;padding:16px 20px;display:flex;align-items:flex-start;gap:12px;margin-top:10px}
+.tip-icon{font-size:1.8rem;flex-shrink:0}
+.tip-title{font-size:.72rem;font-weight:900;text-transform:uppercase;letter-spacing:.08em;color:var(--cyan);margin-bottom:4px}
+.tip-text{font-size:.84rem;color:var(--text);line-height:1.6}
+/* ── TYPING CURSOR ── */
+.typing-cursor{display:inline-block;width:2px;height:1.1em;background:var(--cyan);margin-left:2px;animation:cursor-blink .7s infinite;vertical-align:text-bottom}
+@keyframes cursor-blink{0%,100%{opacity:1}50%{opacity:0}}
+/* ── DIFF LEVEL TAG ── */
+.lt-easy{background:#2ecc7120;color:var(--green);border:1.5px solid #2ecc7155;border-radius:20px;padding:2px 9px;font-size:.68rem;font-weight:900}
+.lt-medium{background:#f1c40f20;color:var(--yellow);border:1.5px solid #f1c40f55;border-radius:20px;padding:2px 9px;font-size:.68rem;font-weight:900}
+.lt-hard{background:#e74c3c20;color:var(--red);border:1.5px solid #e74c3c55;border-radius:20px;padding:2px 9px;font-size:.68rem;font-weight:900}
+/* ── CLASSROOM MODE ── */
+.classroom-btns{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px;max-width:420px;margin-left:auto;margin-right:auto}
+.cls-btn{padding:22px;border-radius:14px;border:none;font-size:1.1rem;font-weight:900;cursor:pointer;font-family:'Nunito',sans-serif;transition:all .2s;color:#fff}
+.cls-a{background:var(--green)}.cls-b{background:var(--blue)}.cls-c{background:var(--orange)}.cls-d{background:var(--red)}
+.cls-btn:hover{transform:scale(1.05);filter:brightness(1.1)}
+.teacher-banner{background:linear-gradient(135deg,#160a2080,#9b59b620);border:1.5px solid #9b59b655;border-radius:14px;padding:14px 18px;display:flex;align-items:center;gap:12px}
+
+/* ── SCREENSHOT EMAIL MOCKUPS ── */
+.email-mockup{background:#1c2333;border:1px solid #2d3a50;border-radius:12px;overflow:hidden;margin-bottom:14px;font-size:.84rem}
+.em-titlebar{background:#111827;padding:8px 14px;display:flex;align-items:center;gap:8px}
+.em-dot{width:10px;height:10px;border-radius:50%}
+.em-header{padding:12px 16px;border-bottom:1px solid #2d3a50;background:#162030}
+.em-field{display:flex;gap:8px;margin-bottom:4px;font-size:.78rem}
+.em-field-lbl{color:#64748b;min-width:44px;font-weight:700}
+.em-field-val{color:#94a3b8}
+.em-field-val.danger{color:#f87171;font-weight:700}
+.em-subject{padding:10px 16px;font-weight:800;font-size:.9rem;border-bottom:1px solid #2d3a50;color:#f1c40f}
+.em-body{padding:14px 16px;line-height:1.7;color:#cbd5e1}
+.em-body .em-link{color:#60a5fa;text-decoration:underline;cursor:pointer;background:#1e3a5f55;padding:2px 6px;border-radius:4px}
+.em-body .em-warning{background:#e74c3c22;border:1px solid #e74c3c55;border-radius:8px;padding:10px 12px;margin:10px 0;color:#fca5a5;font-size:.82rem}
+.em-footer{background:#111827;padding:8px 14px;font-size:.72rem;color:#475569;text-align:center}
+.sms-mockup{background:#1c2333;border-radius:14px;overflow:hidden;margin-bottom:14px;max-width:340px;margin-left:auto;margin-right:auto}
+.sms-header{background:#111827;padding:10px 16px;text-align:center;font-size:.8rem;font-weight:800;color:#94a3b8}
+.sms-bubble{background:#1e3a5f;border-radius:16px 16px 4px 16px;padding:12px 16px;margin:12px;font-size:.85rem;line-height:1.6;color:#e2e8f0}
+.sms-bubble .sms-link{color:#f87171;font-weight:700;text-decoration:underline}
+.sms-time{text-align:right;font-size:.68rem;color:#475569;margin:0 12px 10px}
+.red-flag-badge{display:inline-flex;align-items:center;gap:4px;background:#e74c3c22;border:1px solid #e74c3c55;color:#fca5a5;padding:2px 8px;border-radius:5px;font-size:.7rem;font-weight:800;margin:2px}
+.spot-the-flags{background:#f1c40f12;border:1px solid #f1c40f44;border-radius:10px;padding:12px 14px;margin-bottom:12px}
+.spot-title{font-size:.72rem;font-weight:900;text-transform:uppercase;letter-spacing:.08em;color:#f1c40f;margin-bottom:6px}
+
+/* ── QR MODAL ── */
+.qr-modal{position:fixed;inset:0;background:#000d;display:flex;align-items:center;justify-content:center;z-index:600;opacity:0;pointer-events:none;transition:opacity .3s}
+.qr-modal.show{opacity:1;pointer-events:all}
+.qr-box{background:linear-gradient(135deg,var(--card),var(--card2));border:2px solid var(--cyan);border-radius:22px;padding:28px 24px;text-align:center;max-width:380px;width:92%;box-shadow:0 20px 60px #18e4d420,0 0 0 1px var(--border)}
+.qr-inner-frame{background:#fff;border-radius:14px;padding:16px;margin:16px auto;display:inline-block;box-shadow:0 4px 20px #0006}
+.qr-caption{font-size:.78rem;color:var(--muted);margin-top:10px;font-family:'JetBrains Mono',monospace;word-break:break-all}
+
+/* ── CERTIFICATE MODAL ── */
+#cert-modal{position:fixed;inset:0;background:linear-gradient(135deg,#0a0f1a,#0d1a2e);z-index:700;display:none;overflow-y:auto;padding:20px}
+.cert-modal-inner{max-width:700px;margin:0 auto}
+.cert-modal-topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid var(--border)}
+/* Certificate card - white/light for print */
+.cert-card{background:#fff;color:#0f172a;border-radius:20px;overflow:hidden;box-shadow:0 20px 60px #0008;position:relative;font-family:'Nunito',sans-serif}
+.cert-card-top{background:linear-gradient(135deg,#1e3a8a,#1e40af,#2563eb);padding:32px 36px 24px;text-align:center;color:#fff;position:relative}
+.cert-card-top::after{content:'';position:absolute;bottom:-1px;left:0;right:0;height:24px;background:#fff;clip-path:ellipse(55% 100% at 50% 100%)}
+.cert-stars{font-size:1.4rem;margin-bottom:10px;letter-spacing:8px}
+.cert-org{font-size:.72rem;text-transform:uppercase;letter-spacing:.15em;opacity:.8;margin-bottom:6px}
+.cert-title{font-size:1.8rem;font-weight:900;letter-spacing:.06em;text-shadow:0 2px 8px #0003}
+.cert-subtitle{font-size:.75rem;opacity:.75;text-transform:uppercase;letter-spacing:.12em;margin-top:4px}
+.cert-card-body{padding:32px 36px;text-align:center}
+.cert-given-to{font-size:.85rem;color:#6b7280;margin-bottom:8px;text-transform:uppercase;letter-spacing:.1em}
+.cert-name{font-size:2.4rem;font-weight:900;color:#1e40af;padding:8px 20px 12px;border-bottom:3px solid #bfdbfe;margin-bottom:16px;display:inline-block}
+.cert-text{font-size:.92rem;color:#374151;max-width:460px;margin:0 auto 20px;line-height:1.8}
+.cert-score-box{display:inline-flex;align-items:center;gap:10px;background:#eff6ff;border:2px solid #bfdbfe;border-radius:12px;padding:10px 24px;margin-bottom:18px}
+.cert-score-num{font-size:1.6rem;font-weight:900;color:#1e40af;font-family:'JetBrains Mono',monospace}
+.cert-score-lbl{font-size:.78rem;color:#6b7280;text-align:left;line-height:1.4}
+.cert-badges-row{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:18px;font-size:1.5rem}
+.cert-card-footer{background:#f8fafc;border-top:2px solid #e2e8f0;padding:16px 36px;display:flex;justify-content:space-between;align-items:center}
+.cert-footer-seal{font-size:2rem}
+.cert-footer-date{font-size:.75rem;color:#9ca3af;text-align:right}
+.cert-footer-sig{font-size:.78rem;color:#374151;font-weight:700}
+/* PRINT */
+@media print{
+  #cert-modal .cert-modal-topbar{display:none!important}
+  #cert-modal{background:#fff!important;padding:0!important}
+  .cert-card{box-shadow:none;border-radius:0}
+  body>*:not(#cert-modal){display:none!important}
+  #cert-modal{display:block!important}
+}
+#cert-print-wrap{display:none}
+
+/* ── MASCOT ── */
+.mascot-wrap{position:fixed;bottom:20px;left:20px;z-index:150;pointer-events:none;transition:all .3s}
+.mascot-body{font-size:2.8rem;animation:mascot-idle 3s ease-in-out infinite;filter:drop-shadow(0 4px 12px #0008)}
+@keyframes mascot-idle{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-8px) rotate(3deg)}}
+.mascot-body.mascot-happy{animation:mascot-happy .6s ease;filter:drop-shadow(0 0 20px #2ecc71)}
+@keyframes mascot-happy{0%{transform:scale(1)}30%{transform:scale(1.4) rotate(-10deg)}60%{transform:scale(1.2) rotate(8deg)}100%{transform:scale(1) rotate(0)}}
+.mascot-body.mascot-sad{animation:mascot-sad .5s ease;filter:drop-shadow(0 0 16px #e74c3c)}
+@keyframes mascot-sad{0%,100%{transform:translateX(0)}25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
+.mascot-bubble{position:absolute;bottom:60px;left:0;background:var(--card);border:2px solid var(--b2);border-radius:14px 14px 14px 4px;padding:10px 14px;font-size:.82rem;font-weight:700;max-width:200px;white-space:normal;line-height:1.4;opacity:0;transform:translateY(10px);transition:all .3s;pointer-events:none;box-shadow:0 4px 16px #0006}
+.mascot-bubble.show{opacity:1;transform:translateY(0)}
+
+/* ── LEADERBOARD SIDEBAR ── */
+.leaderboard{background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:14px;width:100%}
+.lb-row{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:10px;margin-bottom:4px;transition:all .25s;font-size:.85rem;font-weight:700}
+.lb-row.lb-first{background:linear-gradient(135deg,#ffd70020,#fb923c15);border:1px solid #ffd70044}
+.lb-row.lb-second{background:#c0c0c020;border:1px solid #c0c0c044}
+.lb-row.lb-third{background:#cd7f3220;border:1px solid #cd7f3244}
+.lb-rank{font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--muted);min-width:24px}
+.lb-score{margin-left:auto;font-family:'JetBrains Mono',monospace;color:var(--cyan);font-size:.82rem}
+.lb-pct{font-size:.7rem;color:var(--muted)}
+
+/* ── ROUND RECAP ── */
+.recap-item{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px;margin-bottom:8px}
+.recap-item.ri-ok{border-left:4px solid var(--green)}
+.recap-item.ri-ng{border-left:4px solid var(--red)}
+.recap-q{font-size:.85rem;font-weight:700;margin-bottom:8px;line-height:1.5}
+.recap-answers{display:flex;flex-wrap:wrap;gap:6px}
+.recap-ans{padding:5px 12px;border-radius:8px;font-size:.78rem;font-weight:700}
+.ra-correct{background:#2ecc7122;color:var(--green);border:1px solid #2ecc7144}
+.ra-wrong{background:#e74c3c22;color:var(--red);border:1px solid #e74c3c44}
+.ra-neutral{background:var(--panel);color:var(--muted);border:1px solid var(--border)}
+
+/* ── CIRCULAR TIMER ── */
+.ctimer-wrap{position:relative;width:56px;height:56px;flex-shrink:0}
+.ctimer-svg{transform:rotate(-90deg);width:56px;height:56px}
+.ctimer-bg{fill:none;stroke:var(--dim);stroke-width:5}
+.ctimer-fill{fill:none;stroke-width:5;stroke-linecap:round;transition:stroke-dashoffset 1s linear,stroke .5s}
+.ctimer-num{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:.85rem;font-weight:700;color:var(--text)}
+
+/* ── MODE EXPLANATION ── */
+.mode-explain{background:var(--panel);border:1px solid var(--b2);border-radius:12px;padding:14px 16px;margin-top:8px;font-size:.8rem;color:var(--muted);line-height:1.7;display:none}
+.mode-explain.show{display:block}
+.mode-explain strong{color:var(--text)}
+
+/* ── EXPORT BTN ── */
+.export-row{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:10px}
+
+/* ── FULLSCREEN BTN ── */
+.fs-btn{position:fixed;top:70px;right:14px;background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:6px 10px;font-size:.8rem;cursor:pointer;z-index:190;color:var(--muted);font-family:'Nunito',sans-serif;font-weight:700;transition:all .2s}
+.fs-btn:hover{border-color:var(--cyan);color:var(--cyan)}
+
+/* ── STREAK TOAST ── */
+.streak-popup{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) scale(0);background:linear-gradient(135deg,#f39c12,#e67e22);color:#fff;padding:18px 30px;border-radius:20px;font-size:1.4rem;font-weight:900;z-index:800;text-align:center;pointer-events:none;box-shadow:0 10px 40px #0008;transition:transform .3s,opacity .3s;opacity:0}
+.streak-popup.show{transform:translate(-50%,-50%) scale(1);opacity:1}
+
+/* ── PLAYER GENDER PICKER ── */
+.add-player-row{display:flex;gap:8px;justify-content:center;align-items:center;flex-wrap:wrap;margin-bottom:12px}
+.gender-btns{display:flex;gap:6px}
+.gbtn{background:var(--panel);border:2px solid var(--border);border-radius:10px;padding:7px 14px;cursor:pointer;font-size:1rem;transition:all .2s;font-family:'Nunito',sans-serif}
+.gbtn:hover{border-color:var(--b2)}
+.gbtn.gsel-m{border-color:var(--blue);background:#1e3a5f55}
+.gbtn.gsel-f{border-color:var(--pink,#e91e8c);background:#3a0f2555}
+.pcard-added{background:var(--card);border:1.5px solid var(--border);border-radius:10px;padding:7px 12px;display:flex;align-items:center;gap:8px;font-size:.82rem;font-weight:700;cursor:pointer;transition:all .2s}
+.pcard-added:hover{border-color:var(--red);background:#1a050555}
+.pcard-added:hover::after{content:'×';color:var(--red);margin-left:auto}
+.added-players-list{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-bottom:12px;min-height:32px}
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+</head>
+<body>
+<canvas id="bgc"></canvas>
+<div id="confetti-wrap" class="confetti-wrap"></div>
+<!-- MASCOT -->
+<div class="mascot-wrap" id="mascot">
+  <div class="mascot-bubble" id="mascot-bubble">Здраво! Подготвен ли си? 🚀</div>
+  <div class="mascot-body" id="mascot-body">🤖</div>
+</div>
+<!-- FULLSCREEN BTN -->
+<button class="fs-btn" onclick="toggleFS()" id="fs-btn">⛶ Fullscreen</button>
+<!-- STREAK POPUP -->
+<div class="streak-popup" id="streak-popup"></div>
+
+<header>
+  <span class="logo-emoji">🛡️</span>
+  <div>
+    <div class="logo-text">DIGITAL SURVIVAL</div>
+    <div class="logo-sub">Школско издание v4.0</div>
+  </div>
+  <div class="htag">#ThinkBeforeYouClick</div>
+</header>
+
+<!-- ══ INTRO ══ -->
+<div id="sc-intro" class="screen active">
+  <div class="hero">
+    <span class="hero-emoji">🕵️</span>
+    <h1>DIGITAL SURVIVAL</h1>
+    <p>Научи да се заштитиш на интернет преку предизвикувачки квизови и игри! Секој грешки те учи нешто важно.</p>
+    <div class="feature-pills">
+      <span class="pill pill-red">⚠️ Phishing напади</span>
+      <span class="pill pill-cyan">🔐 Сајбер безбедност</span>
+      <span class="pill pill-purple">📡 Медиумска писменост</span>
+      <span class="pill pill-orange">💣 Меморија бомби</span>
+      <span class="pill pill-green">🧠 Stroop предизвик</span>
+    </div>
+  </div>
+
+  <div class="card card-glow">
+    <div class="section-title">① Избери играчи (мин. 2, макс. 8)</div>
+    <div class="add-player-row">
+      <input type="text" id="cname" placeholder="Внеси ime..." style="width:140px"
+        onkeydown="if(event.key==='Enter')addP()"/>
+      <div class="gender-btns">
+        <button class="gbtn gsel-m" id="gbtn-m" onclick="setGender('m')" title="Маж">👦 Маж</button>
+        <button class="gbtn" id="gbtn-f" onclick="setGender('f')" title="Жена">👧 Жена</button>
+      </div>
+      <button class="btn btn-primary btn-sm" onclick="addP()">+ Додај</button>
+    </div>
+    <div style="font-size:.72rem;color:var(--muted);text-align:center;margin-bottom:10px">
+      Кликни на играч за да го отстраниш
+    </div>
+    <div class="added-players-list" id="added-list"></div>
+    <div style="margin-bottom:10px">
+      <div style="font-size:.72rem;color:var(--muted);margin-bottom:6px;font-family:'JetBrains Mono',monospace">ИЛИ ИЗБЕРИ ОД ЛИСТА:</div>
+      <div class="players-wrap" id="plist"></div>
+    </div>
+    <div style="text-align:center;color:var(--muted);font-size:.75rem;font-family:'JetBrains Mono',monospace">
+      ИЗБРАНИ: <span id="pcnt" style="color:var(--cyan);font-weight:900">0</span> / 8
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="section-title">② Избери рунди</div>
+    <div style="margin-bottom:10px">
+      <div style="font-size:.75rem;color:var(--muted);margin-bottom:7px">Брзи пресети:</div>
+      <div class="preset-strip">
+        <button class="pset" onclick="setPreset('all')">▶ Сите</button>
+        <button class="pset" onclick="setPreset('phishing')">⚠️ Само Phishing</button>
+        <button class="pset" onclick="setPreset('cyber')">🔐 Само Сајбер</button>
+        <button class="pset" onclick="setPreset('media')">📡 Само Медиуми</button>
+        <button class="pset" onclick="setPreset('phishcyber')">⚠️+🔐</button>
+        <button class="pset" onclick="setPreset('phishmedia')">⚠️+📡</button>
+        <button class="pset" onclick="setPreset('cybermedia')">🔐+📡</button>
+      </div>
+    </div>
+    <div class="rsel-grid" id="rsel-grid"></div>
+    <div style="margin-top:10px;font-size:.75rem;color:var(--muted)">
+      💡 Рунди кои биле изиграни <strong style="color:var(--yellow)">не можат да се повторат</strong> во истата сесија.
+      <span id="played-info" style="color:var(--orange)"></span>
+    </div>
+  </div>
+
+  <div class="card" style="font-size:.82rem;color:var(--muted);line-height:1.9">
+    <div class="section-title">📋 Правила</div>
+    🎯 Секој играч добива <strong style="color:var(--cyan)">различни прашања</strong> — нема копирање!<br>
+    💀 Скор под <strong style="color:var(--red)">50%</strong> = елиминација на крај на рундата.<br>
+    🎮 Меѓу рунди: бонус мини-игри — забава без елиминација!<br>
+    👆 Кликни на играч за детален преглед на сите негови одговори.
+  </div>
+
+    <div class="card">
+    <div class="section-title">③ Ниво на тежина</div>
+    <div style="font-size:.8rem;color:var(--muted);margin-bottom:10px">Прилагоди ја тежината на прашањата!</div>
+    <div class="diff-selector">
+      <button class="diff-btn easy sel" id="d-easy" onclick="setDiff('easy')">🟢 Лесно<br><span style="font-size:.65rem;font-weight:600">Основно (10-14 год.)</span></button>
+      <button class="diff-btn medium" id="d-medium" onclick="setDiff('medium')">🟡 Средно<br><span style="font-size:.65rem;font-weight:600">Средно (14-18 год.)</span></button>
+      <button class="diff-btn hard" id="d-hard" onclick="setDiff('hard')">🔴 Тешко<br><span style="font-size:.65rem;font-weight:600">Напредно (18+ год.)</span></button>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="section-title">④ Режим на играње</div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center">
+      <div id="mode-normal" onclick="setMode('normal')" style="flex:1;min-width:130px;background:var(--panel);border:2px solid var(--cyan);border-radius:12px;padding:14px;text-align:center;cursor:pointer;transition:all .2s">
+        <div style="font-size:1.6rem;margin-bottom:4px">🎮</div>
+        <div style="font-weight:800;font-size:.85rem">Натпреварувачки</div>
+        <div style="font-size:.7rem;color:var(--muted);margin-top:3px">Елиминации, победник</div>
+      </div>
+      <div id="mode-class" onclick="setMode('class')" style="flex:1;min-width:130px;background:var(--panel);border:2px solid var(--border);border-radius:12px;padding:14px;text-align:center;cursor:pointer;transition:all .2s">
+        <div style="font-size:1.6rem;margin-bottom:4px">🏫</div>
+        <div style="font-weight:800;font-size:.85rem">Класа режим</div>
+        <div style="font-size:.7rem;color:var(--muted);margin-top:3px">Наставник + проектор</div>
+      </div>
+    </div>
+    <div class="mode-explain show" id="mode-explain-text">
+      <strong>🎮 Натпреварувачки режим:</strong> Секој играч добива свои прашања на исто устројство. Оној со под 50% точни е елиминиран. Погоден за мали групи (2-8 ученици).<br><br>
+      <strong>🏫 Класа режим:</strong> Наставникот проектира прашањата. Учениците гласаат со <strong>A / B / C / D</strong> копчиња (видливи на проекторот). Погоден за цела класа (20-30 ученици). Еден компјутер + проектор = доволно!
+    </div>
+  </div>
+
+  <button class="btn btn-primary btn-lg" onclick="startGame()">🚀 ПОЧНИ ИГРА</button>
+</div>
+
+<!-- ══ GAME ══ -->
+<div id="sc-game" class="screen">
+  <div class="topbar">
+    <div class="tb-item"><div class="tb-label">Рунда</div><div class="tb-val" id="tb-rnd">-</div></div>
+    <div class="tb-item"><div class="tb-label">Тип</div><div id="tb-type" class="tb-val" style="font-size:.72rem">-</div></div>
+    <div class="tb-item"><div class="tb-label">Прашање</div><div class="tb-val" id="tb-q">-</div></div>
+    <div class="tb-item"><div class="tb-label">Активни</div><div class="tb-val" id="tb-alive">-</div></div>
+    <div class="ctimer-wrap">
+      <svg class="ctimer-svg" viewBox="0 0 56 56">
+        <circle class="ctimer-bg" cx="28" cy="28" r="23"/>
+        <circle class="ctimer-fill" id="ctimer-circle" cx="28" cy="28" r="23" stroke="var(--cyan)"
+          stroke-dasharray="144.5" stroke-dashoffset="0"/>
+      </svg>
+      <div class="ctimer-num" id="main-ts">20</div>
+    </div>
+    <div class="tbar" style="display:none"><div class="tfill" id="main-tf" style="width:100%"></div></div>
+  </div>
+  <div class="pcards-row" id="pcards"></div>
+  <div style="width:100%;display:flex;gap:14px;align-items:flex-start;flex-wrap:wrap">
+    <div style="flex:1;min-width:0">
+      <div class="pdots-row">
+        <span style="font-size:.65rem;color:var(--muted);font-family:'JetBrains Mono',monospace">ПРОГРЕС</span>
+        <div id="pdots" style="display:flex;gap:4px;flex-wrap:wrap"></div>
+      </div>
+    </div>
+    <div style="min-width:160px;max-width:200px">
+      <div class="leaderboard" id="live-lb" style="display:none">
+        <div style="font-size:.65rem;font-weight:900;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:8px;font-family:'JetBrains Mono',monospace">🏆 РАНГ ЛИСТА</div>
+        <div id="lb-rows"></div>
+      </div>
+    </div>
+  </div>
+  <div id="q-area" style="width:100%"></div>
+  <div id="q-fb" style="width:100%"></div>
+</div>
+
+<!-- ══ MINI SELECTOR ══ -->
+<div id="sc-mini" class="screen">
+  <div class="mini-selector">
+    <div style="font-size:2.5rem;margin-bottom:6px">🎮</div>
+    <h2>БОНУС МИНИ-ИГРА</h2>
+    <p>Избери бонус игра меѓу рунди или прескокни.<br><strong style="color:var(--yellow)">Нема елиминација — само забава!</strong></p>
+    <div class="mini-grid">
+      <div class="mini-opt" onclick="doMini('stroop')">
+        <span class="moi">🧠</span>
+        <div class="mon">Stroop Бои</div>
+        <div class="mod">Запомни бои под притисок</div>
+      </div>
+      <div class="mini-opt" onclick="doMini('bomb')">
+        <span class="moi">💣</span>
+        <div class="mon">Бомби</div>
+        <div class="mod">Секој играч сам наоѓа бомби</div>
+      </div>
+      <div class="mini-opt" onclick="doMini('wordmatch')">
+        <span class="moi">🔤</span>
+        <div class="mon">Спој зборови</div>
+        <div class="mod">Поврзи поими со дефиниции</div>
+      </div>
+      <div class="mini-opt" onclick="doMini('skip')">
+        <span class="moi">⏭️</span>
+        <div class="mon">Прескокни</div>
+        <div class="mod">Продолжи кон следна рунда</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ STROOP MINI ══ -->
+<div id="sc-stroop" class="screen">
+  <div class="card card-purple" style="text-align:center;width:100%">
+    <div class="tag t-purple" style="margin-bottom:10px">🧠 STROOP БОНУС — БЕЗ ЕЛИМИНАЦИЈА</div>
+    <div style="font-weight:900;font-size:1.05rem;margin-bottom:5px">Запомни ги БОИТЕ на зборовите!</div>
+    <div style="font-size:.8rem;color:var(--muted);margin-bottom:12px">Не читај ги зборовите — гледај ја БОЈАТА. После 5 сек ќе посивеат.</div>
+    <div class="stroop-grid" id="sg"></div>
+    <div class="stroop-phase" id="s-phase"></div>
+    <div id="s-inputs"></div>
+    <div id="s-fb"></div>
+    <div class="tbar" style="margin-top:12px"><div class="tfill" id="tf-s" style="width:100%"></div></div>
+  </div>
+  <button class="btn btn-ghost" id="stroop-done" style="display:none" onclick="endMini()">Продолжи →</button>
+</div>
+
+<!-- ══ BOMB MINI (per-player sequential) ══ -->
+<div id="sc-bomb" class="screen">
+  <div class="card card-red" style="width:100%;max-width:600px">
+    <div id="bomb-inner"></div>
+    <div class="tbar" style="margin-top:12px"><div class="tfill" id="tf-b" style="width:100%"></div></div>
+  </div>
+  <button class="btn btn-ghost" id="bomb-done" style="display:none" onclick="endMini()">Продолжи →</button>
+</div>
+
+<!-- ══ WORD MATCH MINI ══ -->
+<div id="sc-wordmatch" class="screen">
+  <div class="card card-glow" style="width:100%;max-width:700px">
+    <div class="tag t-blue" style="margin-bottom:10px">🔤 СПОЈ ЗБОРОВИ — БЕЗ ЕЛИМИНАЦИЈА</div>
+    <div style="font-weight:900;font-size:1rem;margin-bottom:4px">Поврзи го термот со точната дефиниција!</div>
+    <div style="font-size:.78rem;color:var(--muted);margin-bottom:14px">Кликни термин, потоа кликни дефиниција. Сите играчи работат заедно.</div>
+    <div class="wm-grid">
+      <div><div class="wm-col" style="font-size:.75rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:10px;font-family:'JetBrains Mono',monospace">ТЕРМИНИ</div><div id="wm-terms"></div></div>
+      <div><div class="wm-col" style="font-size:.75rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:10px;font-family:'JetBrains Mono',monospace">ДЕФИНИЦИИ</div><div id="wm-defs"></div></div>
+    </div>
+    <div id="wm-fb"></div>
+    <div id="wm-score" style="text-align:center;font-size:.9rem;font-weight:800;margin-top:10px;color:var(--muted)"></div>
+  </div>
+  <button class="btn btn-ghost" id="wm-done" style="display:none" onclick="endMini()">Продолжи →</button>
+</div>
+
+<!-- ══ ELIMINATION ══ -->
+<div id="sc-elim" class="screen">
+  <div class="elim-card">
+    <div class="card" style="text-align:center;padding:24px 20px">
+      <div style="font-size:2.5rem;margin-bottom:8px">📊</div>
+      <div style="font-size:1.2rem;font-weight:900;margin-bottom:4px" id="elim-title">Крај на Рунда</div>
+      <div style="font-size:.82rem;color:var(--muted);margin-bottom:18px">Кликни на играч за да ги видиш неговите одговори во детали</div>
+      <div class="section-title" style="color:var(--red)">💀 Елиминирани (под 50%)</div>
+      <div id="elim-list" style="margin-bottom:16px"></div>
+      <div class="section-title" style="color:var(--green)">✅ Преживеани</div>
+      <div id="safe-list"></div>
+      <div id="winner-banner-elim"></div>
+      <div id="elim-tip" style="margin-top:14px"></div>
+      <div class="continue-btns" id="elim-btns"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ PLAYER DETAIL ══ -->
+<div id="sc-detail" class="fullpage">
+  <div style="max-width:740px;margin:0 auto">
+    <div style="display:flex;align-items:center;gap:14px;margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid var(--border)">
+      <button class="btn btn-ghost btn-sm" onclick="closeDetail()">← Назад</button>
+      <div style="font-size:2.8rem" id="det-av"></div>
+      <div>
+        <div style="font-size:1.5rem;font-weight:900" id="det-name"></div>
+        <div id="det-status" style="margin-top:4px"></div>
+      </div>
+    </div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px" id="det-stats"></div>
+    <div style="background:var(--dim);border-radius:6px;height:10px;margin-bottom:20px;overflow:hidden">
+      <div id="det-bar" style="height:100%;border-radius:6px;transition:width .5s"></div>
+    </div>
+    <div style="font-size:.78rem;font-weight:800;color:var(--muted);margin-bottom:12px;font-family:'JetBrains Mono',monospace">
+      ОДГОВОРИ — кликни за да видиш детали:
+    </div>
+    <div id="det-list"></div>
+  </div>
+</div>
+
+<!-- ══ ROUND RECAP ══ -->
+<div id="sc-recap" class="screen">
+  <div style="width:100%;max-width:700px">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+      <div style="font-size:1.1rem;font-weight:900" id="recap-title">Преглед на рундата</div>
+      <button class="btn btn-primary btn-sm" id="recap-continue-btn">Продолжи →</button>
+    </div>
+    <div id="recap-list"></div>
+  </div>
+</div>
+
+<!-- ══ RESULT ══ -->
+<div id="sc-result" class="screen">
+  <div style="text-align:center;width:100%">
+    <div class="trophy-anim">🏆</div>
+    <div style="font-size:2rem;font-weight:900;margin:10px 0;background:linear-gradient(135deg,gold,#fb923c);-webkit-background-clip:text;-webkit-text-fill-color:transparent" id="result-title">DIGITAL SURVIVOR!</div>
+    <div id="result-winner" style="font-size:1.2rem;font-weight:800;color:var(--yellow);margin-bottom:6px"></div>
+    <div style="font-size:.85rem;color:var(--muted);margin-bottom:22px">Кликни на секој играч за детален преглед →</div>
+    <div id="final-list" style="max-width:520px;margin:0 auto"></div>
+    <div style="margin:16px 0">
+      <div style="font-size:.85rem;font-weight:800;color:var(--yellow);margin-bottom:10px">🏅 ОСВОЕНИ ДОСТИГНУВАЊА:</div>
+      <div class="badge-display" id="final-badges"></div>
+    </div>
+    <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:22px">
+      <button class="btn btn-yellow" onclick="showCertificate()">📜 Сертификат</button>
+      <button class="btn btn-purple" onclick="showQR()">📱 QR Код</button>
+      <button class="btn btn-ghost" style="background:var(--green);color:#000" onclick="exportCSV()">📊 Извози CSV</button>
+      <button class="btn btn-ghost" onclick="continueForFun()">▶ Продолжи за забава</button>
+      <button class="btn btn-primary" onclick="restartGame()">↺ Играј повторно</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<!-- QR MODAL -->
+<div class="qr-modal" id="qr-modal" onclick="closeQR()">
+  <div class="qr-box" onclick="event.stopPropagation()">
+    <div style="font-size:1.8rem;margin-bottom:6px">📱</div>
+    <div style="font-size:1rem;font-weight:900;color:var(--cyan);margin-bottom:4px">Сподели ја играта</div>
+    <div style="font-size:.8rem;color:var(--muted);margin-bottom:14px;line-height:1.5">Скенирај го QR кодот за да ја отвориш играта.<br>Зачувај го фајлот на ученичките уреди.</div>
+    <div class="qr-inner-frame">
+      <div id="qr-container"></div>
+    </div>
+    <div class="qr-caption" id="qr-url">digital-survival.html</div>
+    <div style="display:flex;gap:8px;justify-content:center;margin-top:14px">
+      <button class="btn btn-primary btn-sm" onclick="closeQR()">✓ Затвори</button>
+    </div>
+  </div>
+</div>
+
+<!-- CERTIFICATE MODAL -->
+<div id="cert-modal">
+  <div class="cert-modal-inner">
+    <div class="cert-modal-topbar">
+      <button class="btn btn-ghost btn-sm" onclick="closeCert()">← Назад</button>
+      <div style="font-size:.8rem;color:var(--muted)">Сертификат за дигитална писменост</div>
+      <button class="btn btn-yellow btn-sm" onclick="window.print()">🖨️ Печати / PDF</button>
+    </div>
+    <div class="cert-card" id="cert-page">
+      <div class="cert-card-top">
+        <div class="cert-stars">⭐ ⭐ ⭐</div>
+        <div class="cert-org">Факултет за информатика • ФИНКИ</div>
+        <div class="cert-title">DIGITAL SURVIVAL</div>
+        <div class="cert-subtitle">Certificate of Digital Literacy</div>
+      </div>
+      <div class="cert-card-body">
+        <div class="cert-given-to">Со гордост се доделува на</div>
+        <div class="cert-name" id="cert-name">—</div>
+        <div class="cert-text" id="cert-achievement">за покажани извонредни вештини.</div>
+        <div class="cert-score-box">
+          <div class="cert-score-num" id="cert-score-num">—</div>
+          <div class="cert-score-lbl" id="cert-score-lbl">точни<br>одговори</div>
+        </div>
+        <div class="cert-badges-row" id="cert-badges"></div>
+      </div>
+      <div class="cert-card-footer">
+        <div class="cert-footer-sig">🛡️ Digital Survival<br><span style="font-size:.68rem;color:#9ca3af">#ThinkBeforeYouClick</span></div>
+        <div class="cert-footer-date" id="cert-date">—</div>
+        <div class="cert-footer-seal">🏅</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="cert-print-wrap" style="display:none"></div>
+
+<script>
+// ══════════════════════════════════════════════════════════════════
+// QUESTION BANKS
+// ══════════════════════════════════════════════════════════════════
+// Avatar pools by gender
+const AV_M=["👦","👨","🧑‍💻","👨‍💻","🧙","🕵️","🦸","🎮","🤴","👮","🧑","🦊"];
+const AV_F=["👧","👩","👩‍💻","🧑‍💻","🧝","🦸","👸","🧚","👩‍🎓","🦋","🌸","🦄"];
+const AV_N=["🧒","🧑","🎮","🤖","🦊","🐺","🦁","🎯","⭐","🚀","🔥","💫"];
+const DEF_M=["Марко","Давид","Кире","Огнен","Лука","Стефан","Бобан","Иван"];
+const DEF_F=["Ана","Сара","Ема","Лена","Тина","Нина","Maja","Ивана"];
+
+// Player registry: {name, gender:'m'|'f'|'n', av}
+let playerRegistry={};
+
+function getAV(name){
+  const reg=playerRegistry[name];
+  if(reg&&reg.av)return reg.av;
+  // Fallback for suggestion list names
+  if(DEF_M.includes(name))return AV_M[Math.abs(hashStr(name))%AV_M.length];
+  if(DEF_F.includes(name))return AV_F[Math.abs(hashStr(name))%AV_F.length];
+  return AV_N[Math.abs(hashStr(name))%AV_N.length];
+}
+const AV=AV_N; // legacy compat
+
+
+// ══════════════════════════════════════════════════════════════════════════════
+// QUESTION BANKS — THREE TIERS (easy/medium/hard)
+// IMPORTANT: correct answer (c:N) is at DIFFERENT positions each question
+// Answer lengths are deliberately varied so correct is NOT always longest/shortest
+// ══════════════════════════════════════════════════════════════════════════════
+
+// ── EASY PHISHING (до 14 год.) — кратки прашања, едноставен јазик ──────────
+const QS_PHISHING_EASY=[
+  {q:"Добиваш порака: 'Освои iPhone! Испрати адреса!' Ова е...",
+   ch:["Промоција од познат бренд","Лажна порака — не учествував ни во каков натпревар","Случаен масовен маркетинг","Легитимна наградна игра на Facebook"],c:1,
+   exp:"Ако не учествувал во натпревар, не можеш да освоиш. Вакви пораки секогаш се измама!"},
+  {q:"Пријател испраќа линк: 'Гледај те некој на инстаграм!' Кликнуваш?",
+   ch:["Да, линкот изгледа легитимно","Да, пријателот е доверлив извор","Не — прво го прашувам лично дали го испратил","Да, само да погледнам кратко"],c:2,
+   exp:"Хакирани профили испраќаат вакви пораки. Пред да кликнеш, јави му се директно!"},
+  {q:"Странец онлајн те прашува колку имаш години. Ти...",
+   ch:["Кажуваш — нема ничо тајно во тоа","Кажуваш само ако изгледа пријателски","Кажуваш бидејки сакаш нови пријатели","Не кажуваш — не даваш лични податоци на непознати"],c:3,
+   exp:"Никогаш не давај лични информации (возраст, адреса, школо) на непознати онлајн!"},
+  {q:"Pop-up вели: 'Компјутерот е заразен! Кликни!' Реакција?",
+   ch:["Кликнуваш за да го отстраниш вирусот","Ги следиш инструкциите на екранот","Го затвораш без да кликнаш на ништо","Инсталираш антивирус преку тој линк"],c:2,
+   exp:"Ова е лажно! Вакви pop-up прозорци се измами. Само затвори го — не кликнувај ништо!"},
+  {q:"Некој бара лозинката за твојот акаунт. Давашли?",
+   ch:["Само ако е твојот најдобар пријател","Само ако е за краток период","Само ако сте во иста игра заедно","Не — лозинките не се делат со никого"],c:3,
+   exp:"Лозинките се ТАЈНИ — не ги дели со никого, дури ни со најдобар пријател!"},
+  {q:"Имејл: 'Добивте 1000€!' Испраќаш ги твоите детали?",
+   ch:["Да ако имејлот изгледа официјално","Да, само IBAN без ПИН","Не — не учествувал, ова е измама","Да, само прашуваш за детали прво"],c:2,
+   exp:"Никогаш не освојуваш пари без да учествуваш. Кажи на родител!"},
+  {q:"Непознат на игра те моли да се сретнат во живо. Реакција?",
+   ch:["Прифаќаш ако е на јавно место","Прифаќаш ако сте долго се познавате онлајн","Прифаќаш ако прво разговарате повеќе","Одбиваш — не се среќаваш со непознати без родител"],c:3,
+   exp:"Никогаш не се среќавај со непознати луѓе запознаени онлајн без родител!"},
+  {q:"Видеа смешна слика на другар. Кликнуваш 'споделај'?",
+   ch:["Да, ако е навистина смешна","Да, ако е веќе видена од многу луѓе","Да, ако другарот ги споделува слики јавно","Не — прво прашуваш дали е во ред"],c:3,
+   exp:"Пред да споделиш слика на некој друг, секогаш прашај ја/го дали е во ред!"},
+  {q:"СМС: 'Мамата праша да кликнеш тука за порака.' Кликнуваш?",
+   ch:["Да, мама не би те лагала","Да, ако пишува на македонски","Да, само за да видиш за каква порака е","Не — прво ја јавуваш мама директно"],c:3,
+   exp:"Прво провери со мама директно. Вакви пораки се лажни!"},
+  {q:"Непознат онлајн бара да чуваш тајна од родителите. Реакција?",
+   ch:["Ок ако е мала и неважна тајна","Ок ако е само за еден ден","Ок ако е само за забава","Веднаш кажуваш на родителите — ова е сомнително"],c:3,
+   exp:"Секој возрасен кој бара деца да чуваат тајна е СОМНИТЕЛЕН. Секогаш кажи на родител!"},
+  {q:"Сајт бара матичен број за бесплатна игра. Даваш?",
+   ch:["Да ако играта е позната и голема","Да, матичниот број не е опасна информација","Да, само ако сајтот има катанец HTTPS","Не — матичниот број не се дава никому"],c:3,
+   exp:"Матичниот број е многу важен личен документ. Никогаш не го давај онлајн!"},
+  {q:"Непознат те фотографира и ги споделува без дозвола. Ти...",
+   ch:["Го игнорираш — нема реална штета","Го молиш приватно да ги избрише","Го фотографираш и ти него за возврат","Кажуваш на возрасен — секој има право на приватност"],c:3,
+   exp:"Секој има право на приватност. Кажи на родител или наставник — ова не е OK!"},
+];
+
+const QS_PHISHING_MED=[
+  {q:"Имејл од 'PayPa1@secure-verify.net' бара лозинка за 24 часа. Ова е...",
+   ch:["Phishing — '1' наместо 'l' плус непознат домен","Легитимно — PayPal праќа итни безбедносни проверки","Спам — само избриши без да реагираш","Системска грешка — потребна е потврда"],c:0,
+   exp:"'PayPa1' со бројка 1 наместо буква l = typosquatting. Легитимниот PayPal праќа само од @paypal.com."},
+  {q:"СМС: 'Пакетот чека. Платете 60ден: dostava-mk.info/paket — МКД Пошта'. Реакција?",
+   ch:["Плаќаш — 60 ден. е мала сума без ризик","Ги внесуваш деталите за прво да провериш","Не кликнуваш — .info не е домен на МКД Пошта","Го препраќаш до МКД Пошта за потврда"],c:2,
+   exp:"Smishing! Официјалниот домен е .com.mk. Никоја легитимна пошта не бара плаќање преку СМС линк."},
+  {q:"QR код во кафе: 'Скенирај за WiFi' → бара Facebook лозинка. Реакција?",
+   ch:["Ја внесуваш — многу мрежи бараат социјален логин","Ја внесуваш само е-пошта без лозинка","Не — WiFi никогаш не бара Facebook лозинка","Бараш алтернативна мрежа без QR код"],c:2,
+   exp:"QR Phishing! WiFi пристапот не бара социјална мрежа. Ова краде твој акаунт."},
+  {q:"Attachment: 'Фактура.pdf.exe' — дали го отвораш?",
+   ch:["Да, PDF е безбеден формат","Да ако антивирусот е вклучен и активен","Никако — .exe по .pdf е малвер, не документ","Да ако испраќачот е позната компанија"],c:2,
+   exp:"Double extension trick: .pdf.exe е програма (малвер), не PDF! Никогаш не отварај ваков фајл."},
+  {q:"Имејл од 'mojabanka@gmail.com' со официјално лого. Проблемот е...",
+   ch:["Логото не изгледа правилно поставено","Банките немаат @gmail домен — ова е phishing","Имејлот е напишан на погрешен јазик","Gmail може да е официјален канал на банката"],c:1,
+   exp:"Легитимен банкарски имејл завршува на официјален домен (@banka.com.mk), НИКОГАШ на @gmail."},
+  {q:"WhatsApp: 'Мамо, ова е мојот нов број. Испрати 200€ итно!' Реакција?",
+   ch:["Испраќаш — мама не би лагала","Не испраќаш — прво повикуваш на СТАРАТА бројка","Испраќаш половина прво да тестираш","Пишуваш назад за повеќе детали"],c:1,
+   exp:"'WhatsApp Family Scam' — масовна измама. Секогаш потврди преку познат стар број пред да испратиш пари!"},
+  {q:"Сајт нуди бесплатни V-Bucks ако внесеш лозинка. Тоа е...",
+   ch:["Легитимно ако сајтот е голем и познат","Credential harvesting — краде акаунт детали","Промоција за нови играчи на играта","Техничка грешка на официјален сервер"],c:1,
+   exp:"Никогаш не постои 'бесплатна' игрена валута за лозинка. Тоа е кражба на акаунт!"},
+  {q:"Инстаграм DM: '@official_prize: Победи! Испрати лична карта за достава.' Реакција?",
+   ch:["Испраќаш само предниот дел на картата","Го пријавуваш профилот и не одговараш","Прашуваш за дополнителни детали прво","Испраќаш само бројот без фотографија"],c:1,
+   exp:"Лажен профил за кражба на идентитет. Instagram никогаш не го бара ова. Пријави го!"},
+  {q:"Пријател испраќа: 'Дали ова е твоја слика??' + линк. Реакција?",
+   ch:["Не кликнуваш — прво му пишуваш дали го испратил","Кликнуваш — сакаш да видиш за каква слика е","Го препраќаш до другите за да ги предупредиш","Го пријавуваш линкот до Инстаграм"],c:0,
+   exp:"Хакирани профили масовно испраќаат вакви пораки. Прво провери со пријателот!"},
+  {q:"Имејл: 'amaz0n.com: проблем со нарачката!' Забележуваш нешто?",
+   ch:["'amaz0n' со нула наместо 'o' е typosquatting","Нема проблем — Amazon честопати праќа вакви","Изгледа официјално — форматот е ист","Ако имаш нарачка, е веројатно легитимно"],c:0,
+   exp:"Typosquatting: замена на буква со бројка. Секогаш провери точниот URL пред да кликнеш!"},
+  {q:"Оглас: 'Заработи 5000ден дома! Плати 500ден за материјали прво.' Ова е...",
+   ch:["Легитимно ако е регистрирана компанија","Advance-fee измама — плаќаш и не добиваш ништо","Зависи дали е познат работодавач","Добра можност — инвестиција во кариерата"],c:1,
+   exp:"'Плати прво' = 100% измама. Никој легитимен работодавец не бара пари за да почнеш работа."},
+  {q:"На Zoom 'интервју' бараат да инсталираш нивна апликација. Реакција?",
+   ch:["Инсталираш само на личен, не на работен компјутер","Инсталираш ако се согласиш со условите","Одбиваш — легитимни компании ги користат стандардните алатки","Инсталираш ако е од App Store или Google Play"],c:2,
+   exp:"RAT (Remote Access Trojan) дистрибуција! Легитимни компании не бараат нивна сопствена апликација."},
+];
+
+const QS_PHISHING_HARD=[
+  {q:"Имејл Subject: '=?UTF-8?B?0JLQsNGI0LDRgiDQv9GA...' од непознат. Ова сигнализира...",
+   ch:["Нормален имејл — кирилица се кодира вака","Кирилица во Base64 — техника за заобиколување спам филтри","Технички проблем на мејл провајдерот","Автоматски генерирана системска порака"],c:1,
+   exp:"Base64 енкодиран subject се користи за bypass на spam filters. Не отварај имејли од непознати со ваков subject."},
+  {q:"'Вработен од банка' бара PIN за 'безбедносна проверка'. Зошто е ова СЕКОГАШ измама?",
+   ch:["Банките прават ваков тип на проверки","Банката не го знае PIN — еднонасочно е хеширан","Само ако повикот дошол на мобилен","Легитимно ако знае твоето полно ime"],c:1,
+   exp:"PIN е еднонасочно хеширан — банката никогаш не го знае во plain text. Барањето на PIN = Vishing."},
+  {q:"'Пенетрациски тест' компанија бара admin credentials. Коректната постапка е...",
+   ch:["Им ги давам бидејки е договорено","Верификација преку официјален канал пред да дадам кредитали","Давам ограничен акаунт за тест цели","Проверувам дали е потпишан NDA договор"],c:1,
+   exp:"Легитимни pentesters секогаш имаат верификациски документи и посебни ограничени акаунти — никогаш admin credentials."},
+  {q:"Имејл поминал DKIM, но доменот е регистриран пред 3 дена. Тоа значи...",
+   ch:["Имејлот е безбеден — DKIM го потврдил","DKIM само потврдува сервер, свеж домен е phishing сигнал","Нов домен е нормална корпоративна практика","DKIM е застарен и не треба да се верува"],c:1,
+   exp:"DKIM верификација не гарантира легитимност на организацијата — само дека серверот е конзистентен."},
+  {q:"Man-in-the-Browser напад е посебно опасен затоа што...",
+   ch:["Малверот ги менува трансакциите по потврдата — HTTPS не помага","Ги успорува сите трансакции за детекција","Лесно се детектира со антивирус скенирање","Работи само на застарени прелистувачи"],c:0,
+   exp:"MitB работи во рамки на легитимна сесија — менува суми/сметки по клик на 'Потврди', откако корисникот ги верифицирал."},
+  {q:"Имејл со ТОЧНИ твои лични податоци тврди дека те набљудувале. Ова е...",
+   ch:["Вистинска закана — треба да реагираш итно","Sextortion scam — податоците се од leaked база","Шпионски малвер вграден на твојот уред","Легитимна безбедносна организација"],c:1,
+   exp:"Sextortion scam: личните податоци се јавно достапни или се од leaked база. Не плаќај, пријави."},
+  {q:"Spear Phishing се разликува од обичен Phishing по тоа што...",
+   ch:["Користи само СМС канал наместо е-пошта","Е персонализиран — користи твои лични детали за убедливост","Е целосно автоматизиран со ботови","Напаѓа само корпоративни мрежи и сервери"],c:1,
+   exp:"Spear phishing е наменет за конкретна жртва, со персонализирани детали, поради тоа е поверодостоен."},
+  {q:"Email Spoofing е ефикасен поради тоа што...",
+   ch:["Ги шифрира сите содржини во пораката","Return-Path и From може да не се совпаѓаат — лажен испраќач","Заобиколува сите видови технички заштити","Го остава без траги на серверите"],c:1,
+   exp:"Spoofing: 'From' полето лесно се фалсификува. Провери Return-Path за вистинскиот испраќач."},
+];
+
+const QS_CYBER_EASY=[
+  {q:"Која лозинка е НАЈ-безбедна?",
+   ch:["Aleksandra2005","MaCkA!7&xPq2","qwerty123!","mojLozinka99"],c:1,
+   exp:"Силна лозинка: мин. 12 знаци, мешани букви, бројки, специјални знаци. Избегнувај лични податоци!"},
+  {q:"На туѓ компјутер во библиотека, по завршување треба да...",
+   ch:["Само ги затвораш прозорците","Останеш логиран за следниот пат","Само ја минимизираш страницата","Се одјавиш и не зачувуваш ништо"],c:3,
+   exp:"На туѓ уред секогаш се одјави и не зачувувај лозинки!"},
+  {q:"2FA (двофакторна автентикација) значи...",
+   ch:["Лозинка плус потврда преку уред или код","Два различни акаунти за поголема безбедност","Двапати внесување на истата лозинка","Два вида антивирус на ист уред"],c:0,
+   exp:"2FA: нешто што го знаеш (лозинка) + нешто што го имаш (телефон/апп). Многу потешко за хак!"},
+  {q:"Лозинката за твојот акаунт...",
+   ch:["Ја споделуваш со пријатели по потреба","Ја кажуваш само на наставникот","Ја пишуваш на хартија кај компјутерот","Ја чуваш само за себе и не ја кажуваш"],c:3,
+   exp:"Лозинките се само твои. Никому, никогаш, ниту на пријатели!"},
+  {q:"Го изгубил телефонот. Прво треба да...",
+   ch:["Купиш нов телефон веднаш","Чекаш некој да го врати по чесност","Го пријавиш и го заклучиш далечински","Само го пријавиш на полиција"],c:2,
+   exp:"Далечинско бришење спречува кражба на твоите лични податоци!"},
+  {q:"Антивирусот треба да биде...",
+   ch:["Исклучен за поголема брзина","Инсталиран само на нови уреди","Ажуриран и постојано активен","Користен само кога има проблем"],c:2,
+   exp:"Антивирусот мора да е секогаш вклучен и ажуриран за да те штити!"},
+  {q:"На јавен WiFi без VPN смееш безбедно да...",
+   ch:["Се логираш во интернет банкарство","Купуваш онлајн со дебитна картичка","Гледаш јавни сајтови и пребаруваш","Испраќаш лозинки преку имејл"],c:2,
+   exp:"На јавен WiFi без VPN само гледај јавни, несензитивни содржини!"},
+  {q:"Кој уред мора да ги инсталира безбедносните ажурирања?",
+   ch:["Само десктоп компјутерите","Само уредите со Windows оперативен систем","Само работните компјутери и лаптопи","Сите уреди — телефони, компјутери, таблети"],c:3,
+   exp:"Ажурирањата ги затвораат безбедносните дупки. Сите уреди мора да се ажурираат!"},
+];
+
+const QS_CYBER_MED=[
+  {q:"Ransomware напад — НАЈ-добрата заштита ПРЕД нападот е...",
+   ch:["Редовни backup-ови на offline/cloud локација","Плаќање на откупот веднаш по нападот","Силна лозинка на сите акаунти","Инсталиран антивирус на секој уред"],c:0,
+   exp:"Без backup немаш начин да се вратиш без да платиш. Редовен backup = вистинска заштита!"},
+  {q:"Поврзувањето на јавен WiFi е ризично поради...",
+   ch:["Побавна интернет брзина на уредот","Поголема потрошувачка на батеријата","Man-in-the-Middle напад — некој ги чита пораките","Прегревање на процесорот при употреба"],c:2,
+   exp:"MitM: напаѓачот седи помеѓу тебе и интернетот. Користи VPN или избегнувај сензитивни активности!"},
+  {q:"Непознат USB уред приклучен на компјутерот може...",
+   ch:["Само да дренира батерија при полнење","Автоматски да инсталира малвер при приклучување","Само да го забави процесорот","Само да прочита документи на компјутерот"],c:1,
+   exp:"BadUSB напади: малициозен USB е скриен тастатурен уред. Никогаш не приклучувај непознати USB!"},
+  {q:"Password Manager апликација...",
+   ch:["Ги чува лозинките во незаштитен текст","Ги споделува лозинките со облак без заштита","Генерира и чува шифрирани силни лозинки","Бара да ги паметиш лозинките рачно"],c:2,
+   exp:"Password manager генерира уникатни силни лозинки и ги чува шифрирани. Еден master password за сè!"},
+  {q:"HTTPS на сајтот значи дека...",
+   ch:["Сајтот е целосно безбеден и легитимен","Конекцијата е шифрирана — трети не можат да читаат","Нема малвер на сајтот гарантирано","Сајтот е брз и надежен секогаш"],c:1,
+   exp:"HTTPS шифрира трансфер, но сајтот сепак може да е phishing! HTTPS ≠ доверлив сајт."},
+  {q:"Социјалниот инженеринг (Social Engineering) таргетира...",
+   ch:["Само техничките системи и серверите","Само лозинките и шифрирањето","Луѓето — манипулација за откривање информации","Само корпоративните е-пошта системи"],c:2,
+   exp:"Луѓето се најслабата алка. Социјалниот инженеринг е поефикасен од технички напади!"},
+  {q:"Zero-day ранливост е опасна затоа што...",
+   ch:["Е веќе пронајдена и закрпена","Е лесно детектибилна со скенирање","Работи само на застарени оперативни системи","Напаѓа ранливост за која patch уште не постои"],c:3,
+   exp:"Zero-day: ранливоста ја знае само напаѓачот. Производителот нема patch — ти не можеш да се заштитиш!"},
+  {q:"Principle of Least Privilege значи...",
+   ch:["Сите корисници имаат еднакви права","Само IT одделот одлучува за пристап","Лозинките се скратуваат за безбедност","Корисниците добиваат само правата за нивната функција"],c:3,
+   exp:"Ако акаунт е компромитиран, ограничените права ја намалуваат штетата. Помалку права = помал ризик!"},
+];
+
+const QS_CYBER_HARD=[
+  {q:"SQL Injection е возможна кога апликацијата...",
+   ch:["Користи застарена база на податоци","Не ги валидира корисничките inputs пред SQL queries","Нема доволно RAM меморија","Има слаба мрежна конекција"],c:1,
+   exp:"SQL injection: незаштитен input → малициозен SQL код → пристап до базата. Parametrized queries = заштита."},
+  {q:"Defense in Depth (одбрана во длабочина) принципот применува...",
+   ch:["Еден многу силен централен firewall","Длабоко скенирање на мрежниот сообраќај","Повеќе слоеви на безбедност — ако еден пропадне, другите штитат","Backup на сите нивоа на системот"],c:2,
+   exp:"Ниеден систем не е совршен. Повеќе слоеви = поголема отпорност на напади!"},
+  {q:"OSINT (Open Source Intelligence) во cybersecurity е...",
+   ch:["Разузнавање само преку хакирање системи","Само владино и разузнавачко работење","Собирање јавно достапни инфо за таргетирање жртви","Техника за заштита на мрежата"],c:2,
+   exp:"OSINT: LinkedIn, WHOIS, социјални мрежи — напаѓачите ги користат за персонализирани напади."},
+  {q:"Symmetric vs Asymmetric криптографија — суштинска разлика е...",
+   ch:["Само должината на клучот се разликува","Симетрична: ист клуч за двете операции; Асиметрична: јавен+приватен клуч пар","RSA е постара и послаба метода","Брзината на процесирање е иста"],c:1,
+   exp:"Симетрична е побрза, но проблем е размената на клучот. Асиметрична го решава ова преку јавен клуч."},
+  {q:"Cross-Site Scripting (XSS) нападот функционира преку...",
+   ch:["Директно напаѓање на серверот","Генерирање на лажен SSL сертификат","Блокирање на мрежниот сообраќај","Вметнување малициозен скрипт во веб страница"],c:3,
+   exp:"XSS: malicious script се извршува во прелистувачот на жртвата. Sanitize input, use CSP headers!"},
+  {q:"Digital Forensics истрага бара Chain of Custody поради...",
+   ch:["Технички причини за складирање податоци","Побрза обработка на дигиталните докази","Правна доверливост — без него доказите се неприфатливи","Заштита на приватноста на жртвата"],c:2,
+   exp:"Chain of Custody: документирано ракување со доказите. Скршена верига = неприфатливи докази на суд!"},
+  {q:"Threat Intelligence Sharing меѓу организации е важна затоа што...",
+   ch:["Ги намалува трошоците за безбедност","Законот го обврзува сите организации","Колективно знаење го подобрува одговорот на целата заедница","Ранливостите се познати само на таргетираните"],c:2,
+   exp:"Sharing IOCs: ако една организација е нападната, другите можат брзо да се подготват!"},
+  {q:"Homograph Attack е ефикасен поради тоа што...",
+   ch:["Слабата антивирусна заштита","Грешки во DNS резолуцијата","Визуелно идентични Unicode знаци создаваат лажни домени","Застарени прелистувачи без заштита"],c:2,
+   exp:"'аpple.com' со кирилично 'а' изгледа исто но води на лажен сајт. Moderna browsers го детектираат!"},
+];
+
+const QS_MEDIA_EASY=[
+  {q:"Добиваш вест со наслов 'ШОКАНТНО! Ова ќе ги СМЕНИ сè!' Реакција?",
+   ch:["Веднаш ја споделуваш — е важна вест","Веднаш реагираш со коментар","Проверуваш пред да веруваш или споделуваш","Ја лајкуваш за да помогнеш да се шири"],c:2,
+   exp:"Ваков наслов е clickbait. Секогаш провери пред да споделиш!"},
+  {q:"Пријател споделува вест. Ти...",
+   ch:["Веднаш ја споделуваш — пријателот е доверлив","Ја веруваш бидејки е позната личност","Прашуваш возрасен или проверуваш на друг канал","Ја снимаш за подоцна да проверат"],c:2,
+   exp:"Дури и пријателите можат ненамерно да шират лажни вести. Секогаш провери!"},
+  {q:"Смешна слика со текст за некоја личност — пред споделување?",
+   ch:["Ја споделуваш — е смешна и нема штета","Ја праташ само на блиски пријатели","Ја лајкуваш само без да споделаш","Не ја споделуваш — може да навреди некого"],c:3,
+   exp:"Лажни слики можат да нанесат реална штета на луѓе. Провери пред да споделиш!"},
+  {q:"Онлајн користиш лажно корисничко ime. Тоа е...",
+   ch:["Секогаш незаконско","Лажно — никогаш не смееш","Нормално — за заштита на приватноста","Дозволено само за игри"],c:2,
+   exp:"Лажно онлајн ime не е лага — тоа е заштита на приватноста. Ова е нормална практика!"},
+  {q:"Онлајн шега на сметка на некој друг...",
+   ch:["Е забавна ако е само во шега","Е легална ако е само онлајн","Не боли никого ако е анонимна","Може да нанесе реална штета ако се прошири"],c:3,
+   exp:"Дури и онлајн навреди можат да предизвикаат реална психолошка штета. Мисли пред да постираш!"},
+  {q:"Кога некоја вест те разбеснува многу, прво треба да...",
+   ch:["Веднаш ја споделиш со сите","Веднаш коментираш за да предупредиш","Ја игнорираш целосно","Проверам дали е точна пред да реагирам"],c:3,
+   exp:"Емоционалните вести се дизајнирани да те натераат да реагираш брзо без размислување!"},
+];
+
+const QS_MEDIA_MED=[
+  {q:"Алгоритмите на социјалните мрежи создаваат 'ехо комора' кога...",
+   ch:["Ти покажуваат само содржини со кои веќе се слагаш","Правилно ги филтрираат несоодветните содржини","Ти прикажуваат реклами базирани на интереси","Ги блокираат лажните профили автоматски"],c:0,
+   exp:"Echo Chamber: алгоритамот учи што ти се допаѓа и ти покажува само тоа → создава лажен консензус!"},
+  {q:"Пред да споделиш потенцијално лажна вест, најдобро е да...",
+   ch:["Ја споделиш додека е свежа и актуелна","Провериш колку лајкови и споделувања има","Провериш на verifikator.mk или Reuters Facts","Ја прочиташ само насловот и воведот"],c:2,
+   exp:"Fact-checking е клучен чекор. verifikator.mk е локален извор за Македонија!"},
+  {q:"Confirmation Bias е тенденцијата да...",
+   ch:["Тенденцијата да бараш инфо кои го потврдуваат она во кое веруваш","Секогаш да веруваш во авторитети","Секогаш да проверуваш факти пред да реагираш","Да игнорираш информации кои не ти се допаѓаат"],c:0,
+   exp:"Confirmation bias ни прави да ги прифаќаме информациите кои ги потврдуваат нашите уверувања."},
+  {q:"Native Advertising (нативна реклама) е...",
+   ch:["Реклама прилагодена за природна средина","Платена содржина која изгледа исто како редакциска вест","Реклама насочена кон локално население","Реклама прикажана само на мобилни уреди"],c:1,
+   exp:"Native ads се дизајнирани да изгледаат исто како уредниклки содржини. Барај 'Спонзорирано' ознаки!"},
+  {q:"Deepfake технологијата може да...",
+   ch:["Само го подобрува квалитетот на видео","Само ја менува позадината на снимката","Само ја забрзува обработката на видео","Создаде убедливо видео каде некој вели нешто нереално"],c:3,
+   exp:"Deepfake е моќна и опасна технологија. Провери извор, погледни за неприродни движења, fact-check."},
+];
+
+const QS_MEDIA_HARD=[
+  {q:"Разликата меѓу Дезинформација и Misinformation е суштинска затоа што...",
+   ch:["Нема разлика — обете шират лажни вести","Само јазикот на публикување се разликува","Дезинформацијата е намерна, misinformation може да биде незнаење","Само изворот на публикација се разликува"],c:2,
+   exp:"Намерата е клучна за одговорност и контра-мерки. Дезинформацијата бара системски одговор — едукација."},
+  {q:"Astroturfing е техника при која...",
+   ch:["Координирани кампањи создаваат лажна органска popular opinion","Се произведуваат органски трева и зеленило","Се купуваат реални лајкови за содржини","Се пишуваат рецензии со реални корисници"],c:0,
+   exp:"Astroturfing симулира граѓанска поддршка. Ботови + лажни акаунти = лажна perception на consensus."},
+  {q:"Filter Bubble е концепт кој опишува...",
+   ch:["Само технички анти-спам филтри","Цензура на содржини од страна на платформите","Персонализирана средина каде корисникот е изолиран преку алгоритми","Систем за заштита само за деца"],c:2,
+   exp:"Eli Pariser (2011): алгоритмите создаваат персонализирана реалност. Свесна диверзификација е противотров."},
+  {q:"Агентска теорија во медиумскиот систем сугерира дека...",
+   ch:["Само новинарите ја обликуваат содржината","Медиумите се секогаш неутрални по природа","Само државните медиуми имаат своја agenda","Медиумите имаат интереси кои влијаат на презентација на вести"],c:3,
+   exp:"Сите медиуми имаат agenda — комерцијална, политичка или идеолошка. Медиумски писмениот читач го препознава тоа."},
+  {q:"Prebunking наспроти Debunking — предноста на prebunking е...",
+   ch:["Нема значајна разлика меѓу двата пристапа","Debunking е побрз и поевтин за спроведување","Prebunking е поевтин за имплементирање","Превентивното 'цепиво' гради отпорност пред изложување"],c:3,
+   exp:"Prebunking (Inoculation Theory): изложување на ослабена манипулативна техника гради когнитивна отпорност."},
+];
+
+const QS_PHISHING_VISUAL=[
+  {q:"Еве имејл кој го добивте. Кој е НАЈ-сомнителниот знак?",
+   visual:'gmail',
+   content:{
+     from:'noreply@secure-paypa1.com',
+     subject:'⚠️ ИТНО: Потврдете ја вашата сметка за 24 часа!',
+     body:'Почитуван корисник,<br><br>Забележавме сомнителна активност на вашата PayPal сметка. За да ја заштитите, <strong>кликнете на линкот подолу</strong> и внесете ги вашата лозинка и ПИН во рок од 24 часа.<br><br><span class="em-link">➡ http://paypa1-secure-verify.net/confirm</span><br><br>Ако не дејствувате, сметката ќе биде БЛОКИРАНА.',
+     flags:null
+   },
+   ch:["Имејлот е во англиски јазик","'paypa1' со бројка '1' наместо буква 'l' = лажен домен","Имејлот е кус","Нема прикачени фајлови"],c:1,
+   exp:"Typosquatting! 'paypa1.com' наместо 'paypal.com' — замена на буква со бројка е класична техника. Дополнително: итна закана + лажен линк = phishing!"},
+
+  {q:"Го добиваш ова СМС. Дали кликнуваш на линкот?",
+   visual:'sms',
+   content:{
+     from:'+389 76 XXX XXX (Непознат)',
+     body:'Пакетот #MK04829 не може да се достави. Платете 60 ден. такса тука: <span class="sms-link">http://dostava-mk.xyz/uplata</span><br>— МКД Пошта',
+     flags:null
+   },
+   ch:["Да, 60 ден. е малку за пакет","Не — '.xyz' не е официјален домен, МКД Пошта никогаш не бара плаќање преку СМС","Да, ако очекувам пакет","Прво ги внесувам детали, потоа проверувам"],c:1,
+   exp:"SMS phishing (Smishing)! '.xyz' е евтин домен кој не го користи МКД Пошта. Официјалниот домен е .com.mk. Никогаш не плаќај преку SMS линк!"},
+
+  {q:"Ова е имејл за 'Microsoft безбедносно предупредување'. Кои се сигналите за phishing?",
+   visual:'gmail',
+   content:{
+     from:'security-alert@micros0ft-support.com',
+     subject:'[ИТНО] Вашиот Microsoft акаунт е компромитиран — Дејствувајте веднаш!',
+     body:'Почитуван корисник,<br><br>Детектиравме логирање од Русија на 13.04.2024 во 03:42. Вашиот акаунт е во ризик.<br><br>Кликнете ВЕДНАШ за да ја промените лозинката:<br><span class="em-link">http://microsoft-security-verify.info/reset</span><br><br><div class="em-warning">⚠️ Ако не кликнете за 2 часа, акаунтот ќе биде трајно избришан.</div>',
+     flags:null
+   },
+   ch:["Само непознатата локација на логирање","Само итноста во насловот","'micros0ft' со нула наместо 'о', .com наместо .com, и лажна закана за бришење","Правописните грешки во имејлот"],c:2,
+   exp:"Три phishing сигнали одеднаш: (1) 'micros0ft' typosquatting, (2) '.info' наместо официјален Microsoft домен, (3) вештачка итност со закана за бришење. Microsoft никогаш не праќа ваков имејл!"},
+];
+
+const WORD_MATCH_SETS=[
+  {pairs:[
+    {t:"Phishing",d:"Измама преку лажни имејли за кражба на лозинки"},
+    {t:"Ransomware",d:"Малвер кој ги шифрира фајловите и бара откуп"},
+    {t:"2FA",d:"Двостепена верификација за поголема безбедност"},
+    {t:"VPN",d:"Виртуелна приватна мрежа за заштита на сообраќај"},
+    {t:"Malware",d:"Злонамерна програма за оштетување на систем"},
+  ]},
+  {pairs:[
+    {t:"Deepfake",d:"Вештачки генерирано видео со замена на лице"},
+    {t:"Clickbait",d:"Провокативен наслов за да те натера да кликнеш"},
+    {t:"Echo Chamber",d:"Алгоритамски балон каде гледаш само свои ставови"},
+    {t:"Dезинформација",d:"Намерно ширење на лажни информации"},
+    {t:"Fact-checking",d:"Верификација на точноста на информации"},
+  ]},
+  {pairs:[
+    {t:"Firewall",d:"Систем кој ги контролира влезните/излезните мрежни конекции"},
+    {t:"Encryption",d:"Шифрирање на податоци за заштита при пренос"},
+    {t:"HTTPS",d:"Безбеден протокол за веб комуникација со шифрирање"},
+    {t:"Vishing",d:"Гласовен phishing преку телефонски повик"},
+    {t:"Social Engineering",d:"Манипулирање на луѓе за откривање информации"},
+  ]},
+];
+
+const STROOP_SETS=[
+  [{w:"КИЗЕ",col:"#18e4d4"},{w:"СИНА",col:"#e74c3c"},{w:"ЗЕЛЕНА",col:"#f1c40f"},{w:"ЖОЛТА",col:"#2ecc71"}],
+  [{w:"ЖОЛТА",col:"#9b59b6"},{w:"ЗЕЛЕНА",col:"#e74c3c"},{w:"КИЗЕ",col:"#2ecc71"},{w:"СИНА",col:"#f1c40f"}],
+  [{w:"СИНА",col:"#2ecc71"},{w:"ЖОЛТА",col:"#e74c3c"},{w:"КИЗЕ",col:"#9b59b6"},{w:"ЗЕЛЕНА",col:"#18e4d4"}],
+];
+const COLOR_MK={"#18e4d4":"тиркизна","#e74c3c":"кизе","#f1c40f":"жолта","#2ecc71":"зелена","#9b59b6":"виолетова"};
+const BOMB_CFGS=[{r:3,c:3,b:3},{r:3,c:4,b:4},{r:4,c:4,b:5}];
+
+// Build question pool based on difficulty
+function buildQS(easy,med,hard){
+  if(difficulty==='easy')return easy;
+  if(difficulty==='hard')return hard;
+  return med; // default medium
+}
+function buildAllRounds(){
+  return [
+    {id:'phishing',icon:'⚠️',label:'Phishing',fullLabel:'⚠️ Phishing напади',tagClass:'t-red',
+     qs:[...buildQS(QS_PHISHING_EASY,QS_PHISHING_MED,QS_PHISHING_HARD),...QS_PHISHING_VISUAL],
+     perP:difficulty==='easy'?10:difficulty==='hard'?18:14},
+    {id:'media',icon:'📡',label:'Медиуми',fullLabel:'📡 Медиуми & Вести',tagClass:'t-orange',
+     qs:buildQS(QS_MEDIA_EASY,QS_MEDIA_MED,QS_MEDIA_HARD),
+     perP:difficulty==='easy'?6:difficulty==='hard'?10:8},
+    {id:'cyber',icon:'🔐',label:'Сајбер',fullLabel:'🔐 Сајбер безбедност',tagClass:'t-purple',
+     qs:buildQS(QS_CYBER_EASY,QS_CYBER_MED,QS_CYBER_HARD),
+     perP:difficulty==='easy'?6:difficulty==='hard'?12:10},
+  ];
+}
+// ALL_ROUND_DEFS is built dynamically at game start
+// ALL_ROUND_DEFS initialized below after all vars
+
+// ══════════════════════════════════════════════════════════════════
+// STATE
+// ══════════════════════════════════════════════════════════════════
+let selP=[];
+// allP getter - always returns current known players
+function getAllP(){return [...new Set([...selP,...Object.keys(playerRegistry)])];}
+// Legacy: define allP as proxy-like array (rebuilt on demand)
+let allP=[];
+function refreshAllP(){allP=[...new Set([...selP,...Object.keys(playerRegistry)])];}
+let actP=[],elimP=[];
+let pScores={};   // name->{correct,wrong,total,answers:[]}
+let roundQueue=[];
+let playedRoundIds=new Set();
+let selRoundIds=new Set(['phishing','media','cyber']);
+let curRound=0;
+// NEW STATE
+let pStreak={}; // name->current streak count
+let difficulty='easy'; // easy/medium/hard
+let gameMode='normal'; // normal/class
+let ALL_ROUND_DEFS=[]; // initialized after all QS arrays are loaded
+let earnedBadges=new Set();
+const MAX_LIVES=3;
+const TIPS=[
+  {icon:"🔒",title:"Заштита на лозинки",text:"Користи различна лозинка за секоја страница. Password Manager апликациите ти помагаат да ги паметиш сите!"},
+  {icon:"🔍",title:"Провери пред да кликнеш",text:"Пред да кликнеш на линк, задржи го курсорот врз него. Ако URL изгледа чудно — не кликнувај!"},
+  {icon:"📧",title:"Phishing сигнали",text:"Лажни имејли имаат: правописни грешки, итни закани и сомнителни линкови. Секогаш провери испраќачот!"},
+  {icon:"🔐",title:"Двофакторна заштита",text:"Вклучи 2FA (двофакторна автентикација) на сите важни акаунти. Дури и ако ти ја крадат лозинката, не можат да влезат!"},
+  {icon:"📱",title:"Јавен WiFi",text:"На јавен WiFi (кафе, аеродром) никогаш не се логирај во банка или важни акаунти без VPN!"},
+  {icon:"🧠",title:"Критичко размислување",text:"Пред да споделиш вест, прашај се: Кој е изворот? Кога е напишана? Дали е верифицирана?"},
+  {icon:"💾",title:"Backup на податоци",text:"Редовно правете backup на важните фајлови! Ако добиете ransomware, ќе можете да ги вратите без плаќање откуп."},
+  {icon:"🌐",title:"HTTPS е важен",text:"Секогаш барај 🔒 пред адресата на сајтот. HTTPS значи дека врската е шифрирана и безбедна."},
+  {icon:"👤",title:"Лични податоци",text:"Никогаш не споделувај лична карта, ЕМБГ или банкарски детали преку имејл или социјални мрежи!"},
+  {icon:"🎣",title:"QR код внимание",text:"QR кодови можат да те пратат на малициозни сајтови. Секогаш провери каде водат пред да скенираш!"},
+];
+const BADGES_DEF=[
+  {id:'phish_pro',icon:'🎣',name:'Anti-Phishing Pro',desc:'Познавач на phishing',cond:'phishing_5'},
+  {id:'cyber_hero',icon:'🛡️',name:'Cyber Hero',desc:'Мајстор на сајбер безбедност',cond:'cyber_5'},
+  {id:'media_det',icon:'🔍',name:'Media Detective',desc:'Препознава лажни вести',cond:'media_5'},
+  {id:'streak5',icon:'🔥',name:'Streak Master',desc:'5 точни по ред',cond:'streak_5'},
+  {id:'perfect',icon:'⭐',name:'Perfect Round',desc:'100% точни во рунда',cond:'perfect_round'},
+  {id:'survivor',icon:'🏆',name:'Digital Survivor',desc:'Победник во игра',cond:'winner'},
+  {id:'comeback',icon:'💪',name:'Comeback Kid',desc:'Преживеа со 1 живот',cond:'one_life'},
+  {id:'speedster',icon:'⚡',name:'Speed Demon',desc:'Одговори за под 5 сек',cond:'speed_5'},
+];
+let curRoundState={};   // {playerQs, playerIdx, roundAnswers, currentPlayer}
+let tiv=null;
+
+// Bomb state
+let bombLayout=[],bombR=0,bombC=0;
+let bombPlayerQueue=[]; // players to go through sequentially
+let bombPlayerIdx=0;
+let bombPlayerAnswers={}; // name->bool
+let bombPlayerReady={}; // name->bool (ready to start their turn)
+
+// Stroop state
+let stroopAns=[];
+let stroopDone=new Set();
+
+// Word match state
+let wmPairs=[],wmSelected=null,wmMatched=0;
+
+// BG Canvas
+const bgc=document.getElementById("bgc"),bctx=bgc.getContext("2d");
+let bgMode='none',raf=null,matrixDrops=[];
+function resizeBg(){bgc.width=window.innerWidth;bgc.height=window.innerHeight;}
+window.addEventListener('resize',resizeBg);resizeBg();
+function initMatrix(){const c=Math.floor(bgc.width/16);matrixDrops=Array.from({length:c},()=>Math.random()*-100);}
+function drawMatrix(){bctx.fillStyle='rgba(11,15,26,0.08)';bctx.fillRect(0,0,bgc.width,bgc.height);bctx.fillStyle='#18e4d433';bctx.font='13px JetBrains Mono,monospace';matrixDrops.forEach((y,i)=>{const ch=String.fromCharCode(0x30A0+Math.random()*96);bctx.fillText(ch,i*16,y*16);if(y*16>bgc.height&&Math.random()>.975)matrixDrops[i]=0;matrixDrops[i]+=.4;});}
+function startBg(m){bgMode=m;cancelAnimationFrame(raf);if(m==='none'){bgc.classList.remove('vis');bctx.clearRect(0,0,bgc.width,bgc.height);return;}bgc.classList.add('vis');if(m==='matrix')initMatrix();function loop(){if(m==='matrix')drawMatrix();raf=requestAnimationFrame(loop);}loop();}
+
+// ══════════════════════════════════════════════════════════════════
+// SETUP
+// ══════════════════════════════════════════════════════════════════
+let selGender='m'; // current gender selection
+function setGender(g){
+  selGender=g;
+  document.getElementById('gbtn-m').className='gbtn'+(g==='m'?' gsel-m':'');
+  document.getElementById('gbtn-f').className='gbtn'+(g==='f'?' gsel-f':'');
+}
+
+function hashStr(s){let h=0;for(let i=0;i<s.length;i++)h=(h*31+s.charCodeAt(i))|0;return h;}
+function getPlayerAV(name,gender){
+  if(gender==='m')return AV_M[Math.abs(hashStr(name))%AV_M.length];
+  if(gender==='f')return AV_F[Math.abs(hashStr(name))%AV_F.length];
+  return AV_N[Math.abs(hashStr(name))%AV_N.length];
+}
+
+function renderPList(){
+  refreshAllP();
+  // Default suggestion list
+  const l=document.getElementById("plist");l.innerHTML="";
+  const suggestions=[...DEF_M,...DEF_F].filter(n=>!selP.includes(n));
+  suggestions.forEach(n=>{
+    const gender=DEF_M.includes(n)?'m':'f';
+    const av=getPlayerAV(n,gender);
+    const t=document.createElement("div");t.className="ptag";
+    t.innerHTML=av+' '+n;
+    t.onclick=()=>quickAdd(n,gender);
+    l.appendChild(t);
+  });
+  // Added players list
+  const al=document.getElementById("added-list");if(!al)return;
+  al.innerHTML="";
+  selP.forEach(n=>{
+    const reg=playerRegistry[n]||{gender:'n',av:'🧒'};
+    const div=document.createElement("div");div.className="pcard-added";
+    div.innerHTML=`<span style="font-size:1.2rem">${reg.av}</span><span>${n}</span>`;
+    div.onclick=()=>removeP(n);
+    al.appendChild(div);
+  });
+  document.getElementById("pcnt").textContent=selP.length;
+}
+function quickAdd(n,gender){
+  if(selP.includes(n)||selP.length>=8)return;
+  const av=getPlayerAV(n,gender);
+  playerRegistry[n]={gender,av};
+  selP.push(n);
+  renderPList();
+}
+function removeP(n){
+  selP=selP.filter(p=>p!==n);
+  renderPList();
+}
+function toggleP(n){
+  if(selP.includes(n)){removeP(n);}else{quickAdd(n,DEF_M.includes(n)?'m':'f');}
+}
+function addP(){
+  const inp=document.getElementById("cname");
+  const n=inp.value.trim();
+  if(!n){toast("⚠️ Внеси имe!","warn");return;}
+  if(selP.length>=8){toast("⚠️ Максимум 8 играчи!","warn");return;}
+  if(selP.includes(n)){toast("⚠️ Веќе е додаден!","warn");return;}
+  const av=getPlayerAV(n,selGender);
+  playerRegistry[n]={gender:selGender,av};
+  selP.push(n);
+  inp.value="";
+  inp.focus();
+  renderPList();
+  toast(av+' '+n+' додаден!','ok');
+}
+
+function renderRsel(){
+  const g=document.getElementById("rsel-grid");if(!g)return;g.innerHTML="";
+  ALL_ROUND_DEFS.forEach(rd=>{
+    const on=selRoundIds.has(rd.id);
+    const played=playedRoundIds.has(rd.id);
+    const card=document.createElement("div");
+    card.className="rsel-card"+(on?" on":"")+(played?" ":" ");
+    card.style.opacity=played?"0.45":"1";
+    card.innerHTML=`<div class="ri">${rd.icon}</div>
+      <div><div class="rt">${rd.label}${played?" ✓ Изиграна":""}</div><div class="rd">${rd.qs.length} прашања${played?" — не може повторно":""}</div></div>
+      <div class="rsel-check">${on?"✓":""}</div>`;
+    if(!played){card.onclick=()=>toggleRsel(rd.id);}
+    else{card.style.pointerEvents="none";card.style.cursor="not-allowed";}
+    g.appendChild(card);
+  });
+  // Update played info
+  const pi=document.getElementById("played-info");
+  if(pi)pi.textContent=playedRoundIds.size>0?` (Изиграни: ${[...playedRoundIds].join(", ")})`:"";
+}
+function toggleRsel(id){
+  if(selRoundIds.has(id)){if(selRoundIds.size<=1){toast("⚠️ Барем 1 рунда мора да биде избрана!","warn");return;}selRoundIds.delete(id);}
+  else selRoundIds.add(id);
+  renderRsel();
+}
+function setPreset(p){
+  const map={all:['phishing','media','cyber'],phishing:['phishing'],cyber:['cyber'],media:['media'],phishcyber:['phishing','cyber'],phishmedia:['phishing','media'],cybermedia:['cyber','media']};
+  if(map[p])selRoundIds=new Set(map[p].filter(id=>!playedRoundIds.has(id)));
+  if(selRoundIds.size===0)selRoundIds=new Set(map[p]); // all played — allow anyway
+  renderRsel();
+}
+
+// ══════════════════════════════════════════════════════════════════
+// GAME START
+// ══════════════════════════════════════════════════════════════════
+function startGame(){
+  if(selP.length<2){toast("⚠️ Избери барем 2 играчи!","warn");return;}
+  refreshAllP();
+  ALL_ROUND_DEFS=buildAllRounds(); // rebuild with current difficulty
+  const available=ALL_ROUND_DEFS.filter(rd=>selRoundIds.has(rd.id)&&!playedRoundIds.has(rd.id));
+  if(available.length===0){toast("⚠️ Нема достапни рунди! Избери нови или почни одново.","warn");return;}
+  actP=[...selP];elimP=[];curRound=0;pScores={};pStreak={};
+  actP.forEach(p=>{pScores[p]={correct:0,wrong:0,total:0,answers:[]};pStreak[p]=0;});
+  roundQueue=available;
+  showSc("sc-game");
+  startRound();
+}
+
+
+// ══════════════════════════════════════════════════════════════════
+// ROUND LOGIC
+// ══════════════════════════════════════════════════════════════════
+// Per-player repeat tracking for fun/solo rounds
+let funRoundPlayerQueue=[]; // players yet to play this fun round
+let funRoundPlayIdx=0;       // which repetition we're on
+let funRoundTotalReps=0;     // total reps = number of players
+let allRoundAnswers={};      // accumulated answers for ALL players this round
+
+function startRound(){
+  if(actP.length===0){showResult();return;}
+  // Check if all rounds exhausted
+  if(curRound>=roundQueue.length){
+    if(elimP.length>0&&actP.length<=1){showResult();return;}
+    // Fun continuation: reset and loop
+    curRound=0;playedRoundIds=new Set();
+    roundQueue=ALL_ROUND_DEFS.filter(rd=>selRoundIds.has(rd.id));
+    if(roundQueue.length===0){showResult();return;}
+  }
+  // Reset per-player fun queue for this round
+  funRoundPlayerQueue=[...actP];
+  funRoundPlayIdx=0;
+  funRoundTotalReps=actP.length;
+  allRoundAnswers={};
+  actP.forEach(p=>{allRoundAnswers[p]={qs:[],answers:[]};});
+  startRoundForNextPlayer();
+}
+
+function startRoundForNextPlayer(){
+  if(funRoundPlayIdx>=funRoundTotalReps){
+    // All players done this round — go to end
+    endRound();
+    return;
+  }
+  const round=roundQueue[curRound];
+  document.getElementById("tb-rnd").textContent=curRound+1+"/"+roundQueue.length;
+  document.getElementById("tb-type").innerHTML=`<span class="tag ${round.tagClass}">${round.fullLabel}</span>`;
+  document.getElementById("tb-alive").textContent=actP.length;
+
+  // If multiple players: show ready screen before each player's turn
+  if(funRoundTotalReps>1&&funRoundPlayIdx>0){
+    const currentP=funRoundPlayerQueue[funRoundPlayIdx];
+    // Show "ready?" screen before this player starts
+    document.getElementById("q-area").innerHTML=`
+      <div class="card" style="text-align:center;padding:32px">
+        <div style="font-size:3.5rem;margin-bottom:10px">${getAV(currentP)}</div>
+        <div style="font-size:1.2rem;font-weight:900;color:var(--cyan);margin-bottom:4px">Ред на <strong>${currentP}</strong>!</div>
+        <div style="color:var(--muted);font-size:.83rem;margin-bottom:16px">Следен играч — рунда ${curRound+1}. Подготви се!</div>
+        <div style="font-size:.75rem;color:var(--muted);margin-bottom:16px">Играч ${funRoundPlayIdx+1} од ${funRoundTotalReps}</div>
+        <button class="btn btn-primary" onclick="beginCurrentPlayerRound()">▶ Јас сум подготвен!</button>
+      </div>`;
+    document.getElementById("q-fb").innerHTML="";
+    return;
+  }
+  beginCurrentPlayerRound();
+}
+
+function beginCurrentPlayerRound(){
+  const currentP=funRoundPlayerQueue[funRoundPlayIdx];
+  const round=roundQueue[curRound];
+  const _dm=difficulty==='easy'?0.6:difficulty==='hard'?1.0:0.8;
+  const sh=shuffle([...round.qs]);
+  const _perP=Math.max(6,Math.round(round.perP*_dm));
+  curRoundState={playerQs:{},playerIdx:{},roundAnswers:{},currentPlayer:null};
+  curRoundState.playerQs[currentP]=sh.slice(0,_perP);
+  curRoundState.playerIdx[currentP]=0;
+  curRoundState.roundAnswers[currentP]=[];
+  if(!pScores[currentP])pScores[currentP]={correct:0,wrong:0,total:0,answers:[]};
+  updateLeaderboard();
+  playerTurn(currentP);
+}
+
+function playerTurn(player){
+  curRoundState.currentPlayer=player;
+  const qs=curRoundState.playerQs[player];
+  const idx=curRoundState.playerIdx[player];
+  if(idx>=qs.length){nextPlayerOrEnd();return;}
+  const q=qs[idx];
+  const total=qs.length;
+  document.getElementById("tb-q").textContent=`${idx+1}/${total}`;
+  renderPcards(player);
+  // Progress dots
+  const pd=document.getElementById("pdots");pd.innerHTML="";
+  for(let i=0;i<total;i++){
+    const d=document.createElement("div");
+    const a=curRoundState.roundAnswers[player][i];
+    d.className="dot"+(a!==undefined?(a.isCorrect?" ok":" ng"):i===idx?" cur":"");
+    pd.appendChild(d);
+  }
+  // Question
+  const shCh=shuffleIdx(q.ch);
+  const corrSh=shCh.findIndex(x=>x.orig===q.c);
+  const letters=["A","B","C","D"];
+  const round=roundQueue[curRound];
+  // Build visual content if question has screenshot
+  let visualHTML='';
+  if(q.visual&&q.content&&PHISHING_SCREENSHOTS[q.visual]){
+    const co=q.content;
+    visualHTML=PHISHING_SCREENSHOTS[q.visual](co.from||'',co.subject||'',co.body||'',co.flags||'');
+  }
+  document.getElementById("q-area").innerHTML=`
+    <div class="quiz-card">
+      <div class="quiz-header">
+        <div class="quiz-rtype ${round.tagClass}" style="background:transparent">${round.fullLabel}</div>
+        <div class="quiz-who">${getAV(player)} <strong>${player}</strong> — Прашање ${idx+1} од ${total} <span class="lt-${difficulty}">${difficulty==="easy"?"🟢 Лесно":difficulty==="hard"?"🔴 Тешко":"🟡 Средно"}</span></div>
+        <div class="quiz-q" id="quiz-q-text"></div>
+        ${visualHTML}
+      </div>
+      <div class="quiz-choices">
+        ${shCh.map((sc,i)=>`<div class="choice" id="ch${i}" onclick="answerQ(${i},${corrSh},${i===corrSh})">
+          <div class="choice-letter">${letters[i]}</div><span>${sc.text}</span>
+        </div>`).join("")}
+      </div>
+      ${gameMode==='class'?`<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px;max-width:420px;margin-left:auto;margin-right:auto">
+        <button class="cls-btn cls-a" onclick="answerQ(0,${corrSh},${0===corrSh})">A</button>
+        <button class="cls-btn cls-b" onclick="answerQ(1,${corrSh},${1===corrSh})">B</button>
+        <button class="cls-btn cls-c" onclick="answerQ(2,${corrSh},${2===corrSh})">C</button>
+        <button class="cls-btn cls-d" onclick="answerQ(3,${corrSh},${3===corrSh})">D</button>
+      </div>`:''}
+    </div>`;
+  document.getElementById("q-fb").innerHTML="";
+  // Typing effect on question + choices fade in
+  cancelTyping(); // cancel any previous typing
+  const qEl2=document.getElementById("quiz-q-text");
+  if(qEl2){
+    const spd=difficulty==='easy'?18:difficulty==='hard'?6:11;
+    // Choices visible immediately - typing is just visual effect on question text
+    typeQuestion(qEl2,q.q,spd,null);
+  }
+  const timerSec=difficulty==='easy'?25:difficulty==='hard'?12:18;
+  startTimer(timerSec,"main-tf",()=>{
+    document.querySelectorAll(".choice").forEach(el=>el.classList.add("c-disabled"));
+    document.getElementById("ch"+corrSh)?.classList.add("c-correct");
+    recordAns(player,q,null,false,"(Истече времето)");
+    pStreak[player]=0;
+    document.getElementById("q-fb").innerHTML=
+      `<div class="fb fb-warn"><div class="fb-icon">⏰</div><div><strong>Времето истече!</strong><br><span style="font-size:.8rem">${q.exp}</span></div></div>
+       <button class="btn btn-primary" style="margin-top:10px;width:100%" onclick="advQ('${player}')">Следно прашање →</button>`;
+    try{mascotSay('timeout');}catch(e){}
+  });
+}
+
+function answerQ(clicked,corrIdx,isCorrect){
+  clearInterval(tiv);
+  const p=curRoundState.currentPlayer;
+  const idx=curRoundState.playerIdx[p];
+  const q=curRoundState.playerQs[p][idx];
+  document.querySelectorAll(".choice").forEach((el,i)=>{
+    el.classList.add("c-disabled");
+    if(i===corrIdx)el.classList.add("c-correct");
+    else if(i===clicked&&!isCorrect)el.classList.add("c-wrong");
+  });
+  const txt=document.getElementById("ch"+clicked)?.querySelector("span")?.textContent||"";
+  recordAns(p,q,clicked,isCorrect,txt);
+  if(isCorrect){
+    pStreak[p]=(pStreak[p]||0)+1;
+    const rnd=roundQueue[curRound];
+    if(rnd&&rnd.id==='phishing'){const corr=curRoundState.roundAnswers[p].filter(a=>a.isCorrect).length;if(corr>=5)checkBadge('phish_pro');}
+    if(rnd&&rnd.id==='cyber'){const corr=curRoundState.roundAnswers[p].filter(a=>a.isCorrect).length;if(corr>=5)checkBadge('cyber_hero');}
+    if(rnd&&rnd.id==='media'){const corr=curRoundState.roundAnswers[p].filter(a=>a.isCorrect).length;if(corr>=5)checkBadge('media_det');}
+    if(pStreak[p]===5)checkBadge('streak5');
+    const streakMsg=pStreak[p]>=3?` 🔥 STREAK x${pStreak[p]}!`:'';
+    document.getElementById("q-fb").innerHTML=
+      `<div class="fb fb-ok"><div class="fb-icon">✅</div><div><strong>Точно!${streakMsg}</strong><br><span style="font-size:.8rem">${q.exp}</span></div></div>
+       <button class="btn btn-primary" style="margin-top:10px;width:100%" onclick="advQ('${p}')">Следно прашање →</button>`;
+    try{playSound('correct');}catch(e){}
+    try{mascotSay('correct');}catch(e){}
+    try{updateLeaderboard();}catch(e){}
+    if(pStreak[p]>=3){try{showStreakPopup(pStreak[p]);}catch(e){}}
+  } else {
+    pStreak[p]=0;
+    document.getElementById("q-fb").innerHTML=
+      `<div class="fb fb-ng"><div class="fb-icon">❌</div><div><strong>Погрешно!</strong><br><span style="font-size:.8rem">${q.exp}</span></div></div>
+       <button class="btn btn-primary" style="margin-top:10px;width:100%" onclick="advQ('${p}')">Следно прашање →</button>`;
+    try{playSound('wrong');}catch(e){}
+    try{mascotSay('wrong');}catch(e){}
+    try{updateLeaderboard();}catch(e){}
+  }
+}
+
+function recordAns(p,q,chosen,isCorrect,txt){
+  const a={q:q.q,ch:q.ch,correct:q.c,chosen,isCorrect,txt,exp:q.exp};
+  curRoundState.roundAnswers[p].push(a);
+  pScores[p].answers.push(a);
+  if(isCorrect)pScores[p].correct++;else pScores[p].wrong++;
+  pScores[p].total++;
+}
+
+function advQ(p){
+  // Clear any feedback area button first (prevent double-click)
+  const fb=document.getElementById('q-fb');
+  if(fb){const btn=fb.querySelector('button');if(btn)btn.disabled=true;}
+  cancelTyping();
+  clearInterval(tiv);
+  curRoundState.playerIdx[p]++;
+  if(!curRoundState.playerQs[p]||curRoundState.playerIdx[p]>=curRoundState.playerQs[p].length){
+    nextPlayerOrEnd();
+  } else {
+    playerTurn(p);
+  }
+}
+
+function nextPlayerOrEnd(){
+  // Current player finished — accumulate their answers then move to next
+  cancelTyping();clearInterval(tiv);
+  const finishedP=funRoundPlayerQueue[funRoundPlayIdx];
+  if(finishedP&&curRoundState.roundAnswers[finishedP]){
+    allRoundAnswers[finishedP]={
+      qs:curRoundState.playerQs[finishedP]||[],
+      answers:curRoundState.roundAnswers[finishedP]||[]
+    };
+  }
+  funRoundPlayIdx++;
+  startRoundForNextPlayer();
+}
+
+function endRound(){
+  clearInterval(tiv);
+  // Accumulate last player's answers
+  const lastP=funRoundPlayerQueue[funRoundPlayIdx-1]||funRoundPlayerQueue[funRoundPlayerQueue.length-1];
+  if(lastP&&curRoundState.roundAnswers[lastP]){
+    allRoundAnswers[lastP]={
+      qs:curRoundState.playerQs[lastP]||[],
+      answers:curRoundState.roundAnswers[lastP]||[]
+    };
+  }
+  playedRoundIds.add(roundQueue[curRound].id); // mark as played
+  const results=actP.map(p=>{
+    const data=allRoundAnswers[p]||{qs:[],answers:[]};
+    const qs=data.qs;
+    const corr=data.answers.filter(a=>a.isCorrect).length;
+    const pct=qs.length>0?corr/qs.length:0;
+    return{name:p,corr,total:qs.length,pct};
+  });
+  const toElim=results.filter(r=>r.pct<0.5).map(r=>r.name);
+  const toSave=results.filter(r=>r.pct>=0.5).map(r=>r.name);
+  toElim.forEach(n=>{actP=actP.filter(p=>p!==n);elimP.push(n);});
+  // Badge: perfect round
+  const allPerfect=results.every(r=>r.pct===1.0);
+  if(allPerfect)checkBadge('perfect_round');
+  // Show round recap first, then elim screen
+  showRoundRecap(()=>showElimScreen(results,toElim,toSave));
+}
+
+// ══════════════════════════════════════════════════════════════════
+// ELIM SCREEN
+// ══════════════════════════════════════════════════════════════════
+function showElimScreen(results,toElim,toSave){
+  document.getElementById("elim-title").textContent=`Крај на Рунда ${curRound+1} — ${roundQueue[curRound].label}`;
+  const el=document.getElementById("elim-list");el.innerHTML="";
+  if(toElim.length===0)el.innerHTML=`<div style="color:var(--muted);padding:10px;text-align:center">Нема елиминирани — сите имаат над 50%! 🎉</div>`;
+  else toElim.forEach(n=>{
+    const r=results.find(x=>x.name===n);
+    const pct=Math.round(r.pct*100);
+    const div=document.createElement("div");div.className="elim-entry ee-elim";
+    div.innerHTML=`<div class="ee-left"><span style="font-size:1.8rem">${getAV(n)}</span>
+      <div><div style="font-weight:800">${n}</div><div style="font-size:.72rem;color:var(--red)">${r.corr}/${r.total} точни — ${pct}% ❌</div></div></div>
+      <span style="color:var(--cyan)">→ детали</span>`;
+    div.onclick=()=>openDetail(n);el.appendChild(div);
+  });
+  const sl=document.getElementById("safe-list");sl.innerHTML="";
+  toSave.forEach(n=>{
+    const r=results.find(x=>x.name===n);
+    const pct=Math.round(r.pct*100);
+    const div=document.createElement("div");div.className="elim-entry ee-safe";
+    div.innerHTML=`<div class="ee-left"><span style="font-size:1.8rem">${getAV(n)}</span>
+      <div><div style="font-weight:800">${n}</div><div style="font-size:.72rem;color:var(--green)">${r.corr}/${r.total} точни — ${pct}% ✅</div></div></div>
+      <span style="color:var(--cyan)">→ детали</span>`;
+    div.onclick=()=>openDetail(n);sl.appendChild(div);
+  });
+  // Winner banner
+  const wb=document.getElementById("winner-banner-elim");
+  const hasWinner=actP.length<=1;
+  const noMoreRounds=curRound+1>=roundQueue.length;
+  if(hasWinner&&actP.length===1){
+    wb.innerHTML=`<div class="winner-banner"><div style="font-size:2.5rem">🏆</div>
+      <div style="font-size:1.1rem;font-weight:900;color:var(--yellow);margin:6px 0">${AV[allP.indexOf(actP[0])%AV.length]} ${actP[0]} е ПОБЕДНИК!</div>
+      <div style="font-size:.82rem;color:var(--muted)">Последниот Digital Survivor!</div></div>`;
+  } else if(actP.length===0){
+    wb.innerHTML=`<div class="winner-banner"><div style="font-size:2rem">🤝</div>
+      <div style="font-size:1rem;font-weight:800;color:var(--yellow);margin:6px 0">Нема победник — сите се елиминирани!</div></div>`;
+  } else {
+    wb.innerHTML="";
+  }
+  // Buttons
+  const btns=document.getElementById("elim-btns");btns.innerHTML="";
+  if(hasWinner||noMoreRounds){
+    const b1=document.createElement("button");b1.className="btn btn-primary";
+    b1.textContent="🏆 Погледни резултати";b1.onclick=()=>showResult();btns.appendChild(b1);
+    if(actP.length>=1){
+      const b2=document.createElement("button");b2.className="btn btn-ghost";
+      b2.textContent="▶ Продолжи за забава (со сите играчи)";
+      b2.onclick=()=>{
+        selP.forEach(p=>{if(!actP.includes(p))actP.push(p);});
+        elimP=[];
+        curRound++;
+        // Don't wrap here — startRound handles wrap properly
+        showSc("sc-mini");
+      };btns.appendChild(b2);
+    }
+  } else {
+    const b1=document.createElement("button");b1.className="btn btn-primary";
+    b1.innerHTML="➡ Следна рунда";b1.onclick=()=>{curRound++;showSc("sc-mini");};btns.appendChild(b1);
+  }
+  const bBack=document.createElement("button");bBack.className="btn btn-ghost";
+  bBack.textContent="↺ Почни одново";bBack.onclick=restartGame;btns.appendChild(bBack);
+  // Tip of the round
+  const tipDiv=document.getElementById("elim-tip");
+  if(tipDiv){const tip=getRoundTip();tipDiv.innerHTML=`<div class="tip-card"><div class="tip-icon">${tip.icon}</div><div><div class="tip-title">💡 Совет: ${tip.title}</div><div class="tip-text">${tip.text}</div></div></div>`;}
+  showSc("sc-elim");
+}
+
+// ══════════════════════════════════════════════════════════════════
+// MINI GAMES
+// ══════════════════════════════════════════════════════════════════
+function doMini(type){
+  clearInterval(tiv);startBg('none');
+  if(type==='skip'){showSc("sc-game");startRound();return;}
+  if(type==='stroop'){startStroop();return;}
+  if(type==='bomb'){startBomb();return;}
+  if(type==='wordmatch'){startWordMatch();return;}
+}
+
+function endMini(){
+  clearInterval(tiv);startBg('none');
+  if(actP.length===0){showResult();return;}
+  // startRound handles all wrap/exhaustion logic - don't pre-wrap here
+  showSc("sc-game");
+  startRound();
+}
+
+// ── STROOP ──────────────────────────────────────────────────────
+function startStroop(){
+  showSc("sc-stroop");
+  document.getElementById("stroop-done").style.display="none";
+  document.getElementById("s-inputs").innerHTML="";
+  document.getElementById("s-fb").innerHTML="";
+  stroopDone=new Set();
+  const cards=STROOP_SETS[Math.floor(Math.random()*STROOP_SETS.length)];
+  stroopAns=cards.map(c=>COLOR_MK[c.col]||"");
+  const g=document.getElementById("sg");g.innerHTML="";
+  cards.forEach((c,i)=>{
+    const d=document.createElement("div");d.className="stroop-card";d.style.color=c.col;
+    d.innerHTML=`<span class="stroop-label">#${i+1}</span>${c.w}`;g.appendChild(d);
+  });
+  document.getElementById("s-phase").textContent="👀 Гледај ги БОИТЕ — не зборовите! (5 сек)";
+  startTimer(5,"tf-s",()=>{
+    g.querySelectorAll(".stroop-card").forEach(d=>d.style.color="#4a5568");
+    document.getElementById("s-phase").textContent="✍️ Внеси ги боите по ред (пр: тиркизна, кизе, жолта, зелена)";
+    const inp=document.getElementById("s-inputs");inp.innerHTML="";
+    const plist=actP.length>0?actP:selP;
+    plist.forEach(p=>{
+      const row=document.createElement("div");row.className="pinput-row";row.id="srow-"+p;
+      row.innerHTML=`<span class="pil">${getAV(p)} ${p}</span>
+        <input type="text" id="si-${p}" placeholder="боја1, боја2, боја3, боја4"/>
+        <button class="btn btn-sm btn-purple" id="sb-${p}" onclick="submitStroop('${p}')">OK</button>`;
+      inp.appendChild(row);
+    });
+    startTimer(28,"tf-s",()=>{
+      document.getElementById("s-fb").innerHTML=`<div class="fb fb-info"><div class="fb-icon">🎯</div><div>Точен редослед: <strong>${stroopAns.join(" → ")}</strong></div></div>`;
+      document.getElementById("stroop-done").style.display="inline-flex";
+    });
+  });
+}
+
+function submitStroop(p){
+  const inp=document.getElementById("si-"+p);if(!inp||inp.disabled)return;
+  const parts=inp.value.trim().toLowerCase().split(/[\s,→]+/).filter(Boolean);
+  const ok=stroopAns.every((a,i)=>(parts[i]||"").includes(a.slice(0,3)));
+  inp.disabled=true;
+  const btn=document.getElementById("sb-"+p);if(btn)btn.disabled=true;
+  const row=document.getElementById("srow-"+p);
+  if(row)row.className="pinput-row "+(ok?"submitted-ok":"submitted-ng");
+  toast(p+(ok?" ✅ Точно!":" ❌ Погрешно!"),ok?"ok":"ng");
+  stroopDone.add(p);
+  const plist=actP.length>0?actP:selP;
+  if(plist.every(pl=>stroopDone.has(pl))){
+    clearInterval(tiv);
+    document.getElementById("s-fb").innerHTML=`<div class="fb fb-info"><div class="fb-icon">🎯</div><div>Точен редослед: <strong>${stroopAns.join(" → ")}</strong></div></div>`;
+    document.getElementById("stroop-done").style.display="inline-flex";
+  }
+}
+
+// ── BOMB (SEQUENTIAL PER PLAYER) ────────────────────────────────
+function startBomb(){
+  showSc("sc-bomb");startBg('matrix');
+  document.getElementById("bomb-done").style.display="none";
+  // Generate layout
+  const cfg=BOMB_CFGS[Math.floor(Math.random()*BOMB_CFGS.length)];
+  bombR=cfg.r;bombC=cfg.c;
+  const tot=bombR*bombC;
+  bombLayout=new Set();
+  while(bombLayout.size<cfg.b)bombLayout.add(Math.floor(Math.random()*tot));
+  bombPlayerQueue=[...(actP.length>0?actP:selP)];
+  bombPlayerIdx=0;
+  bombPlayerAnswers={};
+  bombPlayerReady={};
+  bombPlayerQueue.forEach(p=>{bombPlayerAnswers[p]=null;bombPlayerReady[p]=false;});
+  showBombRevealPhase();
+}
+
+function showBombRevealPhase(){
+  // Show bombs to everyone for 5 seconds
+  const cfg_text=`Поле ${bombR}×${bombC} — ${bombLayout.size} бомби`;
+  document.getElementById("bomb-inner").innerHTML=`
+    <div class="bomb-phase-banner">
+      <div class="tag t-red" style="margin-bottom:8px">💣 БОМБИ БОНУС — БЕЗ ЕЛИМИНАЦИЈА</div>
+      <h3>Запомни каде се бомбите!</h3>
+      <div style="font-size:.8rem;color:var(--muted);margin-top:4px">${cfg_text} — Имате 5 секунди!</div>
+    </div>
+    <div class="bomb-grid-reveal" id="bomb-reveal-grid" style="grid-template-columns:repeat(${bombC},70px)"></div>`;
+  const g=document.getElementById("bomb-reveal-grid");
+  for(let i=0;i<bombR*bombC;i++){
+    const cell=document.createElement("div");cell.className="bcell"+(bombLayout.has(i)?" b-bomb":"");
+    cell.textContent=bombLayout.has(i)?"💣":"";g.appendChild(cell);
+  }
+  startTimer(5,"tf-b",()=>{bombNextPlayer();});
+}
+
+function bombNextPlayer(){
+  if(bombPlayerIdx>=bombPlayerQueue.length){bombShowResults();return;}
+  const p=bombPlayerQueue[bombPlayerIdx];
+  // Show ready screen for this player
+  document.getElementById("bomb-inner").innerHTML=`
+    <div class="bomb-ready-screen">
+      <div class="br-av">${getAV(p)}</div>
+      <h3>${p} — Твојот ред!</h3>
+      <p>Означи ги ќелиите со бомби. Само ти гледаш сега.<br>Скриј го екранот од другите!</p>
+      <div class="bomb-progress-strip" id="bprog-strip"></div>
+      <button class="btn btn-red btn-lg" onclick="bombStartPlayerTurn('${p}')">💣 Јас сум подготвен — Почни!</button>
+    </div>`;
+  // Progress strip
+  const strip=document.getElementById("bprog-strip");
+  bombPlayerQueue.forEach((pl,i)=>{
+    const d=document.createElement("div");
+    const ans=bombPlayerAnswers[pl];
+    d.className="bprog "+(i<bombPlayerIdx?(ans?"bprog-ok":"bprog-ng"):i===bombPlayerIdx?"bprog-cur":"bprog-wait");
+    d.textContent=getAV(pl);d.title=pl;strip.appendChild(d);
+  });
+  startBg('matrix');
+  // Stop timer during ready screen
+  clearInterval(tiv);document.getElementById("tf-b").style.width="100%";
+}
+
+function bombStartPlayerTurn(p){
+  const marks=new Set();
+  let mode='bomb';
+  document.getElementById("bomb-inner").innerHTML=`
+    <div>
+      <div class="bomb-player-header">
+        <div style="font-size:2.2rem">${getAV(p)}</div>
+        <div>
+          <div style="font-weight:900;font-size:1rem">${p} — Означи ги бомбите!</div>
+          <div style="font-size:.75rem;color:var(--muted)">Избери режим, потоа кликни ќелија. Сите бомби мора да се означат.</div>
+        </div>
+      </div>
+      <div class="bomb-mode-bar">
+        <button class="bmode-btn bm-bomb" id="bm-bomb" onclick="setBombMode('bomb','${p}')">💣 Означи бомба</button>
+        <button class="bmode-btn" id="bm-safe" onclick="setBombMode('safe','${p}')">✔️ Означи безбедно</button>
+      </div>
+      <div class="bomb-grid-reveal" id="bomb-play-grid" style="grid-template-columns:repeat(${bombC},70px);margin:0 auto"></div>
+      <div style="text-align:center;margin-top:14px">
+        <button class="btn btn-green" onclick="bombSubmitPlayer('${p}')">✓ Потврди одговор</button>
+      </div>
+      <div id="bomb-play-fb" style="margin-top:10px"></div>
+    </div>`;
+  const g=document.getElementById("bomb-play-grid");
+  for(let i=0;i<bombR*bombC;i++){
+    const cell=document.createElement("div");cell.className="bcell";cell.id="bpc-"+i;
+    cell.onclick=()=>{
+      const bk="b"+i,sk="s"+i;
+      if(mode==='bomb'){
+        if(marks.has(bk)){marks.delete(bk);cell.className="bcell";cell.textContent="";}
+        else{marks.delete(sk);marks.add(bk);cell.className="bcell b-marked-bomb";cell.textContent="💣";}
+      } else {
+        if(marks.has(sk)){marks.delete(sk);cell.className="bcell";cell.textContent="";}
+        else{marks.delete(bk);marks.add(sk);cell.className="bcell b-marked-safe";cell.textContent="✔️";}
+      }
+    };
+    g.appendChild(cell);
+  }
+  // Store marks ref
+  window._bombMarks=marks;
+  window._bombPlayer=p;
+  window._bombMode='bomb';
+  startTimer(30,"tf-b",()=>{bombSubmitPlayer(p,true);});
+}
+
+function setBombMode(m,p){
+  window._bombMode=m;
+  document.getElementById("bm-bomb").className="bmode-btn"+(m==='bomb'?" bm-bomb":"");
+  document.getElementById("bm-safe").className="bmode-btn"+(m==='safe'?" bm-safe":"");
+}
+
+function bombSubmitPlayer(p,timedOut){
+  clearInterval(tiv);
+  const marks=window._bombMarks||new Set();
+  let ok=true;
+  for(let i=0;i<bombR*bombC;i++){
+    const isBomb=bombLayout.has(i),markedBomb=marks.has("b"+i);
+    if(isBomb&&!markedBomb){ok=false;break;}
+    if(!isBomb&&markedBomb){ok=false;break;}
+  }
+  bombPlayerAnswers[p]=ok;
+  // Reveal correct
+  for(let i=0;i<bombR*bombC;i++){
+    const cell=document.getElementById("bpc-"+i);if(!cell)continue;
+    if(bombLayout.has(i))cell.style.background="#e74c3c33";
+    else cell.style.background="#2ecc7133";
+  }
+  const fb=document.getElementById("bomb-play-fb");
+  if(fb)fb.innerHTML=`<div class="fb ${ok?"fb-ok":"fb-ng"}"><div class="fb-icon">${ok?"✅":"❌"}</div>
+    <div>${timedOut?"Времето истече! ":""}${ok?"Точно означивте сите бомби! 🎉":"Погрешно — следниот пат подобро!"}</div></div>`;
+  toast(p+(ok?" ✅ Точно!":" ❌ Погрешно!"),ok?"ok":"ng");
+  bombPlayerIdx++;
+  setTimeout(()=>{
+    if(bombPlayerIdx<bombPlayerQueue.length)bombNextPlayer();
+    else bombShowResults();
+  },2200);
+}
+
+function bombShowResults(){
+  clearInterval(tiv);startBg('none');
+  const correct=bombPlayerQueue.filter(p=>bombPlayerAnswers[p]===true);
+  const wrong=bombPlayerQueue.filter(p=>bombPlayerAnswers[p]===false||bombPlayerAnswers[p]===null);
+  document.getElementById("bomb-inner").innerHTML=`
+    <div style="text-align:center;padding:10px">
+      <div style="font-size:2rem;margin-bottom:8px">💣</div>
+      <div style="font-size:1.1rem;font-weight:900;margin-bottom:14px">Резултати — Бомби бонус</div>
+      ${correct.length?`<div style="color:var(--green);font-size:.9rem;margin-bottom:8px">✅ Точно: <strong>${correct.map(p=>getAV(p)+" "+p).join(", ")}</strong></div>`:""}
+      ${wrong.length?`<div style="color:var(--red);font-size:.9rem;margin-bottom:8px">❌ Погрешно: <strong>${wrong.map(p=>getAV(p)+" "+p).join(", ")}</strong></div>`:""}
+      <div style="color:var(--muted);font-size:.82rem;margin-top:10px">Бонус рунда — без елиминација 🎮</div>
+    </div>`;
+  document.getElementById("bomb-done").style.display="inline-flex";
+}
+
+// ── WORD MATCH ───────────────────────────────────────────────────
+function startWordMatch(){
+  showSc("sc-wordmatch");
+  document.getElementById("wm-done").style.display="none";
+  document.getElementById("wm-fb").innerHTML="";
+  document.getElementById("wm-score").innerHTML="";
+  const set=WORD_MATCH_SETS[Math.floor(Math.random()*WORD_MATCH_SETS.length)];
+  wmPairs=[...set.pairs];wmSelected=null;wmMatched=0;
+  const terms=shuffle([...wmPairs.map(p=>({t:p.t,d:p.d}))]);
+  const defs=shuffle([...wmPairs.map(p=>({t:p.t,d:p.d}))]);
+  const tc=document.getElementById("wm-terms");tc.innerHTML="";
+  const dc=document.getElementById("wm-defs");dc.innerHTML="";
+  terms.forEach(p=>{
+    const d=document.createElement("div");d.className="wm-item";d.dataset.term=p.t;
+    d.textContent=p.t;d.onclick=()=>wmSelectTerm(p.t,d);tc.appendChild(d);
+  });
+  defs.forEach(p=>{
+    const d=document.createElement("div");d.className="wm-item";d.dataset.def=p.t;
+    d.textContent=p.d;d.onclick=()=>wmSelectDef(p.t,d);dc.appendChild(d);
+  });
+  document.getElementById("wm-score").textContent=`Поврзани: 0 / ${wmPairs.length}`;
+}
+
+let wmSelTermEl=null,wmSelTerm=null;
+function wmSelectTerm(t,el){
+  if(el.classList.contains("wm-matched"))return;
+  document.querySelectorAll(".wm-item").forEach(e=>e.classList.remove("wm-selected"));
+  wmSelTerm=t;wmSelTermEl=el;el.classList.add("wm-selected");
+}
+function wmSelectDef(t,el){
+  if(!wmSelTerm||el.classList.contains("wm-matched"))return;
+  if(wmSelTerm===t){
+    el.classList.add("wm-matched");wmSelTermEl.classList.remove("wm-selected");wmSelTermEl.classList.add("wm-matched");
+    wmMatched++;toast("✅ Точно поврзано!","ok");
+    document.getElementById("wm-score").textContent=`Поврзани: ${wmMatched} / ${wmPairs.length}`;
+    if(wmMatched===wmPairs.length){
+      document.getElementById("wm-fb").innerHTML=`<div class="fb fb-ok"><div class="fb-icon">🎉</div><div><strong>Одлично! Сите поими поврзани!</strong> Извонредна работа!</div></div>`;
+      document.getElementById("wm-done").style.display="inline-flex";
+    }
+  } else {
+    el.classList.add("wm-wrong");wmSelTermEl.classList.add("wm-wrong");
+    toast("❌ Погрешно! Обиди се повторно.","ng");
+    setTimeout(()=>{el.classList.remove("wm-wrong");wmSelTermEl.classList.remove("wm-wrong");},700);
+  }
+  wmSelTerm=null;wmSelTermEl=null;
+}
+
+// ══════════════════════════════════════════════════════════════════
+// PLAYER DETAIL
+// ══════════════════════════════════════════════════════════════════
+function openDetail(p){
+  document.getElementById("sc-detail").classList.add("active");
+  const isElim=elimP.includes(p);
+  document.getElementById("det-av").textContent=getAV(p);
+  document.getElementById("det-name").textContent=p;
+  document.getElementById("det-status").innerHTML=isElim
+    ?`<span class="tag t-red">💀 Елиминиран</span>`
+    :`<span class="tag t-green">✅ Активен</span>`;
+  const ans=pScores[p]?.answers||[];
+  const tot=ans.length,corr=ans.filter(a=>a.isCorrect).length,wrong=tot-corr;
+  const pct=tot>0?Math.round(corr/tot*100):0;
+  document.getElementById("det-bar").style.width=pct+"%";
+  document.getElementById("det-bar").style.background=pct>=50?"linear-gradient(90deg,var(--green),var(--cyan))":"linear-gradient(90deg,var(--red),var(--yellow))";
+  document.getElementById("det-stats").innerHTML=`
+    <div class="stat-box"><div class="stat-num" style="color:var(--cyan)">${tot}</div><div style="font-size:.7rem;color:var(--muted);margin-top:4px">ВКУПНО</div></div>
+    <div class="stat-box"><div class="stat-num" style="color:var(--green)">${corr}</div><div style="font-size:.7rem;color:var(--muted);margin-top:4px">ТОЧНИ</div></div>
+    <div class="stat-box"><div class="stat-num" style="color:var(--red)">${wrong}</div><div style="font-size:.7rem;color:var(--muted);margin-top:4px">ПОГРЕШНИ</div></div>
+    <div class="stat-box"><div class="stat-num" style="color:${pct>=50?"var(--green)":"var(--red)"}">${pct}%</div><div style="font-size:.7rem;color:var(--muted);margin-top:4px">СКОР</div></div>`;
+  const list=document.getElementById("det-list");list.innerHTML="";
+  if(ans.length===0){list.innerHTML=`<div style="color:var(--muted);text-align:center;padding:20px">Нема записани одговори</div>`;return;}
+  ans.forEach((a,i)=>{
+    const cls=a.chosen===null?"qai-skip":a.isCorrect?"qai-ok":"qai-ng";
+    const icon=a.chosen===null?"⏰":a.isCorrect?"✅":"❌";
+    const prev=a.q.length>58?a.q.slice(0,58)+"...":a.q;
+    const item=document.createElement("div");item.className=`qa-item ${cls}`;
+    const letters=["A","B","C","D"];
+    item.innerHTML=`
+      <div class="qa-summary">
+        <span style="font-size:1rem">${icon}</span>
+        <span style="font-size:.85rem;font-weight:700;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${prev}</span>
+        <span style="font-size:.68rem;color:var(--muted);flex-shrink:0">▼</span>
+      </div>
+      <div class="qa-expand" id="qe-${i}">
+        <div style="font-size:.9rem;font-weight:700;margin:12px 0 10px;padding-top:12px;border-top:1px solid var(--border);line-height:1.5">${a.q}</div>
+        <div style="display:flex;flex-direction:column;gap:5px">
+          ${a.ch.map((ch,ci)=>{
+            let cls2="qcd-neutral",marker="";
+            if(ci===a.correct){cls2="qcd-correct";marker="✅ Точен одговор";}
+            else if(ci===a.chosen&&!a.isCorrect){cls2="qcd-wrong";marker="❌ Твој одговор";}
+            return `<div class="qcd ${cls2}"><strong>${letters[ci]}.</strong> <span>${ch}</span>${marker?` <em style="font-size:.72rem;opacity:.8">(${marker})</em>`:""}`;
+          }).join("")}
+        </div>
+        <div class="fb fb-info" style="margin-top:10px;font-size:.8rem"><div class="fb-icon">💡</div><div>${a.exp}</div></div>
+      </div>`;
+    item.querySelector(".qa-summary").onclick=()=>document.getElementById("qe-"+i).classList.toggle("open");
+    list.appendChild(item);
+  });
+}
+function closeDetail(){document.getElementById("sc-detail").classList.remove("active");}
+
+// ══════════════════════════════════════════════════════════════════
+// RESULT
+// ══════════════════════════════════════════════════════════════════
+function showResult(){
+  clearInterval(tiv);startBg('none');showSc("sc-result");
+  if(actP.length===1){checkBadge('winner');mascotSay('win');}
+  launchConfetti();
+  renderFinalBadges();
+  const winner=actP.length===1?actP[0]:actP.length===0?null:null;
+  const resultTitle=document.getElementById("result-title");
+  const resultWinner=document.getElementById("result-winner");
+  if(winner){
+    resultTitle.textContent="🏆 DIGITAL SURVIVOR!";
+    resultWinner.textContent=`${getAV(winner)} ${winner}`;
+  } else if(actP.length>1){
+    resultTitle.textContent="🏁 КРАЈ НА ИГРАТА!";
+    resultWinner.textContent="Нема единствен победник — сè уште играат повеќе играчи!";
+  } else {
+    resultTitle.textContent="🤝 КРАЈ НА ИГРАТА!";
+    resultWinner.textContent="Нема победник — сите биле елиминирани!";
+  }
+  const fl=document.getElementById("final-list");fl.innerHTML="";
+  const sorted=[...selP].sort((a,b)=>{
+    const sa=pScores[a]?.total>0?pScores[a].correct/pScores[a].total:0;
+    const sb=pScores[b]?.total>0?pScores[b].correct/pScores[b].total:0;
+    return sb-sa;
+  });
+  sorted.forEach((p,rank)=>{
+    const s=pScores[p]||{correct:0,wrong:0,total:0};
+    const pct=s.total>0?Math.round(s.correct/s.total*100):0;
+    const isW=p===winner;const isElim=elimP.includes(p);
+    const div=document.createElement("div");div.className="final-entry"+(isW?" fe-winner":"");
+    div.innerHTML=`<div style="display:flex;align-items:center;gap:12px">
+      <span style="font-family:'JetBrains Mono',monospace;color:var(--muted);font-size:.78rem">#${rank+1}</span>
+      <span style="font-size:1.6rem">${getAV(p)}</span>
+      <div><div style="font-weight:800">${p}</div><div style="font-size:.7rem;color:var(--muted)">✅${s.correct} ❌${s.wrong} — ${pct}%</div></div>
+    </div>
+    <div style="display:flex;align-items:center;gap:8px">
+      <span class="tag ${isElim?"t-red":"t-green"}">${isElim?"💀 Елим.":"✅ Активен"}</span>
+      <span style="color:var(--cyan)">→</span>
+    </div>`;
+    div.onclick=()=>openDetail(p);fl.appendChild(div);
+  });
+}
+
+function continueForFun(){
+  // Restore all players for fun
+  selP.forEach(p=>{if(!actP.includes(p))actP.push(p);});
+  elimP=[];
+  actP.forEach(p=>{if(!pScores[p])pScores[p]={correct:0,wrong:0,total:0,answers:[]};pStreak[p]=0;});
+  curRound++;
+  // Don't wrap here - startRound handles exhaustion and wrap properly
+  showSc("sc-mini");
+}
+
+function restartGame(){cancelTyping();clearInterval(tiv);startBg('none');
+  actP=[];elimP=[];curRound=0;pScores={};
+  playedRoundIds=new Set();
+  renderRsel();
+  showSc("sc-intro");
+}
+
+// ══════════════════════════════════════════════════════════════════
+// UTILS
+// ══════════════════════════════════════════════════════════════════
+function renderPcards(activePl){
+  const c=document.getElementById("pcards");c.innerHTML="";
+  [...actP,...elimP].forEach(n=>{
+    const div=document.createElement("div");
+    const isElim=elimP.includes(n),isActive=n===activePl;
+    const isWinner=actP.length===1&&actP[0]===n;
+    div.className="pcard "+(isWinner?"winner":isElim?"elim":isActive?"active-turn":"alive");
+    const sc=pScores[n]||{correct:0,total:0};
+    const pct=sc.total>0?Math.round(sc.correct/sc.total*100):0;
+    const fillCol=pct>=50?"var(--green)":pct>=30?"var(--yellow)":"var(--red)";
+    div.innerHTML=`${isElim?'<div class="pbadge" style="background:var(--red);color:#fff">💀</div>':""}
+      ${isWinner?'<div class="pbadge" style="background:gold;color:#000">🏆</div>':""}
+      ${isActive&&!isElim?'<div class="pbadge" style="background:var(--cyan);color:#000">▶ ВОД</div>':""}
+      <div class="av">${getAV(n)}</div>
+      <div class="pn">${n}</div>
+      <div class="ps">${sc.correct||0}/${sc.total||0}</div>
+      <div class="score-minibar"><div class="score-minifill" style="width:${pct}%;background:${fillCol}"></div></div>`;
+    c.appendChild(div);
+  });
+  if(document.getElementById("tb-alive"))document.getElementById("tb-alive").textContent=actP.length;
+}
+
+function startTimer(sec,fillId,onEnd){
+  clearInterval(tiv);
+  let t=sec;
+  const f=document.getElementById(fillId);
+  if(f)f.style.width="100%";
+  updateCircTimer(sec,sec);
+  tiv=setInterval(()=>{
+    t--;
+    if(f)f.style.width=(t/sec*100)+"%";
+    updateCircTimer(t,sec);
+    if(t===5)mascotSay('timeout');
+    if(t<=0){clearInterval(tiv);if(onEnd)onEnd();}
+  },1000);
+}
+
+function showSc(id){
+  cancelTyping(); // always cancel typing when navigating
+  clearInterval(tiv);
+  document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
+  const s=document.getElementById(id);if(s)s.classList.add("active");
+  window.scrollTo(0,0); // scroll to top on screen change
+}
+
+function toast(msg,type){
+  const t=document.getElementById("toast");t.textContent=msg;
+  t.className=`toast show t-${type||"info"}`;
+  setTimeout(()=>t.classList.remove("show"),2400);
+}
+
+function shuffle(a){const r=[...a];for(let i=r.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[r[i],r[j]]=[r[j],r[i]];}return r;}
+function shuffleIdx(a){
+  // Shuffle choices
+  const sh=shuffle(a.map((text,orig)=>({text,orig})));
+  return sh;
+}
+// Anti-pattern check: warn if correct answer is suspiciously always longest
+// (We fix this in question data, not code)
+
+
+// ── DIFFICULTY & MODE ──────────────────────────────────────────────────────────
+function setDiff(d){
+  difficulty=d;
+  ['easy','medium','hard'].forEach(x=>{
+    const b=document.getElementById('d-'+x);
+    if(b)b.className='diff-btn '+x+(x===d?' sel':'');
+  });
+  // Rebuild round defs with new difficulty
+  ALL_ROUND_DEFS=buildAllRounds();
+  renderRsel(); // refresh UI
+}
+function setMode(m){
+  gameMode=m;
+  ['normal','class'].forEach(x=>{
+    const el=document.getElementById('mode-'+x);
+    if(el){el.style.borderColor=x===m?'var(--cyan)':'var(--border)';el.style.background=x===m?'#18e4d415':'var(--panel)';}
+  });
+}
+
+// ── LIVES ──────────────────────────────────────────────────────────────────────
+
+
+
+
+
+// ── SOUND (Web Audio API, no external files) ──────────────────────────────────
+let audioCtx=null;
+function getAudio(){if(!audioCtx)audioCtx=new(window.AudioContext||window.webkitAudioContext)();return audioCtx;}
+function playSound(type){
+  try{
+    const ctx=getAudio();const o=ctx.createOscillator();const g=ctx.createGain();
+    o.connect(g);g.connect(ctx.destination);
+    if(type==='correct'){o.frequency.setValueAtTime(523,ctx.currentTime);o.frequency.setValueAtTime(659,ctx.currentTime+.1);o.frequency.setValueAtTime(784,ctx.currentTime+.2);g.gain.setValueAtTime(.3,ctx.currentTime);g.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+.5);}
+    else if(type==='wrong'){o.frequency.setValueAtTime(200,ctx.currentTime);o.frequency.setValueAtTime(150,ctx.currentTime+.15);g.gain.setValueAtTime(.2,ctx.currentTime);g.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+.4);}
+    else if(type==='win'){o.frequency.setValueAtTime(523,ctx.currentTime);o.frequency.setValueAtTime(659,ctx.currentTime+.15);o.frequency.setValueAtTime(784,ctx.currentTime+.3);o.frequency.setValueAtTime(1047,ctx.currentTime+.45);g.gain.setValueAtTime(.4,ctx.currentTime);g.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+.8);}
+    o.start();o.stop(ctx.currentTime+.8);
+  }catch(e){}
+}
+
+// ── CONFETTI ──────────────────────────────────────────────────────────────────
+function launchConfetti(){
+  const wrap=document.getElementById('confetti-wrap');if(!wrap)return;
+  const colors=['#2ecc71','#3498db','#e74c3c','#f1c40f','#9b59b6','#18e4d4','#e67e22'];
+  for(let i=0;i<80;i++){
+    const el=document.createElement('div');el.className='conf';
+    el.style.left=Math.random()*100+'vw';
+    el.style.background=colors[Math.floor(Math.random()*colors.length)];
+    el.style.width=(6+Math.random()*10)+'px';
+    el.style.height=(6+Math.random()*10)+'px';
+    el.style.animationDuration=(1.5+Math.random()*2)+'s';
+    el.style.animationDelay=(Math.random()*.5)+'s';
+    el.style.borderRadius=Math.random()>.5?'50%':'2px';
+    wrap.appendChild(el);
+    setTimeout(()=>el.remove(),3500);
+  }
+  playSound('win');
+}
+
+// ── BADGES ────────────────────────────────────────────────────────────────────
+function checkBadge(condId){
+  BADGES_DEF.forEach(b=>{if(b.cond===condId&&!earnedBadges.has(b.id)){earnedBadges.add(b.id);showBadgeEarned(b);}});
+}
+function showBadgeEarned(b){
+  const t=document.createElement('div');
+  t.style.cssText='position:fixed;bottom:80px;right:20px;background:var(--card);border:2px solid gold;border-radius:14px;padding:14px 18px;z-index:950;display:flex;align-items:center;gap:12px;box-shadow:0 8px 24px #0008;animation:badge-pop .5s ease';
+  t.innerHTML=`<span style="font-size:2rem">${b.icon}</span><div><div style="font-weight:900;font-size:.85rem;color:gold">Ново достигнување!</div><div style="font-weight:800;font-size:.82rem">${b.name}</div><div style="font-size:.7rem;color:var(--muted)">${b.desc}</div></div>`;
+  document.body.appendChild(t);setTimeout(()=>t.remove(),3500);
+}
+function renderFinalBadges(){
+  const d=document.getElementById('final-badges');if(!d)return;
+  d.innerHTML='';
+  BADGES_DEF.forEach(b=>{
+    const div=document.createElement('div');div.className='badge-item '+(earnedBadges.has(b.id)?'earned':'locked');
+    div.innerHTML=`<div class="badge-icon">${earnedBadges.has(b.id)?b.icon:'🔒'}</div><div class="badge-name">${b.name}</div><div class="badge-desc">${b.desc}</div>`;
+    d.appendChild(div);
+  });
+}
+
+// ── TIPS ─────────────────────────────────────────────────────────────────────
+function getRoundTip(){return TIPS[Math.floor(Math.random()*TIPS.length)];}
+function renderTip(container){
+  const tip=getRoundTip();
+  const div=document.createElement('div');div.className='tip-card';
+  div.innerHTML=`<div class="tip-icon">${tip.icon}</div><div><div class="tip-title">💡 Совет: ${tip.title}</div><div class="tip-text">${tip.text}</div></div>`;
+  const el=document.getElementById(container);if(el)el.appendChild(div);
+}
+
+// ── TYPING EFFECT ─────────────────────────────────────────────────────────────
+function typeText(el, text, speed, cb){
+  el.innerHTML='<span class="typing-cursor"></span>';
+  let i=0;
+  const cursor=el.querySelector('.typing-cursor');
+  function next(){
+    if(i>=text.length){if(cb)cb();return;}
+    cursor.insertAdjacentText('beforebegin',text[i++]);
+    setTimeout(next, speed);
+  }
+  next();
+}
+
+
+// ── REAL QR CODE (qrcode.js) ──────────────────────────────────────────────────
+function showQR(){
+  const container=document.getElementById('qr-container');
+  container.innerHTML='';
+  const url=window.location.href.split('?')[0];
+  // Build game summary text for QR
+  const summary='Digital Survival | '+
+    (actP.length>0?'Победник: '+actP[0]:'Игра завршена')+
+    ' | '+url;
+  try{
+    new QRCode(container,{
+      text:summary,
+      width:180,height:180,
+      colorDark:'#0f172a',
+      colorLight:'#ffffff',
+      correctLevel:QRCode.CorrectLevel.M
+    });
+  }catch(e){
+    // Offline fallback - draw simple QR-like pattern
+    const canvas=document.createElement('canvas');
+    canvas.width=180;canvas.height=180;
+    const ctx=canvas.getContext('2d');
+    ctx.fillStyle='#fff';ctx.fillRect(0,0,180,180);
+    ctx.fillStyle='#1e40af';
+    // Finder patterns
+    [[10,10,40,40],[130,10,40,40],[10,130,40,40]].forEach(([x,y,w,h])=>{ctx.fillRect(x,y,w,h);ctx.fillStyle='#fff';ctx.fillRect(x+6,y+6,w-12,h-12);ctx.fillStyle='#1e40af';ctx.fillRect(x+12,y+12,w-24,h-24);ctx.fillStyle='#1e40af';});
+    ctx.font='bold 14px Nunito,sans-serif';ctx.textAlign='center';ctx.fillStyle='#1e40af';
+    ctx.fillText('DIGITAL',90,88);ctx.fillText('SURVIVAL',90,106);
+    ctx.font='10px monospace';ctx.fillStyle='#6b7280';
+    ctx.fillText('Зачувај го HTML фајлот',90,130);
+    container.appendChild(canvas);
+  }
+  document.getElementById('qr-modal').classList.add('show');
+}
+function closeQR(){document.getElementById('qr-modal').classList.remove('show');}
+
+// ── PDF CERTIFICATE ──────────────────────────────────────────────────────────
+
+// Show certificate picker if multiple players
+function showCertificate(playerName){
+  if(playerName){_doCertificate(playerName);return;}
+  const winner=actP.length===1?actP[0]:null;
+  if(winner){_doCertificate(winner);return;}
+  // Show picker
+  const players=[...selP];
+  const pick=document.createElement('div');
+  pick.id='cert-picker';
+  pick.style.cssText='position:fixed;inset:0;background:#000d;display:flex;align-items:center;justify-content:center;z-index:800';
+  pick.innerHTML=`<div style="background:var(--card);border:2px solid var(--b2);border-radius:20px;padding:28px;max-width:400px;width:90%;text-align:center">
+    <div style="font-size:1.8rem;margin-bottom:6px">📜</div>
+    <div style="font-size:1rem;font-weight:900;margin-bottom:6px;color:var(--cyan)">Избери играч</div>
+    <div style="font-size:.82rem;color:var(--muted);margin-bottom:16px">Генерирај сертификат за:</div>
+    <div style="display:flex;flex-direction:column;gap:8px;max-height:280px;overflow-y:auto">
+      ${players.map(p=>{
+        const s=pScores[p]||{correct:0,total:0};
+        const pct=s.total>0?Math.round(s.correct/s.total*100):0;
+        return `<button class="btn btn-ghost" style="display:flex;align-items:center;gap:10px;text-align:left" onclick="document.getElementById('cert-picker').remove();_doCertificate('${p}')">
+          <span style="font-size:1.4rem">${getAV(p)}</span>
+          <span style="flex:1">${p}</span>
+          <span style="font-family:'JetBrains Mono',monospace;font-size:.78rem;color:var(--cyan)">${pct}%</span>
+        </button>`;
+      }).join('')}
+    </div>
+    <button class="btn btn-ghost btn-sm" style="margin-top:12px;width:100%" onclick="document.getElementById('cert-picker').remove()">Откажи</button>
+  </div>`;
+  document.body.appendChild(pick);
+}
+function _doCertificate(name){
+  const s=pScores[name]||{correct:0,total:0};
+  const pct=s.total>0?Math.round(s.correct/s.total*100):0;
+  const star=pct>=90?'⭐⭐⭐':pct>=70?'⭐⭐':pct>=50?'⭐':'';
+  const badge_icons=[...earnedBadges].map(id=>{const b=BADGES_DEF.find(x=>x.id===id);return b?`<span title="${b.name}">${b.icon}</span>`:''}).join('');
+  const now=new Date().toLocaleDateString('mk-MK',{year:'numeric',month:'long',day:'numeric'});
+  const ach=pct>=90?'за исклучителни вештини и СОВРШЕН резултат во дигитална безбедност и медиумска писменост':
+             pct>=70?'за покажани извонредни вештини во препознавање на фишинг напади, дигитални закани и лажни вести':
+             pct>=50?'за успешно завршување на обуката за дигитална безбедност и медиумска писменост':
+             'за учество и посветеност во програмата за дигитална писменост';
+  document.getElementById('cert-name').textContent=name;
+  const scoreNum=document.getElementById('cert-score-num');
+  if(scoreNum)scoreNum.textContent=pct+'%';
+  const scoreLbl=document.getElementById('cert-score-lbl');
+  if(scoreLbl)scoreLbl.innerHTML=s.correct+'/'+s.total+' точни<br>'+star;
+  document.getElementById('cert-badges').innerHTML=badge_icons||'🏅';
+  document.getElementById('cert-date').innerHTML='Издадено на<br><strong>'+now+'</strong>';
+  document.getElementById('cert-achievement').textContent=ach+'.';
+  document.getElementById('cert-modal').style.display='block';
+  document.body.style.overflow='hidden';
+}
+function closeCert(){
+  document.getElementById('cert-modal').style.display='none';
+  document.body.style.overflow='';
+}
+
+// ── TYPING EFFECT for questions ───────────────────────────────────────────────
+// Cancellable typing - each call gets a unique token
+let _typingActive=0;
+function typeQuestion(el, text, speed, cb){
+  const myToken=++_typingActive;
+  el.innerHTML='';
+  let i=0;
+  const cursor=document.createElement('span');
+  cursor.className='typing-cursor';
+  el.appendChild(cursor);
+  function step(){
+    if(myToken!==_typingActive)return; // cancelled - stop silently
+    if(i>=text.length){cursor.remove();if(cb)cb();return;}
+    cursor.insertAdjacentText('beforebegin',text[i++]);
+    setTimeout(step,speed);
+  }
+  step();
+}
+function cancelTyping(){_typingActive++;} // call before loading new question
+
+// ── REALISTIC PHISHING SCREENSHOTS ───────────────────────────────────────────
+const PHISHING_SCREENSHOTS = {
+  gmail: (from, subject, body, flags) => `
+    <div class="email-mockup">
+      <div class="em-titlebar">
+        <div class="em-dot" style="background:#e74c3c"></div>
+        <div class="em-dot" style="background:#f1c40f"></div>
+        <div class="em-dot" style="background:#2ecc71"></div>
+        <span style="flex:1;text-align:center;font-size:.72rem;color:#475569;font-family:'JetBrains Mono',monospace">Gmail – ${from}</span>
+      </div>
+      <div class="em-header">
+        <div class="em-field"><span class="em-field-lbl">Од:</span><span class="em-field-val danger">${from}</span></div>
+        <div class="em-field"><span class="em-field-lbl">До:</span><span class="em-field-val">тебе</span></div>
+      </div>
+      <div class="em-subject">${subject}</div>
+      <div class="em-body">${body}</div>
+      ${flags?`<div class="spot-the-flags"><div class="spot-title">🚩 Пронајди ги сигналите за опасност:</div>${flags}</div>`:''}
+      <div class="em-footer">Google LLC, 1600 Amphitheatre Parkway, Mountain View, CA</div>
+    </div>`,
+  sms: (from, body, flags) => `
+    <div class="sms-mockup">
+      <div class="sms-header">📱 ${from}</div>
+      <div class="sms-bubble">${body}</div>
+      <div class="sms-time">Денес, 14:23</div>
+      ${flags?`<div class="spot-the-flags" style="margin:0 8px 10px"><div class="spot-title">🚩 Сигнали за опасност:</div>${flags}</div>`:''}
+    </div>`,
+};
+
+function flag(text){return `<span class="red-flag-badge">⚠️ ${text}</span>`;}
+
+
+// ── MASCOT ──────────────────────────────────────────────────────────────────
+const MASCOT_MSGS={
+  start:["Подготвен ли си? 🚀","Ајде, покажи им! 💪","Верувам во тебе! ⭐"],
+  correct:["Браво! Ти знаеш! 🎉","Одлично! Продолжи! ✨","Само така! 🔥","Супер! Ти си ѕвезда! ⭐"],
+  wrong:["Не се предавај! 💪","Следниот пат! 🤞","Грешките учат! 📚","Сега знаеш! 😊"],
+  streak:["STREAK! Јуху! 🔥🔥","Неверојатно! 🤩","Ти си на пат! ⚡"],
+  timeout:["Побрзај! ⏰","Внимавај на времето! ⌚"],
+  win:["ПОБЕДНИК! 🏆","Легенда! 👑","Ти си Digital Survivor! 🛡️"],
+};
+let mascotTimer=null;
+function mascotSay(type,extra){
+  const msgs=MASCOT_MSGS[type]||MASCOT_MSGS.start;
+  const msg=extra||msgs[Math.floor(Math.random()*msgs.length)];
+  const bubble=document.getElementById('mascot-bubble');
+  const body=document.getElementById('mascot-body');
+  if(!bubble||!body)return;
+  bubble.textContent=msg;
+  bubble.classList.add('show');
+  body.classList.remove('mascot-happy','mascot-sad');
+  void body.offsetWidth;
+  if(type==='correct'||type==='win'||type==='streak')body.classList.add('mascot-happy');
+  else if(type==='wrong'||type==='timeout')body.classList.add('mascot-sad');
+  clearTimeout(mascotTimer);
+  mascotTimer=setTimeout(()=>bubble.classList.remove('show'),3200);
+}
+
+// ── FULLSCREEN ────────────────────────────────────────────────────────────────
+function toggleFS(){
+  if(!document.fullscreenElement){
+    document.documentElement.requestFullscreen().catch(()=>{});
+    document.getElementById('fs-btn').textContent='✕ Излез';
+  } else {
+    document.exitFullscreen();
+    document.getElementById('fs-btn').textContent='⛶ Fullscreen';
+  }
+}
+
+// ── LIVE LEADERBOARD ─────────────────────────────────────────────────────────
+function updateLeaderboard(){
+  const lb=document.getElementById('live-lb');
+  const rows=document.getElementById('lb-rows');
+  if(!lb||!rows)return;
+  const allPlayers=[...actP,...elimP];
+  if(allPlayers.length<2){lb.style.display='none';return;}
+  lb.style.display='block';
+  const sorted=[...allPlayers].sort((a,b)=>{
+    const sa=pScores[a]?.total>0?pScores[a].correct/pScores[a].total:0;
+    const sb=pScores[b]?.total>0?pScores[b].correct/pScores[b].total:0;
+    return sb-sa;
+  });
+  rows.innerHTML='';
+  sorted.forEach((p,i)=>{
+    const s=pScores[p]||{correct:0,total:0};
+    const pct=s.total>0?Math.round(s.correct/s.total*100):0;
+    const medals=['🥇','🥈','🥉'];
+    const elim=elimP.includes(p);
+    const row=document.createElement('div');
+    row.className='lb-row'+(i===0?' lb-first':i===1?' lb-second':i===2?' lb-third':'');
+    row.innerHTML=`<span class="lb-rank">${medals[i]||'#'+(i+1)}</span>
+      <span style="font-size:1.1rem">${getAV(p)}</span>
+      <div style="flex:1;min-width:0"><div style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:.78rem">${p}${elim?' 💀':''}</div></div>
+      <div><div class="lb-score">${pct}%</div><div class="lb-pct">${s.correct}/${s.total}</div></div>`;
+    rows.appendChild(row);
+  });
+}
+
+// ── CIRCULAR TIMER ────────────────────────────────────────────────────────────
+const CIRC=144.5; // 2*PI*23
+function updateCircTimer(t,total){
+  const circle=document.getElementById('ctimer-circle');
+  const ts=document.getElementById('main-ts');
+  if(!circle||!ts)return;
+  const pct=t/total;
+  const offset=CIRC*(1-pct);
+  circle.style.strokeDashoffset=offset;
+  const hue=Math.round(pct*120); // green->red
+  circle.style.stroke=`hsl(${hue},80%,55%)`;
+  ts.textContent=t;
+  if(t<=5)ts.style.color='var(--red)';
+  else ts.style.color='var(--text)';
+}
+
+// ── STREAK POPUP ──────────────────────────────────────────────────────────────
+function showStreakPopup(n){
+  const el=document.getElementById('streak-popup');if(!el)return;
+  el.innerHTML=`🔥 STREAK x${n}!<br><span style="font-size:.85rem">+${n} бонус поени!</span>`;
+  el.classList.add('show');
+  setTimeout(()=>el.classList.remove('show'),1800);
+  mascotSay('streak');
+}
+
+// ── ROUND RECAP ───────────────────────────────────────────────────────────────
+function showRoundRecap(cb){
+  document.getElementById('sc-recap').classList.add('active');
+  document.querySelectorAll('.screen:not(#sc-recap)').forEach(s=>s.classList.remove('active'));
+  const title=document.getElementById('recap-title');
+  const list=document.getElementById('recap-list');
+  const btn=document.getElementById('recap-continue-btn');
+  if(title)title.textContent=`Преглед — Рунда ${curRound} (${roundQueue[curRound-1]?.label||''})`;
+  if(list)list.innerHTML='';
+  // Collect all questions from current round across all players
+  const allPlayers=[...actP,...elimP];
+  const seen=new Set();
+  allPlayers.forEach(p=>{
+    const answers=curRoundState.roundAnswers[p]||[];
+    answers.forEach(a=>{
+      if(seen.has(a.q))return;seen.add(a.q);
+      const div=document.createElement('div');
+      div.className='recap-item '+(a.isCorrect?'ri-ok':'ri-ng');
+      const letters=['A','B','C','D'];
+      div.innerHTML=`<div class="recap-q">${a.isCorrect?'✅':'❌'} ${a.q}</div>
+        <div class="recap-answers">
+          ${a.ch.map((ch,i)=>`<span class="recap-ans ${i===a.correct?'ra-correct':i===a.chosen&&!a.isCorrect?'ra-wrong':'ra-neutral'}">${letters[i]}. ${ch}</span>`).join('')}
+        </div>
+        <div class="fb fb-info" style="margin-top:8px;font-size:.78rem"><div class="fb-icon">💡</div><div>${a.exp}</div></div>`;
+      if(list)list.appendChild(div);
+    });
+  });
+  if(list&&list.children.length===0)list.innerHTML='<div style="color:var(--muted);text-align:center;padding:20px">Нема прашања за прикажување</div>';
+  if(btn)btn.onclick=()=>{
+    document.getElementById('sc-recap').classList.remove('active');
+    if(cb)cb();
+  };
+}
+
+// ── EXPORT CSV ────────────────────────────────────────────────────────────────
+function exportCSV(){
+  const rows=[['Играч','Точни','Погрешни','Вкупно','Скор %','Статус']];
+  selP.forEach(p=>{
+    const s=pScores[p]||{correct:0,wrong:0,total:0};
+    const pct=s.total>0?Math.round(s.correct/s.total*100):0;
+    rows.push([p,s.correct,s.wrong,s.total,pct+'%',elimP.includes(p)?'Елиминиран':'Активен']);
+  });
+  const csv=rows.map(r=>r.map(v=>`"${v}"`).join(',')).join('\n');
+  const a=document.createElement('a');
+  a.href='data:text/csv;charset=utf-8,\uFEFF'+encodeURIComponent(csv);
+  a.download='digital-survival-rezultati.csv';
+  a.click();
+  toast('📊 CSV извезен!','ok');
+}
+
+// ── MODE EXPLANATION (update on mode change) ──────────────────────────────────
+const _oldSetMode=typeof setMode!=='undefined'?setMode:null;
+function setMode(m){
+  gameMode=m;
+  ['normal','class'].forEach(x=>{
+    const el=document.getElementById('mode-'+x);
+    if(el){el.style.borderColor=x===m?'var(--cyan)':'var(--border)';el.style.background=x===m?'#18e4d415':'var(--panel)';}
+  });
+  const exp=document.getElementById('mode-explain-text');
+  if(exp)exp.className='mode-explain show';
+}
+
+// INIT
+ALL_ROUND_DEFS=buildAllRounds(); // safe: called after all vars declared
+renderPList();
+renderRsel();
+</script>
+</body>
+</html>
