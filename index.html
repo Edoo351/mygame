@@ -2686,6 +2686,155 @@
       margin-bottom: 12px;
       min-height: 32px
     }
+    /* ── SPACING IMPROVEMENTS v9 ── */
+    .screen {
+      gap: 20px;
+      padding: 24px 18px 32px;
+    }
+    .card {
+      padding: 22px 24px;
+    }
+    .section-title {
+      margin-bottom: 14px;
+    }
+    .rsel-card {
+      padding: 16px;
+      gap: 14px;
+    }
+    .mini-opt {
+      padding: 24px 16px;
+    }
+    .mini-grid {
+      gap: 14px;
+    }
+    .elim-entry {
+      padding: 16px 20px;
+      margin-bottom: 9px;
+    }
+    .choice {
+      padding: 14px 18px;
+      gap: 12px;
+    }
+    .quiz-choices {
+      gap: 10px;
+      padding: 18px 24px 24px;
+    }
+    .quiz-header {
+      padding: 20px 24px 14px;
+    }
+    .badge-item {
+      padding: 16px 18px;
+      min-width: 120px;
+    }
+    .topbar {
+      padding: 14px 20px;
+      gap: 18px;
+    }
+    .fb {
+      padding: 16px 20px;
+      margin-top: 12px;
+    }
+    .tip-card {
+      padding: 18px 22px;
+      margin-top: 14px;
+    }
+    .recap-item {
+      padding: 16px;
+      margin-bottom: 10px;
+    }
+    .stat-box {
+      padding: 18px;
+    }
+    .leaderboard {
+      padding: 16px;
+    }
+    .lb-row {
+      padding: 10px 12px;
+      margin-bottom: 6px;
+    }
+    .final-entry {
+      padding: 16px 20px;
+      margin-bottom: 9px;
+    }
+    .winner-banner {
+      padding: 24px;
+      margin-top: 16px;
+    }
+    .continue-btns {
+      gap: 12px;
+      margin-top: 20px;
+    }
+    .diff-selector {
+      gap: 12px;
+    }
+    .diff-btn {
+      padding: 12px 24px;
+    }
+    .pcard {
+      padding: 14px 12px;
+    }
+    .pcards-row {
+      gap: 12px;
+    }
+    .pinput-row {
+      padding: 10px 14px;
+      margin-bottom: 8px;
+    }
+    .stroop-grid {
+      gap: 16px;
+      margin: 16px 0;
+    }
+    .stroop-card {
+      padding: 28px;
+    }
+    .bomb-phase-banner {
+      padding: 24px;
+      margin-bottom: 16px;
+    }
+    .bmode-btn {
+      padding: 12px 26px;
+    }
+    .cert-card-body {
+      padding: 36px 40px;
+    }
+    .cert-card-top {
+      padding: 36px 40px 28px;
+    }
+    /* Mini-game back button — highlight */
+    #mini-back-opt {
+      border-color: var(--border);
+      opacity: 0.7;
+    }
+    #mini-back-opt:hover {
+      border-color: var(--muted);
+      opacity: 1;
+    }
+    /* Continue button completed state */
+    .btn-mini-done {
+      background: linear-gradient(135deg, var(--cyan), var(--blue)) !important;
+      color: #fff !important;
+      animation: pulse-glow 1.5s ease-in-out infinite;
+    }
+    @keyframes pulse-glow {
+      0%, 100% { box-shadow: 0 0 8px var(--cyan)44; }
+      50% { box-shadow: 0 0 24px var(--cyan)88; }
+    }
+    /* Elim screen recap continue btn spacing */
+    #recap-continue-btn {
+      margin-top: 16px;
+    }
+    /* Result screen trophy spacing */
+    #sc-result .trophy-anim {
+      margin-top: 10px;
+    }
+    #sc-result #result-title {
+      margin-top: 12px;
+    }
+    /* Stroop done btn spacing */
+    #stroop-done, #bomb-done, #wm-done {
+      margin-top: 14px;
+      min-width: 200px;
+    }
   </style>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 </head>
@@ -2772,12 +2921,12 @@
           <div style="font-size:.75rem;color:var(--muted);margin-bottom:7px" id="presets-lbl">Брзи пресети:</div>
           <div class="preset-strip">
             <button class="pset" onclick="setPreset('all')" id="pset-all">▶ Сите</button>
-            <button class="pset" onclick="setPreset('phishing')">⚠️ Само Phishing</button>
-            <button class="pset" onclick="setPreset('cyber')">🔐 Само Сајбер</button>
-            <button class="pset" onclick="setPreset('media')">📡 Само Медиуми</button>
-            <button class="pset" onclick="setPreset('phishcyber')">⚠️+🔐</button>
-            <button class="pset" onclick="setPreset('phishmedia')">⚠️+📡</button>
-            <button class="pset" onclick="setPreset('cybermedia')">🔐+📡</button>
+            <button class="pset" onclick="setPreset('phishing')" id="pset-phishing">⚠️ Само Phishing</button>
+            <button class="pset" onclick="setPreset('cyber')" id="pset-cyber">🔐 Само Сајбер</button>
+            <button class="pset" onclick="setPreset('media')" id="pset-media">📡 Само Медиуми</button>
+            <button class="pset" onclick="setPreset('phishcyber')" id="pset-phishcyber">⚠️+🔐</button>
+            <button class="pset" onclick="setPreset('phishmedia')" id="pset-phishmedia">⚠️+📡</button>
+            <button class="pset" onclick="setPreset('cybermedia')" id="pset-cybermedia">🔐+📡</button>
           </div>
         </div>
         <div class="rsel-grid" id="rsel-grid"></div>
@@ -2961,7 +3110,7 @@
         <div class="tfill" id="tf-s" style="width:100%"></div>
       </div>
     </div>
-    <button class="btn btn-ghost" id="stroop-done" style="display:none" onclick="endMini()">Продолжи →</button>
+    <button class="btn btn-ghost" id="stroop-done" style="display:none" onclick="_doEndMini()">Продолжи →</button>
   </div>
 
   <!-- ══ BOMB MINI (per-player sequential) ══ -->
@@ -2972,15 +3121,15 @@
         <div class="tfill" id="tf-b" style="width:100%"></div>
       </div>
     </div>
-    <button class="btn btn-ghost" id="bomb-done" style="display:none" onclick="endMini()">Продолжи →</button>
+    <button class="btn btn-ghost" id="bomb-done" style="display:none" onclick="_doEndMini()">Продолжи →</button>
   </div>
 
   <!-- ══ WORD MATCH MINI ══ -->
   <div id="sc-wordmatch" class="screen">
     <div class="card card-glow" style="width:100%;max-width:700px">
-      <div class="tag t-blue" style="margin-bottom:10px">🔤 СПОЈ ЗБОРОВИ — БЕЗ ЕЛИМИНАЦИЈА</div>
-      <div style="font-weight:900;font-size:1rem;margin-bottom:4px">Поврзи го термот со точната дефиниција!</div>
-      <div style="font-size:.78rem;color:var(--muted);margin-bottom:14px">Кликни термин, потоа кликни дефиниција. Сите
+      <div class="tag t-blue" id="wm-tag" style="margin-bottom:10px">🔤 СПОЈ ЗБОРОВИ — БЕЗ ЕЛИМИНАЦИЈА</div>
+      <div id="wm-title" style="font-weight:900;font-size:1rem;margin-bottom:4px">Поврзи го термот со точната дефиниција!</div>
+      <div id="wm-sub" style="font-size:.78rem;color:var(--muted);margin-bottom:14px">Кликни термин, потоа кликни дефиниција. Сите
         играчи работат заедно.</div>
       <div class="wm-grid">
         <div>
@@ -3000,7 +3149,7 @@
       <div id="wm-score" style="text-align:center;font-size:.9rem;font-weight:800;margin-top:10px;color:var(--muted)">
       </div>
     </div>
-    <button class="btn btn-ghost" id="wm-done" style="display:none" onclick="endMini()">Продолжи →</button>
+    <button class="btn btn-ghost" id="wm-done" style="display:none" onclick="_doEndMini()">Продолжи →</button>
   </div>
 
   <!-- ══ ELIMINATION ══ -->
@@ -3065,21 +3214,20 @@
         style="font-size:2rem;font-weight:900;margin:10px 0;background:linear-gradient(135deg,gold,#fb923c);-webkit-background-clip:text;-webkit-text-fill-color:transparent"
         id="result-title">DIGITAL SURVIVOR!</div>
       <div id="result-winner" style="font-size:1.2rem;font-weight:800;color:var(--yellow);margin-bottom:6px"></div>
-      <div style="font-size:.85rem;color:var(--muted);margin-bottom:22px">Кликни на секој играч за детален преглед →
+      <div id="result-click-hint" style="font-size:.85rem;color:var(--muted);margin-bottom:22px">Кликни на секој играч за детален преглед →
       </div>
       <div id="final-list" style="max-width:520px;margin:0 auto"></div>
       <div style="margin:16px 0">
-        <div style="font-size:.85rem;font-weight:800;color:var(--yellow);margin-bottom:10px">🏅 ОСВОЕНИ ДОСТИГНУВАЊА:
+        <div id="badges-title" style="font-size:.85rem;font-weight:800;color:var(--yellow);margin-bottom:10px">🏅 ОСВОЕНИ ДОСТИГНУВАЊА:
         </div>
         <div class="badge-display" id="final-badges"></div>
       </div>
       <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:22px">
-        <button class="btn btn-yellow" onclick="showCertificate()">📜 Сертификат</button>
+        <button class="btn btn-yellow" id="cert-btn" onclick="showCertificate()">📜 Сертификат</button>
         <button class="btn btn-purple" onclick="showQR()">📱 QR Код</button>
-        <button class="btn btn-ghost" style="background:var(--green);color:#000" onclick="exportCSV()">📊 Извози
-          CSV</button>
-        <button class="btn btn-ghost" onclick="continueForFun()">▶ Продолжи за забава</button>
-        <button class="btn btn-primary" onclick="restartGame()">↺ Играј повторно</button>
+        <button class="btn btn-ghost" id="csv-btn" style="background:var(--green);color:#000" onclick="exportCSV()">📊 Извози CSV</button>
+        <button class="btn btn-ghost" id="fun-btn" onclick="continueForFun()">▶ Продолжи за забава</button>
+        <button class="btn btn-primary" id="restart-btn" onclick="restartGame()">↺ Играј повторно</button>
       </div>
     </div>
   </div>
@@ -3110,9 +3258,9 @@
   <div id="cert-modal">
     <div class="cert-modal-inner">
       <div class="cert-modal-topbar">
-        <button class="btn btn-ghost btn-sm" onclick="closeCert()">← Назад</button>
-        <div style="font-size:.8rem;color:var(--muted)">Сертификат за дигитална писменост</div>
-        <button class="btn btn-yellow btn-sm" onclick="window.print()">🖨️ Печати / PDF</button>
+        <button class="btn btn-ghost btn-sm" id="cert-back-btn" onclick="closeCert()">← Назад</button>
+        <div id="cert-topbar-lbl" style="font-size:.8rem;color:var(--muted)">Сертификат за дигитална писменост</div>
+        <button class="btn btn-yellow btn-sm" id="cert-print-btn" onclick="window.print()">🖨️ Печати / PDF</button>
       </div>
       <div class="cert-card" id="cert-page">
         <div class="cert-card-top">
@@ -3866,7 +4014,7 @@
         card.className = "rsel-card" + (on ? " on" : "") + (played ? " " : " ");
         card.style.opacity = played ? "0.45" : "1";
         card.innerHTML = `<div class="ri">${rd.icon}</div>
-      <div><div class="rt">${rd.label}${played ? " ✓ Изиграна" : ""}</div><div class="rd">${rd.qs.length} прашања${played ? " — не може повторно" : ""}</div></div>
+      <div><div class="rt">${rd.label}${played ? (" ✓ " + t('Изиграна','Played')) : ""}</div><div class="rd">${rd.qs.length} ${t('прашања','questions')}${played ? (" — " + t('не може повторно','cannot repeat')) : ""}</div></div>
       <div class="rsel-check">${on ? "✓" : ""}</div>`;
         if (!played) { card.onclick = () => toggleRsel(rd.id); }
         else { card.style.pointerEvents = "none"; card.style.cursor = "not-allowed"; }
@@ -4034,7 +4182,7 @@
     <div class="quiz-card">
       <div class="quiz-header">
         <div class="quiz-rtype ${round.tagClass}" style="background:transparent">${round.fullLabel}</div>
-        <div class="quiz-who">${getAV(player)} <strong>${player}</strong> — Прашање ${idx + 1} од ${total} <span class="lt-${difficulty}">${difficulty === "easy" ? "🟢 Лесно" : difficulty === "hard" ? "🔴 Тешко" : "🟡 Средно"}</span></div>
+        <div class="quiz-who">${getAV(player)} <strong>${player}</strong> — ${t('Прашање','Question')} ${idx + 1} ${t('од','of')} ${total} <span class="lt-${difficulty}">${difficulty === "easy" ? ("🟢 " + t('Лесно','Easy')) : difficulty === "hard" ? ("🔴 " + t('Тешко','Hard')) : ("🟡 " + t('Средно','Medium'))}</span></div>
         <div class="quiz-q" id="quiz-q-text"></div>
         ${visualHTML}
       </div>
@@ -4263,10 +4411,21 @@
 
     function endMini() {
       clearInterval(tiv); startBg('none');
-      if (actP.length === 0) { showResult(); return; }
-      // startRound handles all wrap/exhaustion logic - don't pre-wrap here
-      showSc("sc-game");
-      startRound();
+      // Show "Back to mini selector" button — user must press to go back
+      ['stroop-done', 'bomb-done', 'wm-done'].forEach(id => {
+        const btn = document.getElementById(id);
+        if (btn) {
+          btn.style.display = 'inline-flex';
+          btn.className = 'btn btn-primary btn-mini-done';
+          btn.textContent = t('↩ Назад кон избор на игри', '↩ Back to game selection');
+          btn.onclick = () => showSc('sc-mini');
+        }
+      });
+    }
+
+    function _doEndMini() {
+      // Legacy — now just shows the back button via endMini
+      endMini();
     }
 
     // ── STROOP ──────────────────────────────────────────────────────
@@ -4283,10 +4442,10 @@
         const d = document.createElement("div"); d.className = "stroop-card"; d.style.color = c.col;
         d.innerHTML = `<span class="stroop-label">#${i + 1}</span>${c.w}`; g.appendChild(d);
       });
-      document.getElementById("s-phase").textContent = "👀 Гледај ги БОИТЕ — не зборовите! (5 сек)";
+      document.getElementById("s-phase").textContent = t("👀 Гледај ги БОИТЕ — не зборовите! (5 сек)","👀 Look at the COLORS — not the words! (5 sec)");
       startTimer(5, "tf-s", () => {
         g.querySelectorAll(".stroop-card").forEach(d => d.style.color = "#4a5568");
-        document.getElementById("s-phase").textContent = "✍️ Внеси ги боите по ред (пр: тиркизна, кизе, жолта, зелена)";
+        document.getElementById("s-phase").textContent = t("✍️ Внеси ги боите по ред (пр: тиркизна, кизе, жолта, зелена)","✍️ Enter the colors in order (e.g. cyan, pink, yellow, green)");
         const inp = document.getElementById("s-inputs"); inp.innerHTML = "";
         const plist = actP.length > 0 ? actP : selP;
         plist.forEach(p => {
@@ -4297,8 +4456,9 @@
           inp.appendChild(row);
         });
         startTimer(28, "tf-s", () => {
-          document.getElementById("s-fb").innerHTML = `<div class="fb fb-info"><div class="fb-icon">🎯</div><div>Точен редослед: <strong>${stroopAns.join(" → ")}</strong></div></div>`;
+          document.getElementById("s-fb").innerHTML = `<div class="fb fb-info"><div class="fb-icon">🎯</div><div>${t('Точен редослед','Correct order')}: <strong>${stroopAns.join(" → ")}</strong></div></div>`;
           document.getElementById("stroop-done").style.display = "inline-flex";
+          endMini();
         });
       });
     }
@@ -4316,8 +4476,9 @@
       const plist = actP.length > 0 ? actP : selP;
       if (plist.every(pl => stroopDone.has(pl))) {
         clearInterval(tiv);
-        document.getElementById("s-fb").innerHTML = `<div class="fb fb-info"><div class="fb-icon">🎯</div><div>Точен редослед: <strong>${stroopAns.join(" → ")}</strong></div></div>`;
+        document.getElementById("s-fb").innerHTML = `<div class="fb fb-info"><div class="fb-icon">🎯</div><div>${t('Точен редослед','Correct order')}: <strong>${stroopAns.join(" → ")}</strong></div></div>`;
         document.getElementById("stroop-done").style.display = "inline-flex";
+        endMini();
       }
     }
 
@@ -4341,12 +4502,12 @@
 
     function showBombRevealPhase() {
       // Show bombs to everyone for 5 seconds
-      const cfg_text = `Поле ${bombR}×${bombC} — ${bombLayout.size} бомби`;
+      const cfg_text = `${t('Поле','Grid')} ${bombR}×${bombC} — ${bombLayout.size} ${t('бомби','bombs')}`;
       document.getElementById("bomb-inner").innerHTML = `
     <div class="bomb-phase-banner">
-      <div class="tag t-red" style="margin-bottom:8px">💣 БОМБИ БОНУС — БЕЗ ЕЛИМИНАЦИЈА</div>
-      <h3>Запомни каде се бомбите!</h3>
-      <div style="font-size:.8rem;color:var(--muted);margin-top:4px">${cfg_text} — Имате 5 секунди!</div>
+      <div class="tag t-red" style="margin-bottom:8px">💣 ${t('БОМБИ БОНУС — БЕЗ ЕЛИМИНАЦИЈА','BOMB BONUS — NO ELIMINATION')}</div>
+      <h3>${t('Запомни каде се бомбите!','Remember where the bombs are!')}</h3>
+      <div style="font-size:.8rem;color:var(--muted);margin-top:4px">${cfg_text} — ${t('Имате 5 секунди!','You have 5 seconds!')}</div>
     </div>
     <div class="bomb-grid-reveal" id="bomb-reveal-grid" style="grid-template-columns:repeat(${bombC},70px)"></div>`;
       const g = document.getElementById("bomb-reveal-grid");
@@ -4364,10 +4525,10 @@
       document.getElementById("bomb-inner").innerHTML = `
     <div class="bomb-ready-screen">
       <div class="br-av">${getAV(p)}</div>
-      <h3>${p} — Твојот ред!</h3>
-      <p>Означи ги ќелиите со бомби. Само ти гледаш сега.<br>Скриј го екранот од другите!</p>
+      <h3>${p} — ${t('Твојот ред!','Your turn!')}</h3>
+      <p>${t('Означи ги ќелиите со бомби. Само ти гледаш сега.','Mark the cells with bombs. Only you are watching now.')}<br>${t('Скриј го екранот од другите!','Hide the screen from others!')}</p>
       <div class="bomb-progress-strip" id="bprog-strip"></div>
-      <button class="btn btn-red btn-lg" onclick="bombStartPlayerTurn('${p}')">💣 ${t('Јас сум подготвен — Почни!', 'I\'m ready — Start!')}</button>
+      <button class="btn btn-red btn-lg" onclick="bombStartPlayerTurn('${p}')">💣 ${t('Јас сум подготвен — Почни!', "I'm ready — Start!")}</button>
     </div>`;
       // Progress strip
       const strip = document.getElementById("bprog-strip");
@@ -4390,8 +4551,8 @@
       <div class="bomb-player-header">
         <div style="font-size:2.2rem">${getAV(p)}</div>
         <div>
-          <div style="font-weight:900;font-size:1rem">${p} — Означи ги бомбите!</div>
-          <div style="font-size:.75rem;color:var(--muted)">Избери режим, потоа кликни ќелија. Сите бомби мора да се означат.</div>
+          <div style="font-weight:900;font-size:1rem">${p} — ${t('Означи ги бомбите!','Mark the bombs!')}</div>
+          <div style="font-size:.75rem;color:var(--muted)">${t('Избери режим, потоа кликни ќелија. Сите бомби мора да се означат.','Choose mode, then click a cell. All bombs must be marked.')}</div>
         </div>
       </div>
       <div class="bomb-mode-bar">
@@ -4466,12 +4627,13 @@
       document.getElementById("bomb-inner").innerHTML = `
     <div style="text-align:center;padding:10px">
       <div style="font-size:2rem;margin-bottom:8px">💣</div>
-      <div style="font-size:1.1rem;font-weight:900;margin-bottom:14px">Резултати — Бомби бонус</div>
-      ${correct.length ? `<div style="color:var(--green);font-size:.9rem;margin-bottom:8px">✅ Точно: <strong>${correct.map(p => getAV(p) + " " + p).join(", ")}</strong></div>` : ""}
-      ${wrong.length ? `<div style="color:var(--red);font-size:.9rem;margin-bottom:8px">❌ Погрешно: <strong>${wrong.map(p => getAV(p) + " " + p).join(", ")}</strong></div>` : ""}
-      <div style="color:var(--muted);font-size:.82rem;margin-top:10px">Бонус рунда — без елиминација 🎮</div>
+      <div style="font-size:1.1rem;font-weight:900;margin-bottom:14px">${t('Резултати — Бомби бонус','Results — Bomb Bonus')}</div>
+      ${correct.length ? `<div style="color:var(--green);font-size:.9rem;margin-bottom:8px">✅ ${t('Точно','Correct')}: <strong>${correct.map(p => getAV(p) + " " + p).join(", ")}</strong></div>` : ""}
+      ${wrong.length ? `<div style="color:var(--red);font-size:.9rem;margin-bottom:8px">❌ ${t('Погрешно','Wrong')}: <strong>${wrong.map(p => getAV(p) + " " + p).join(", ")}</strong></div>` : ""}
+      <div style="color:var(--muted);font-size:.82rem;margin-top:10px">${t('Бонус рунда — без елиминација 🎮','Bonus round — no elimination 🎮')}</div>
     </div>`;
       document.getElementById("bomb-done").style.display = "inline-flex";
+      endMini();
     }
 
     // ── WORD MATCH ───────────────────────────────────────────────────
@@ -4494,7 +4656,7 @@
         const d = document.createElement("div"); d.className = "wm-item"; d.dataset.def = p.t;
         d.textContent = p.d; d.onclick = () => wmSelectDef(p.t, d); dc.appendChild(d);
       });
-      document.getElementById("wm-score").textContent = `Поврзани: 0 / ${wmPairs.length}`;
+      document.getElementById("wm-score").textContent = `${t('Поврзани','Matched')}: 0 / ${wmPairs.length}`;
     }
 
     let wmSelTermEl = null, wmSelTerm = null;
@@ -4507,15 +4669,16 @@
       if (!wmSelTerm || el.classList.contains("wm-matched")) return;
       if (wmSelTerm === t) {
         el.classList.add("wm-matched"); wmSelTermEl.classList.remove("wm-selected"); wmSelTermEl.classList.add("wm-matched");
-        wmMatched++; toast("✅ Точно поврзано!", "ok");
-        document.getElementById("wm-score").textContent = `Поврзани: ${wmMatched} / ${wmPairs.length}`;
+        wmMatched++; toast("✅ " + t("Точно поврзано!","Correctly matched!"), "ok");
+        document.getElementById("wm-score").textContent = `${t('Поврзани','Matched')}: ${wmMatched} / ${wmPairs.length}`;
         if (wmMatched === wmPairs.length) {
-          document.getElementById("wm-fb").innerHTML = `<div class="fb fb-ok"><div class="fb-icon">🎉</div><div><strong>Одлично! Сите поими поврзани!</strong> Извонредна работа!</div></div>`;
+          document.getElementById("wm-fb").innerHTML = `<div class="fb fb-ok"><div class="fb-icon">🎉</div><div><strong>${t('Одлично! Сите поими поврзани!','Excellent! All terms matched!')}</strong> ${t('Извонредна работа!','Outstanding work!')}</div></div>`;
           document.getElementById("wm-done").style.display = "inline-flex";
+          endMini(); // trigger button upgrade
         }
       } else {
         el.classList.add("wm-wrong"); wmSelTermEl.classList.add("wm-wrong");
-        toast("❌ Погрешно! Обиди се повторно.", "ng");
+        toast("❌ " + t("Погрешно! Обиди се повторно.","Wrong! Try again."), "ng");
         setTimeout(() => { el.classList.remove("wm-wrong"); wmSelTermEl.classList.remove("wm-wrong"); }, 700);
       }
       wmSelTerm = null; wmSelTermEl = null;
@@ -4530,20 +4693,20 @@
       document.getElementById("det-av").textContent = getAV(p);
       document.getElementById("det-name").textContent = p;
       document.getElementById("det-status").innerHTML = isElim
-        ? `<span class="tag t-red">💀 Елиминиран</span>`
-        : `<span class="tag t-green">✅ Активен</span>`;
+        ? `<span class="tag t-red">💀 ${t('Елиминиран','Eliminated')}</span>`
+        : `<span class="tag t-green">✅ ${t('Активен','Active')}</span>`;
       const ans = pScores[p]?.answers || [];
       const tot = ans.length, corr = ans.filter(a => a.isCorrect).length, wrong = tot - corr;
       const pct = tot > 0 ? Math.round(corr / tot * 100) : 0;
       document.getElementById("det-bar").style.width = pct + "%";
       document.getElementById("det-bar").style.background = pct >= 50 ? "linear-gradient(90deg,var(--green),var(--cyan))" : "linear-gradient(90deg,var(--red),var(--yellow))";
       document.getElementById("det-stats").innerHTML = `
-    <div class="stat-box"><div class="stat-num" style="color:var(--cyan)">${tot}</div><div style="font-size:.7rem;color:var(--muted);margin-top:4px">ВКУПНО</div></div>
-    <div class="stat-box"><div class="stat-num" style="color:var(--green)">${corr}</div><div style="font-size:.7rem;color:var(--muted);margin-top:4px">ТОЧНИ</div></div>
-    <div class="stat-box"><div class="stat-num" style="color:var(--red)">${wrong}</div><div style="font-size:.7rem;color:var(--muted);margin-top:4px">ПОГРЕШНИ</div></div>
-    <div class="stat-box"><div class="stat-num" style="color:${pct >= 50 ? "var(--green)" : "var(--red)"}">${pct}%</div><div style="font-size:.7rem;color:var(--muted);margin-top:4px">СКОР</div></div>`;
+    <div class="stat-box"><div class="stat-num" style="color:var(--cyan)">${tot}</div><div style="font-size:.7rem;color:var(--muted);margin-top:4px">${t('ВКУПНО','TOTAL')}</div></div>
+    <div class="stat-box"><div class="stat-num" style="color:var(--green)">${corr}</div><div style="font-size:.7rem;color:var(--muted);margin-top:4px">${t('ТОЧНИ','CORRECT')}</div></div>
+    <div class="stat-box"><div class="stat-num" style="color:var(--red)">${wrong}</div><div style="font-size:.7rem;color:var(--muted);margin-top:4px">${t('ПОГРЕШНИ','WRONG')}</div></div>
+    <div class="stat-box"><div class="stat-num" style="color:${pct >= 50 ? "var(--green)" : "var(--red)"}">${pct}%</div><div style="font-size:.7rem;color:var(--muted);margin-top:4px">${t('СКОР','SCORE')}</div></div>`;
       const list = document.getElementById("det-list"); list.innerHTML = "";
-      if (ans.length === 0) { list.innerHTML = `<div style="color:var(--muted);text-align:center;padding:20px">Нема записани одговори</div>`; return; }
+      if (ans.length === 0) { list.innerHTML = `<div style="color:var(--muted);text-align:center;padding:20px">${t('Нема записани одговори','No recorded answers')}</div>`; return; }
       ans.forEach((a, i) => {
         const cls = a.chosen === null ? "qai-skip" : a.isCorrect ? "qai-ok" : "qai-ng";
         const icon = a.chosen === null ? "⏰" : a.isCorrect ? "✅" : "❌";
@@ -4561,8 +4724,8 @@
         <div style="display:flex;flex-direction:column;gap:5px">
           ${a.ch.map((ch, ci) => {
           let cls2 = "qcd-neutral", marker = "";
-          if (ci === a.correct) { cls2 = "qcd-correct"; marker = "✅ Точен одговор"; }
-          else if (ci === a.chosen && !a.isCorrect) { cls2 = "qcd-wrong"; marker = "❌ Твој одговор"; }
+          if (ci === a.correct) { cls2 = "qcd-correct"; marker = t("✅ Точен одговор","✅ Correct answer"); }
+          else if (ci === a.chosen && !a.isCorrect) { cls2 = "qcd-wrong"; marker = t("❌ Твој одговор","❌ Your answer"); }
           return `<div class="qcd ${cls2}"><strong>${letters[ci]}.</strong> <span>${ch}</span>${marker ? ` <em style="font-size:.72rem;opacity:.8">(${marker})</em>` : ""}`;
         }).join("")}
         </div>
@@ -4589,11 +4752,11 @@
         resultTitle.textContent = "🏆 DIGITAL SURVIVOR!";
         resultWinner.textContent = `${getAV(winner)} ${winner}`;
       } else if (actP.length > 1) {
-        resultTitle.textContent = "🏁 КРАЈ НА ИГРАТА!";
-        resultWinner.textContent = "Нема единствен победник — сè уште играат повеќе играчи!";
+        resultTitle.textContent = t("🏁 КРАЈ НА ИГРАТА!", "🏁 GAME OVER!");
+        resultWinner.textContent = t("Нема единствен победник — сè уште играат повеќе играчи!", "No single winner — multiple players still active!");
       } else {
-        resultTitle.textContent = "🤝 КРАЈ НА ИГРАТА!";
-        resultWinner.textContent = "Нема победник — сите биле елиминирани!";
+        resultTitle.textContent = t("🤝 КРАЈ НА ИГРАТА!", "🤝 GAME OVER!");
+        resultWinner.textContent = t("Нема победник — сите биле елиминирани!", "No winner — all players were eliminated!");
       }
       const fl = document.getElementById("final-list"); fl.innerHTML = "";
       const sorted = [...selP].sort((a, b) => {
@@ -4612,7 +4775,7 @@
       <div><div style="font-weight:800">${p}</div><div style="font-size:.7rem;color:var(--muted)">✅${s.correct} ❌${s.wrong} — ${pct}%</div></div>
     </div>
     <div style="display:flex;align-items:center;gap:8px">
-      <span class="tag ${isElim ? "t-red" : "t-green"}">${isElim ? "💀 Елим." : "✅ Активен"}</span>
+      <span class="tag ${isElim ? "t-red" : "t-green"}">${isElim ? ("💀 " + t('Елим.','Elim.')) : ("✅ " + t('Активен','Active'))}</span>
       <span style="color:var(--cyan)">→</span>
     </div>`;
         div.onclick = () => openDetail(p); fl.appendChild(div);
@@ -4837,7 +5000,7 @@
     function renderTip(container) {
       const tip = getRoundTip();
       const div = document.createElement('div'); div.className = 'tip-card';
-      div.innerHTML = `<div class="tip-icon">${tip.icon}</div><div><div class="tip-title">💡 Совет: ${tip.title}</div><div class="tip-text">${tip.text}</div></div>`;
+      div.innerHTML = `<div class="tip-icon">${tip.icon}</div><div><div class="tip-title">💡 ${t('Совет','Tip')}: ${tip.title}</div><div class="tip-text">${tip.text}</div></div>`;
       const el = document.getElementById(container); if (el) el.appendChild(div);
     }
 
@@ -4913,10 +5076,11 @@
       const pick = document.createElement('div');
       pick.id = 'cert-picker';
       pick.style.cssText = 'position:fixed;inset:0;background:#000d;display:flex;align-items:center;justify-content:center;z-index:800';
+      const _cpen = (typeof currentLang !== 'undefined' && currentLang === 'en');
       pick.innerHTML = `<div style="background:var(--card);border:2px solid var(--b2);border-radius:20px;padding:28px;max-width:400px;width:90%;text-align:center">
     <div style="font-size:1.8rem;margin-bottom:6px">📜</div>
-    <div style="font-size:1rem;font-weight:900;margin-bottom:6px;color:var(--cyan)">Избери играч</div>
-    <div style="font-size:.82rem;color:var(--muted);margin-bottom:16px">Генерирај сертификат за:</div>
+    <div style="font-size:1rem;font-weight:900;margin-bottom:6px;color:var(--cyan)">${_cpen ? 'Select player' : 'Избери играч'}</div>
+    <div style="font-size:.82rem;color:var(--muted);margin-bottom:16px">${_cpen ? 'Generate certificate for:' : 'Генерирај сертификат за:'}</div>
     <div style="display:flex;flex-direction:column;gap:8px;max-height:280px;overflow-y:auto">
       ${players.map(p => {
         const s = pScores[p] || { correct: 0, total: 0 };
@@ -4928,7 +5092,7 @@
         </button>`;
       }).join('')}
     </div>
-    <button class="btn btn-ghost btn-sm" style="margin-top:12px;width:100%" onclick="document.getElementById('cert-picker').remove()">Откажи</button>
+    <button class="btn btn-ghost btn-sm" style="margin-top:12px;width:100%" onclick="document.getElementById('cert-picker').remove()">${_cpen ? 'Cancel' : 'Откажи'}</button>
   </div>`;
       document.body.appendChild(pick);
     }
@@ -4937,23 +5101,28 @@
       const pct = s.total > 0 ? Math.round(s.correct / s.total * 100) : 0;
       const star = pct >= 90 ? '⭐⭐⭐' : pct >= 70 ? '⭐⭐' : pct >= 50 ? '⭐' : '';
       const badge_icons = [...earnedBadges].map(id => { const b = BADGES_DEF.find(x => x.id === id); return b ? `<span title="${b.name}">${b.icon}</span>` : '' }).join('');
-      const now = new Date().toLocaleDateString('mk-MK', { year: 'numeric', month: 'long', day: 'numeric' });
-      const ach = pct >= 90 ? 'за исклучителни вештини и СОВРШЕН резултат во дигитална безбедност и медиумска писменост' :
-        pct >= 70 ? 'за покажани извонредни вештини во препознавање на фишинг напади, дигитални закани и лажни вести' :
-          pct >= 50 ? 'за успешно завршување на обуката за дигитална безбедност и медиумска писменост' :
-            'за учество и посветеност во програмата за дигитална писменост';
+      const _cen = (typeof currentLang !== 'undefined' && currentLang === 'en');
+      const now = new Date().toLocaleDateString(_cen ? 'en-GB' : 'mk-MK', { year: 'numeric', month: 'long', day: 'numeric' });
+      const ach = _cen
+        ? (pct >= 90 ? 'for exceptional skills and a PERFECT score in digital safety and media literacy'
+          : pct >= 70 ? 'for demonstrated outstanding skills in recognizing phishing attacks, digital threats and fake news'
+          : pct >= 50 ? 'for successfully completing training in digital safety and media literacy'
+          : 'for participation and dedication in the digital literacy program')
+        : (pct >= 90 ? 'за исклучителни вештини и СОВРШЕН резултат во дигитална безбедност и медиумска писменост'
+          : pct >= 70 ? 'за покажани извонредни вештини во препознавање на фишинг напади, дигитални закани и лажни вести'
+          : pct >= 50 ? 'за успешно завршување на обуката за дигитална безбедност и медиумска писменост'
+          : 'за учество и посветеност во програмата за дигитална писменост');
       document.getElementById('cert-name').textContent = name;
       const scoreNum = document.getElementById('cert-score-num');
       if (scoreNum) scoreNum.textContent = pct + '%';
       const scoreLbl = document.getElementById('cert-score-lbl');
-      if (scoreLbl) scoreLbl.innerHTML = s.correct + '/' + s.total + ' точни<br>' + star;
+      if (scoreLbl) scoreLbl.innerHTML = s.correct + '/' + s.total + ' ' + (_cen ? 'correct' : 'точни') + '<br>' + star;
       document.getElementById('cert-badges').innerHTML = badge_icons || '🏅';
-      document.getElementById('cert-date').innerHTML = 'Издадено на<br><strong>' + now + '</strong>';
+      document.getElementById('cert-date').innerHTML = (_cen ? 'Issued on' : 'Издадено на') + '<br><strong>' + now + '</strong>';
       document.getElementById('cert-achievement').textContent = ach + '.';
       document.getElementById('cert-modal').style.display = 'block';
       document.body.style.overflow = 'hidden';
-      // Apply cert language
-      const _cen = (typeof currentLang !== 'undefined' && currentLang === 'en');
+      // Apply cert language (already declared as _cen above)
       const _cgt = document.getElementById('cert-given-to');
       if (_cgt) _cgt.textContent = _cen ? 'This certificate is proudly awarded to' : 'Со гордост се доделува на';
       const _csig = document.getElementById('cert-footer-sig');
@@ -5016,17 +5185,19 @@
 
 
     // ── MASCOT ──────────────────────────────────────────────────────────────────
-    const MASCOT_MSGS = {
-      start: ["Подготвен ли си? 🚀", "Ајде, покажи им! 💪", "Верувам во тебе! ⭐"],
-      correct: ["Браво! Ти знаеш! 🎉", "Одлично! Продолжи! ✨", "Само така! 🔥", "Супер! Ти си ѕвезда! ⭐"],
-      wrong: ["Не се предавај! 💪", "Следниот пат! 🤞", "Грешките учат! 📚", "Сега знаеш! 😊"],
-      streak: ["STREAK! Јуху! 🔥🔥", "Неверојатно! 🤩", "Ти си на пат! ⚡"],
-      timeout: ["Побрзај! ⏰", "Внимавај на времето! ⌚"],
-      win: ["ПОБЕДНИК! 🏆", "Легенда! 👑", "Ти си Digital Survivor! 🛡️"],
-    };
+    function getMascotMsgs() {
+      return {
+        start: [t("Подготвен ли си? 🚀","Are you ready? 🚀"), t("Ајде, покажи им! 💪","Show them what you've got! 💪"), t("Верувам во тебе! ⭐","I believe in you! ⭐")],
+        correct: [t("Браво! Ти знаеш! 🎉","Well done! You know it! 🎉"), t("Одлично! Продолжи! ✨","Excellent! Keep going! ✨"), t("Само така! 🔥","Just like that! 🔥"), t("Супер! Ти си ѕвезда! ⭐","Super! You're a star! ⭐")],
+        wrong: [t("Не се предавај! 💪","Don't give up! 💪"), t("Следниот пат! 🤞","Better next time! 🤞"), t("Грешките учат! 📚","Mistakes teach us! 📚"), t("Сега знаеш! 😊","Now you know! 😊")],
+        streak: [t("STREAK! Јуху! 🔥🔥","STREAK! Woohoo! 🔥🔥"), t("Неверојатно! 🤩","Incredible! 🤩"), t("Ти си на пат! ⚡","You're on fire! ⚡")],
+        timeout: [t("Побрзај! ⏰","Hurry up! ⏰"), t("Внимавај на времето! ⌚","Watch the clock! ⌚")],
+        win: [t("ПОБЕДНИК! 🏆","WINNER! 🏆"), t("Легенда! 👑","Legend! 👑"), t("Ти си Digital Survivor! 🛡️","You're a Digital Survivor! 🛡️")],
+      };
+    }
     let mascotTimer = null;
     function mascotSay(type, extra) {
-      const msgs = MASCOT_MSGS[type] || MASCOT_MSGS.start;
+      const msgs = getMascotMsgs()[type] || getMascotMsgs().start;
       const msg = extra || msgs[Math.floor(Math.random() * msgs.length)];
       const bubble = document.getElementById('mascot-bubble');
       const body = document.getElementById('mascot-body');
@@ -5113,7 +5284,7 @@
       const title = document.getElementById('recap-title');
       const list = document.getElementById('recap-list');
       const btn = document.getElementById('recap-continue-btn');
-      if (title) title.textContent = `Преглед — Рунда ${curRound} (${roundQueue[curRound - 1]?.label || ''})`;
+      if (title) title.textContent = `${t('Преглед — Рунда', 'Review — Round')} ${curRound} (${roundQueue[curRound - 1]?.label || ''})`;
       if (list) list.innerHTML = '';
       // Collect all questions from current round across all players
       const allPlayers = [...actP, ...elimP];
@@ -5133,7 +5304,7 @@
           if (list) list.appendChild(div);
         });
       });
-      if (list && list.children.length === 0) list.innerHTML = '<div style="color:var(--muted);text-align:center;padding:20px">Нема прашања за прикажување</div>';
+      if (list && list.children.length === 0) list.innerHTML = `<div style="color:var(--muted);text-align:center;padding:20px">${t('Нема прашања за прикажување', 'No questions to display')}</div>`;
       if (btn) btn.onclick = () => {
         document.getElementById('sc-recap').classList.remove('active');
         if (cb) cb();
@@ -5561,6 +5732,53 @@
           : '🏆 РАНГ ЛИСТА';
       }
 
+      const wmtag = document.getElementById('wm-tag'); if (wmtag) wmtag.textContent = en_ ? '🔤 WORD MATCH — NO ELIMINATION' : '🔤 СПОЈ ЗБОРОВИ — БЕЗ ЕЛИМИНАЦИЈА';
+      const wmtit = document.getElementById('wm-title'); if (wmtit) wmtit.textContent = en_ ? 'Match the term with the correct definition!' : 'Поврзи го термот со точната дефиниција!';
+      const wmsub = document.getElementById('wm-sub'); if (wmsub) wmsub.textContent = en_ ? 'Click a term, then click a definition. All players work together.' : 'Кликни термин, потоа кликни дефиниција. Сите играчи работат заедно.';
+      // Preset strip
+      const pph = document.getElementById('pset-phishing'); if (pph) pph.textContent = en_ ? '⚠️ Phishing only' : '⚠️ Само Phishing';
+      const pcy = document.getElementById('pset-cyber'); if (pcy) pcy.textContent = en_ ? '🔐 Cyber only' : '🔐 Само Сајбер';
+      const pme = document.getElementById('pset-media'); if (pme) pme.textContent = en_ ? '📡 Media only' : '📡 Само Медиуми';
+      // Result screen
+      const rch = document.getElementById('result-click-hint'); if (rch) rch.textContent = en_ ? 'Click on each player for a detailed overview →' : 'Кликни на секој играч за детален преглед →';
+      const bgt = document.getElementById('badges-title'); if (bgt) bgt.textContent = en_ ? '🏅 EARNED ACHIEVEMENTS:' : '🏅 ОСВОЕНИ ДОСТИГНУВАЊА:';
+      const crtb = document.getElementById('cert-btn'); if (crtb) crtb.textContent = en_ ? '📜 Certificate' : '📜 Сертификат';
+      const csvb = document.getElementById('csv-btn'); if (csvb) csvb.textContent = en_ ? '📊 Export CSV' : '📊 Извози CSV';
+      const funb = document.getElementById('fun-btn'); if (funb) funb.textContent = en_ ? '▶ Continue for fun' : '▶ Продолжи за забава';
+      const rstb = document.getElementById('restart-btn'); if (rstb) rstb.textContent = en_ ? '↺ Play again' : '↺ Играј повторно';
+      // Certificate modal topbar
+      const cbb = document.getElementById('cert-back-btn'); if (cbb) cbb.textContent = en_ ? '← Back' : '← Назад';
+      const ctbl = document.getElementById('cert-topbar-lbl'); if (ctbl) ctbl.textContent = en_ ? 'Digital Literacy Certificate' : 'Сертификат за дигитална писменост';
+      const cpb = document.getElementById('cert-print-btn'); if (cpb) cpb.textContent = en_ ? '🖨️ Print / PDF' : '🖨️ Печати / PDF';
+      // cert-given-to (static inside cert card, gets updated in _doCertificate but set default too)
+      const cgt = document.getElementById('cert-given-to'); if (cgt) cgt.textContent = en_ ? 'This certificate is proudly awarded to' : 'Со гордост се доделува на';
+      const csl = document.getElementById('cert-score-lbl'); if (csl && csl.textContent.includes('точни')) csl.innerHTML = en_ ? 'correct<br>answers' : 'точни<br>одговори';
+      // Recap continue btn
+      const rcb = document.getElementById('recap-continue-btn'); if (rcb) rcb.textContent = en_ ? 'Continue →' : 'Продолжи →';
+      // Stroop/bomb/wordmatch done buttons
+      const sd = document.getElementById('stroop-done'); if (sd && sd.style.display !== 'none') { sd.textContent = en_ ? '↩ Back to game selection' : '↩ Назад кон избор на игри'; }
+      const bd2 = document.getElementById('bomb-done'); if (bd2 && bd2.style.display !== 'none') { bd2.textContent = en_ ? '↩ Back to game selection' : '↩ Назад кон избор на игри'; }
+      const wd = document.getElementById('wm-done'); if (wd && wd.style.display !== 'none') { wd.textContent = en_ ? '↩ Back to game selection' : '↩ Назад кон избор на игри'; }
+      // Stroop screen titles
+      const st = document.getElementById('stroop-title'); if (st) st.textContent = en_ ? 'Remember the COLORS of the words!' : 'Запомни ги БОИТЕ на зборовите!';
+      const ss = document.getElementById('stroop-sub'); if (ss) ss.textContent = en_ ? "Don't read the words — look at the COLOR. After 5 sec they'll grey out." : 'Не читај ги зборовите — гледај ја БОЈАТА. После 5 сек ќе посивеат.';
+      // ПРОГРЕС / РАНГ ЛИСТА
+      document.querySelectorAll('.tb-label').forEach((el, i) => {
+        const mk = ['Рунда','Тип','Прашање','Активни'];
+        const en = ['Round','Type','Question','Active'];
+        if (en_&&en[i]) el.textContent=en[i]; else if (!en_&&mk[i]) el.textContent=mk[i];
+      });
+      const lbh = document.querySelector('#live-lb div:first-child');
+      if (lbh) lbh.textContent = en_ ? '🏆 RANKING' : '🏆 РАНГ ЛИСТА';
+      // Elim screen static labels
+      const elimS1 = document.querySelector('#sc-elim .section-title[style*="red"]');
+      if (elimS1) elimS1.innerHTML = en_ ? '💀 Eliminated (below 50%)' : '💀 Елиминирани (под 50%)';
+      const elimS2 = document.querySelector('#sc-elim .section-title[style*="green"]');
+      if (elimS2) elimS2.innerHTML = en_ ? '✅ Survived' : '✅ Преживеани';
+      const elimSub = document.querySelector('#sc-elim .card > div[style*="muted"]');
+      if (elimSub) elimSub.textContent = en_ ? 'Click on a player to see their answers in detail' : 'Кликни на играч за да ги видиш неговите одговори во детали';
+      // Mascot bubble default
+      const mb = document.getElementById('mascot-bubble'); if (mb && !mb.classList.contains('show')) mb.textContent = en_ ? 'Hello! Are you ready? 🚀' : 'Здраво! Подготвен ли си? 🚀';
       // Rebuild rounds with correct lang
       ALL_ROUND_DEFS = buildAllRounds();
 
