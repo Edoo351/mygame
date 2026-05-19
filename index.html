@@ -2714,113 +2714,151 @@
 
   <!-- ══ INTRO ══ -->
   <div id="sc-intro" class="screen active">
-    <div class="hero">
-      <span class="hero-emoji">🕵️</span>
-      <h1>DIGITAL SURVIVAL</h1>
-      <p>Научи да се заштитиш на интернет преку предизвикувачки квизови и игри! Секој грешки те учи нешто важно.</p>
-      <div class="feature-pills">
-        <span class="pill pill-red">⚠️ Phishing напади</span>
-        <span class="pill pill-cyan">🔐 Сајбер безбедност</span>
-        <span class="pill pill-purple">📡 Медиумска писменост</span>
-        <span class="pill pill-orange">💣 Меморија бомби</span>
-        <span class="pill pill-green">🧠 Stroop предизвик</span>
-      </div>
+
+    <!-- ── LANGUAGE BAR ── -->
+    <div style="display:flex;justify-content:flex-end;padding:8px 12px 0;gap:6px">
+      <button id="lang-mk-btn" onclick="setLang('mk')"
+        style="background:#1e3a5f;border:2px solid var(--cyan);color:var(--cyan);border-radius:10px;padding:5px 16px;font-size:.8rem;font-weight:800;cursor:pointer;font-family:inherit">
+        🇲🇰 МК
+      </button>
+      <button id="lang-en-btn" onclick="setLang('en')"
+        style="background:var(--panel);border:2px solid var(--border);color:var(--muted);border-radius:10px;padding:5px 16px;font-size:.8rem;font-weight:800;cursor:pointer;font-family:inherit">
+        🇬🇧 EN
+      </button>
     </div>
 
-    <div class="card card-glow">
-      <div class="section-title">① Избери играчи (мин. 2, макс. 8)</div>
-      <div class="add-player-row">
-        <input type="text" id="cname" placeholder="Внеси ime..." style="width:140px"
-          onkeydown="if(event.key==='Enter')addP()" />
-        <div class="gender-btns">
-          <button class="gbtn gsel-m" id="gbtn-m" onclick="setGender('m')" title="Маж">👦 Маж</button>
-          <button class="gbtn" id="gbtn-f" onclick="setGender('f')" title="Жена">👧 Жена</button>
-        </div>
-        <button class="btn btn-primary btn-sm" onclick="addP()">+ Додај</button>
-      </div>
-      <div style="font-size:.72rem;color:var(--muted);text-align:center;margin-bottom:10px">
-        Кликни на играч за да го отстраниш
-      </div>
-      <div class="added-players-list" id="added-list"></div>
-      <div style="margin-bottom:10px">
-        <div style="font-size:.72rem;color:var(--muted);margin-bottom:6px;font-family:'JetBrains Mono',monospace">ИЛИ
-          ИЗБЕРИ ОД ЛИСТА:</div>
-        <div class="players-wrap" id="plist"></div>
-      </div>
-      <div style="text-align:center;color:var(--muted);font-size:.75rem;font-family:'JetBrains Mono',monospace">
-        ИЗБРАНИ: <span id="pcnt" style="color:var(--cyan);font-weight:900">0</span> / 8
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="section-title">② Избери рунди</div>
-      <div style="margin-bottom:10px">
-        <div style="font-size:.75rem;color:var(--muted);margin-bottom:7px">Брзи пресети:</div>
-        <div class="preset-strip">
-          <button class="pset" onclick="setPreset('all')">▶ Сите</button>
-          <button class="pset" onclick="setPreset('phishing')">⚠️ Само Phishing</button>
-          <button class="pset" onclick="setPreset('cyber')">🔐 Само Сајбер</button>
-          <button class="pset" onclick="setPreset('media')">📡 Само Медиуми</button>
-          <button class="pset" onclick="setPreset('phishcyber')">⚠️+🔐</button>
-          <button class="pset" onclick="setPreset('phishmedia')">⚠️+📡</button>
-          <button class="pset" onclick="setPreset('cybermedia')">🔐+📡</button>
+    <!-- ══ МК ПАНЕЛ ══ -->
+    <div id="intro-mk">
+      <div class="hero">
+        <span class="hero-emoji">🕵️</span>
+        <h1>DIGITAL SURVIVAL</h1>
+        <p>Научи да се заштитиш на интернет преку предизвикувачки квизови и игри! Секоја грешка те учи нешто важно.</p>
+        <div class="feature-pills">
+          <span class="pill pill-red">⚠️ Phishing напади</span>
+          <span class="pill pill-cyan">🔐 Сајбер безбедност</span>
+          <span class="pill pill-purple">📡 Медиумска писменост</span>
+          <span class="pill pill-orange">💣 Меморија бомби</span>
+          <span class="pill pill-green">🧠 Stroop предизвик</span>
         </div>
       </div>
-      <div class="rsel-grid" id="rsel-grid"></div>
-      <div style="margin-top:10px;font-size:.75rem;color:var(--muted)">
-        💡 Рунди кои биле изиграни <strong style="color:var(--yellow)">не можат да се повторат</strong> во истата
-        сесија.
-        <span id="played-info" style="color:var(--orange)"></span>
-      </div>
-    </div>
 
-    <div class="card" style="font-size:.82rem;color:var(--muted);line-height:1.9">
-      <div class="section-title">📋 Правила</div>
-      🎯 Секој играч добива <strong style="color:var(--cyan)">различни прашања</strong> — нема копирање!<br>
-      💀 Скор под <strong style="color:var(--red)">50%</strong> = елиминација на крај на рундата.<br>
-      🎮 Меѓу рунди: бонус мини-игри — забава без елиминација!<br>
-      👆 Кликни на играч за детален преглед на сите негови одговори.
-    </div>
-
-    <div class="card">
-      <div class="section-title">③ Ниво на тежина</div>
-      <div style="font-size:.8rem;color:var(--muted);margin-bottom:10px">Прилагоди ја тежината на прашањата!</div>
-      <div class="diff-selector">
-        <button class="diff-btn easy sel" id="d-easy" onclick="setDiff('easy')">🟢 Лесно<br><span
-            style="font-size:.65rem;font-weight:600">Основно (10-14 год.)</span></button>
-        <button class="diff-btn medium" id="d-medium" onclick="setDiff('medium')">🟡 Средно<br><span
-            style="font-size:.65rem;font-weight:600">Средно (14-18 год.)</span></button>
-        <button class="diff-btn hard" id="d-hard" onclick="setDiff('hard')">🔴 Тешко<br><span
-            style="font-size:.65rem;font-weight:600">Напредно (18+ год.)</span></button>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="section-title">④ Режим на играње</div>
-      <div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center">
-        <div id="mode-normal" onclick="setMode('normal')"
-          style="flex:1;min-width:130px;background:var(--panel);border:2px solid var(--cyan);border-radius:12px;padding:14px;text-align:center;cursor:pointer;transition:all .2s">
-          <div style="font-size:1.6rem;margin-bottom:4px">🎮</div>
-          <div style="font-weight:800;font-size:.85rem">Натпреварувачки</div>
-          <div style="font-size:.7rem;color:var(--muted);margin-top:3px">Елиминации, победник</div>
+      <div class="card card-glow">
+        <div class="section-title">① Избери играчи (мин. 2, макс. 8)</div>
+        <div class="add-player-row">
+          <input type="text" id="cname" placeholder="Внеси ime..." style="width:140px"
+            onkeydown="if(event.key==='Enter')addP()" />
+          <div class="gender-btns">
+            <button class="gbtn gsel-m" id="gbtn-m" onclick="setGender('m')">👦 Маж</button>
+            <button class="gbtn" id="gbtn-f" onclick="setGender('f')">👧 Жена</button>
+          </div>
+          <button class="btn btn-primary btn-sm" id="add-btn" onclick="addP()">+ Додај</button>
         </div>
-        <div id="mode-class" onclick="setMode('class')"
-          style="flex:1;min-width:130px;background:var(--panel);border:2px solid var(--border);border-radius:12px;padding:14px;text-align:center;cursor:pointer;transition:all .2s">
-          <div style="font-size:1.6rem;margin-bottom:4px">🏫</div>
-          <div style="font-weight:800;font-size:.85rem">Класа режим</div>
-          <div style="font-size:.7rem;color:var(--muted);margin-top:3px">Наставник + проектор</div>
+        <div style="font-size:.72rem;color:var(--muted);text-align:center;margin-bottom:10px" id="click-remove-txt">
+          Кликни на играч за да го отстраниш</div>
+        <div class="added-players-list" id="added-list"></div>
+        <div style="margin-bottom:10px">
+          <div style="font-size:.72rem;color:var(--muted);margin-bottom:6px;font-family:'JetBrains Mono',monospace"
+            id="or-choose-txt">ИЛИ ИЗБЕРИ ОД ЛИСТА:</div>
+          <div class="players-wrap" id="plist"></div>
+        </div>
+        <div style="text-align:center;color:var(--muted);font-size:.75rem;font-family:'JetBrains Mono',monospace">
+          <span id="selected-lbl">ИЗБРАНИ:</span> <span id="pcnt" style="color:var(--cyan);font-weight:900">0</span> / 8
         </div>
       </div>
-      <div class="mode-explain show" id="mode-explain-text">
-        <strong>🎮 Натпреварувачки режим:</strong> Секој играч добива свои прашања на исто устројство. Оној со под 50%
-        точни е елиминиран. Погоден за мали групи (2-8 ученици).<br><br>
-        <strong>🏫 Класа режим:</strong> Наставникот проектира прашањата. Учениците гласаат со <strong>A / B / C /
-          D</strong> копчиња (видливи на проекторот). Погоден за цела класа (20-30 ученици). Еден компјутер + проектор =
-        доволно!
-      </div>
-    </div>
 
-    <button class="btn btn-primary btn-lg" onclick="startGame()">🚀 ПОЧНИ ИГРА</button>
+      <div class="card">
+        <div class="section-title" id="rounds-title">② Избери рунди</div>
+        <div style="margin-bottom:10px">
+          <div style="font-size:.75rem;color:var(--muted);margin-bottom:7px" id="presets-lbl">Брзи пресети:</div>
+          <div class="preset-strip">
+            <button class="pset" onclick="setPreset('all')" id="pset-all">▶ Сите</button>
+            <button class="pset" onclick="setPreset('phishing')">⚠️ Само Phishing</button>
+            <button class="pset" onclick="setPreset('cyber')">🔐 Само Сајбер</button>
+            <button class="pset" onclick="setPreset('media')">📡 Само Медиуми</button>
+            <button class="pset" onclick="setPreset('phishcyber')">⚠️+🔐</button>
+            <button class="pset" onclick="setPreset('phishmedia')">⚠️+📡</button>
+            <button class="pset" onclick="setPreset('cybermedia')">🔐+📡</button>
+          </div>
+        </div>
+        <div class="rsel-grid" id="rsel-grid"></div>
+        <div style="margin-top:10px;font-size:.75rem;color:var(--muted)" id="rounds-note">
+          💡 Рунди кои биле изиграни <strong style="color:var(--yellow)">не можат да се повторат</strong> во истата
+          сесија.
+          <span id="played-info" style="color:var(--orange)"></span>
+        </div>
+      </div>
+
+      <div class="card" style="font-size:.82rem;color:var(--muted);line-height:1.9" id="rules-card">
+        <div class="section-title" id="rules-title">📋 Правила</div>
+        <span id="rules-body">
+          🎯 Секој играч добива <strong style="color:var(--cyan)">различни прашања</strong> — нема копирање!<br>
+          💀 Скор под <strong style="color:var(--red)">50%</strong> = елиминација на крај на рундата.<br>
+          🎮 Меѓу рунди: бонус мини-игри — забава без елиминација!<br>
+          👆 Кликни на играч за детален преглед на сите негови одговори.
+        </span>
+      </div>
+
+      <div class="card">
+        <div class="section-title" id="diff-title">③ Ниво на тежина</div>
+        <div style="font-size:.8rem;color:var(--muted);margin-bottom:10px" id="diff-sub">Прилагоди ја тежината на
+          прашањата!</div>
+        <div class="diff-selector">
+          <button class="diff-btn easy sel" id="d-easy" onclick="setDiff('easy')">🟢 <span
+              id="d-easy-lbl">Лесно</span><br><span style="font-size:.65rem;font-weight:600" id="d-easy-sub">Основно
+              (10-14 год.)</span></button>
+          <button class="diff-btn medium" id="d-medium" onclick="setDiff('medium')">🟡 <span
+              id="d-med-lbl">Средно</span><br><span style="font-size:.65rem;font-weight:600" id="d-med-sub">Средно
+              (14-18 год.)</span></button>
+          <button class="diff-btn hard" id="d-hard" onclick="setDiff('hard')">🔴 <span
+              id="d-hard-lbl">Тешко</span><br><span style="font-size:.65rem;font-weight:600" id="d-hard-sub">Напредно
+              (18+ год.)</span></button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="section-title" id="mode-title">④ Режим на играње</div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center">
+          <div id="mode-normal" onclick="setMode('normal')"
+            style="flex:1;min-width:130px;background:var(--panel);border:2px solid var(--cyan);border-radius:12px;padding:14px;text-align:center;cursor:pointer;transition:all .2s">
+            <div style="font-size:1.6rem;margin-bottom:4px">🎮</div>
+            <div style="font-weight:800;font-size:.85rem" id="mode-normal-lbl">Натпреварувачки</div>
+            <div style="font-size:.7rem;color:var(--muted);margin-top:3px" id="mode-normal-sub">Елиминации, победник
+            </div>
+          </div>
+          <div id="mode-class" onclick="setMode('class')"
+            style="flex:1;min-width:130px;background:var(--panel);border:2px solid var(--border);border-radius:12px;padding:14px;text-align:center;cursor:pointer;transition:all .2s">
+            <div style="font-size:1.6rem;margin-bottom:4px">🏫</div>
+            <div style="font-weight:800;font-size:.85rem" id="mode-class-lbl">Класа режим</div>
+            <div style="font-size:.7rem;color:var(--muted);margin-top:3px" id="mode-class-sub">Наставник + проектор
+            </div>
+          </div>
+        </div>
+        <div class="mode-explain show" id="mode-explain-text">
+          <strong>🎮 Натпреварувачки режим:</strong> Секој играч добива свои прашања на исто устројство. Оној со под 50%
+          точни е елиминиран. Погоден за мали групи (2-8 ученици).<br><br>
+          <strong>🏫 Класа режим:</strong> Наставникот проектира прашањата. Учениците гласаат со <strong>A / B / C /
+            D</strong> копчиња (видливи на проекторот). Погоден за цела класа (20-30 ученици). Еден компјутер + проектор
+          = доволно!
+        </div>
+      </div>
+
+      <!-- Bottom bar: Start + QR + Copyright -->
+      <div style="display:flex;flex-direction:column;align-items:center;gap:10px;padding-bottom:6px">
+        <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;justify-content:center">
+          <button class="btn btn-primary btn-lg" onclick="startGame()">🚀 <span id="start-btn-txt">ПОЧНИ
+              ИГРА</span></button>
+          <button onclick="showQRIntro()" title="QR — скенирај за да ја отвориш играта"
+            style="background:var(--panel);border:2px solid var(--border);color:var(--muted);border-radius:14px;padding:11px 18px;font-size:.88rem;font-weight:700;cursor:pointer;font-family:inherit;display:flex;align-items:center;gap:7px">
+            📱 QR
+          </button>
+        </div>
+        <div style="font-size:.65rem;color:var(--muted);opacity:0.55;text-align:center;letter-spacing:.04em">
+          © 2025 <strong style="opacity:.85">Edin Bejkiroski</strong> · Digital Survival · <span id="rights-txt">Сите
+            права задржани</span>
+        </div>
+      </div>
+    </div><!-- /intro-mk -->
+
   </div>
 
   <!-- ══ GAME ══ -->
@@ -2898,10 +2936,10 @@
           <div class="mon">Спој зборови</div>
           <div class="mod">Поврзи поими со дефиниции</div>
         </div>
-        <div class="mini-opt" onclick="doMini('skip')">
-          <span class="moi">⏭️</span>
-          <div class="mon">Прескокни</div>
-          <div class="mod">Продолжи кон следна рунда</div>
+        <div class="mini-opt" id="mini-back-opt" onclick="doMini('back')">
+          <span class="moi">↩️</span>
+          <div class="mon" id="mini-back-label">Назад</div>
+          <div class="mod" id="mini-back-desc">Врати се на последниот екран</div>
         </div>
       </div>
     </div>
@@ -2911,9 +2949,10 @@
   <div id="sc-stroop" class="screen">
     <div class="card card-purple" style="text-align:center;width:100%">
       <div class="tag t-purple" style="margin-bottom:10px">🧠 STROOP БОНУС — БЕЗ ЕЛИМИНАЦИЈА</div>
-      <div style="font-weight:900;font-size:1.05rem;margin-bottom:5px">Запомни ги БОИТЕ на зборовите!</div>
-      <div style="font-size:.8rem;color:var(--muted);margin-bottom:12px">Не читај ги зборовите — гледај ја БОЈАТА. После
-        5 сек ќе посивеат.</div>
+      <div style="font-weight:900;font-size:1.05rem;margin-bottom:5px" id="stroop-title">Запомни ги БОИТЕ на зборовите!
+      </div>
+      <div style="font-size:.8rem;color:var(--muted);margin-bottom:12px" id="stroop-sub">Не читај ги зборовите — гледај
+        ја БОЈАТА. После 5 сек ќе посивеат.</div>
       <div class="stroop-grid" id="sg"></div>
       <div class="stroop-phase" id="s-phase"></div>
       <div id="s-inputs"></div>
@@ -3051,15 +3090,18 @@
   <div class="qr-modal" id="qr-modal" onclick="closeQR()">
     <div class="qr-box" onclick="event.stopPropagation()">
       <div style="font-size:1.8rem;margin-bottom:6px">📱</div>
-      <div style="font-size:1rem;font-weight:900;color:var(--cyan);margin-bottom:4px">Сподели ја играта</div>
-      <div style="font-size:.8rem;color:var(--muted);margin-bottom:14px;line-height:1.5">Скенирај го QR кодот за да ја
-        отвориш играта.<br>Зачувај го фајлот на ученичките уреди.</div>
+      <div id="qr-modal-title" style="font-size:1rem;font-weight:900;color:var(--cyan);margin-bottom:4px">Скенирај за да
+        ја отвориш играта</div>
+      <div id="qr-modal-desc" style="font-size:.8rem;color:var(--muted);margin-bottom:14px;line-height:1.5">Скенирај го
+        QR кодот за да ја отвориш Digital Survival на кој било уред.</div>
       <div class="qr-inner-frame">
         <div id="qr-container"></div>
       </div>
-      <div class="qr-caption" id="qr-url">digital-survival.html</div>
+      <div class="qr-caption" id="qr-url"
+        style="font-size:.68rem;color:var(--cyan);word-break:break-all;margin-top:6px">https://edoo351.github.io/mygame/
+      </div>
       <div style="display:flex;gap:8px;justify-content:center;margin-top:14px">
-        <button class="btn btn-primary btn-sm" onclick="closeQR()">✓ Затвори</button>
+        <button class="btn btn-primary btn-sm" id="qr-close-btn" onclick="closeQR()">✓ Затвори</button>
       </div>
     </div>
   </div>
@@ -3604,6 +3646,26 @@
       return med; // default medium
     }
     function buildAllRounds() {
+      const _en = (typeof currentLang !== 'undefined' && currentLang === 'en');
+      if (_en) {
+        return [
+          {
+            id: 'phishing', icon: '⚠️', label: 'Phishing', fullLabel: '⚠️ Phishing Attacks', tagClass: 't-red',
+            qs: [...buildQS(QS_PHISHING_EASY_EN, QS_PHISHING_MED_EN, QS_PHISHING_HARD_EN), ...QS_PHISHING_VISUAL_EN],
+            perP: difficulty === 'easy' ? 10 : difficulty === 'hard' ? 18 : 14
+          },
+          {
+            id: 'media', icon: '📡', label: 'Media', fullLabel: '📡 Media & News', tagClass: 't-orange',
+            qs: buildQS(QS_MEDIA_EASY_EN, QS_MEDIA_MED_EN, QS_MEDIA_HARD_EN),
+            perP: difficulty === 'easy' ? 6 : difficulty === 'hard' ? 10 : 8
+          },
+          {
+            id: 'cyber', icon: '🔐', label: 'Cyber', fullLabel: '🔐 Cyber Security', tagClass: 't-purple',
+            qs: buildQS(QS_CYBER_EASY_EN, QS_CYBER_MED_EN, QS_CYBER_HARD_EN),
+            perP: difficulty === 'easy' ? 6 : difficulty === 'hard' ? 12 : 10
+          },
+        ];
+      }
       return [
         {
           id: 'phishing', icon: '⚠️', label: 'Phishing', fullLabel: '⚠️ Phishing напади', tagClass: 't-red',
@@ -3624,6 +3686,10 @@
     }
     // ALL_ROUND_DEFS is built dynamically at game start
     // ALL_ROUND_DEFS initialized below after all vars
+
+    // ── TRANSLATION HELPER ────────────────────────────────────────────
+    // t(mk, en) — returns correct language string based on currentLang
+    function t(mk, en) { return (typeof currentLang !== 'undefined' && currentLang === 'en') ? en : mk; }
 
     // ══════════════════════════════════════════════════════════════════
     // STATE
@@ -3660,14 +3726,38 @@
       { icon: "🎣", title: "QR код внимание", text: "QR кодови можат да те пратат на малициозни сајтови. Секогаш провери каде водат пред да скенираш!" },
     ];
     const BADGES_DEF = [
-      { id: 'phish_pro', icon: '🎣', name: 'Anti-Phishing Pro', desc: 'Познавач на phishing', cond: 'phishing_5' },
-      { id: 'cyber_hero', icon: '🛡️', name: 'Cyber Hero', desc: 'Мајстор на сајбер безбедност', cond: 'cyber_5' },
-      { id: 'media_det', icon: '🔍', name: 'Media Detective', desc: 'Препознава лажни вести', cond: 'media_5' },
-      { id: 'streak5', icon: '🔥', name: 'Streak Master', desc: '5 точни по ред', cond: 'streak_5' },
-      { id: 'perfect', icon: '⭐', name: 'Perfect Round', desc: '100% точни во рунда', cond: 'perfect_round' },
-      { id: 'survivor', icon: '🏆', name: 'Digital Survivor', desc: 'Победник во игра', cond: 'winner' },
-      { id: 'comeback', icon: '💪', name: 'Comeback Kid', desc: 'Преживеа со 1 живот', cond: 'one_life' },
-      { id: 'speedster', icon: '⚡', name: 'Speed Demon', desc: 'Одговори за под 5 сек', cond: 'speed_5' },
+      {
+        id: 'phish_pro', icon: '🎣', name: 'Anti-Phishing Pro', desc: 'Познавач на phishing', cond: 'phish_pro',
+        how_mk: 'Одговори точно на 5+ phishing прашања во иста рунда', how_en: 'Answer 5+ phishing questions correctly in one round'
+      },
+      {
+        id: 'cyber_hero', icon: '🛡️', name: 'Cyber Hero', desc: 'Мајстор на сајбер безбедност', cond: 'cyber_hero',
+        how_mk: 'Одговори точно на 5+ сајбер безбедносни прашања во иста рунда', how_en: 'Answer 5+ cyber security questions correctly in one round'
+      },
+      {
+        id: 'media_det', icon: '🔍', name: 'Media Detective', desc: 'Препознава лажни вести', cond: 'media_det',
+        how_mk: 'Одговори точно на 5+ медиумски прашања во иста рунда', how_en: 'Answer 5+ media literacy questions correctly in one round'
+      },
+      {
+        id: 'streak5', icon: '🔥', name: 'Streak Master', desc: '5 точни по ред', cond: 'streak5',
+        how_mk: 'Одговори точно на 5 прашања последователно (без грешка)', how_en: 'Answer 5 questions correctly in a row without mistakes'
+      },
+      {
+        id: 'perfect', icon: '⭐', name: 'Perfect Round', desc: '100% точни во рунда', cond: 'perfect_round',
+        how_mk: 'Сите играчи да имаат 100% точност во иста рунда', how_en: 'All players score 100% accuracy in the same round'
+      },
+      {
+        id: 'survivor', icon: '🏆', name: 'Digital Survivor', desc: 'Победник во игра', cond: 'winner',
+        how_mk: 'Биди последниот преживеан играч на крај на играта', how_en: 'Be the last surviving player at the end of the game'
+      },
+      {
+        id: 'comeback', icon: '💪', name: 'Comeback Kid', desc: 'Преживеа со 1 живот', cond: 'one_life',
+        how_mk: 'Преживеј рунда со точно 50% точни одговори (на работ на елиминација)', how_en: 'Survive a round with exactly 50% correct answers (on the edge of elimination)'
+      },
+      {
+        id: 'speedster', icon: '⚡', name: 'Speed Demon', desc: 'Одговори за под 5 сек', cond: 'speed_5',
+        how_mk: 'Одговори точно на прашање за помалку од 5 секунди', how_en: 'Answer a question correctly in under 5 seconds'
+      },
     ];
     let curRoundState = {};   // {playerQs, playerIdx, roundAnswers, currentPlayer}
     let tiv = null;
@@ -3754,16 +3844,17 @@
     function addP() {
       const inp = document.getElementById("cname");
       const n = inp.value.trim();
-      if (!n) { toast("⚠️ Внеси имe!", "warn"); return; }
-      if (selP.length >= 8) { toast("⚠️ Максимум 8 играчи!", "warn"); return; }
-      if (selP.includes(n)) { toast("⚠️ Веќе е додаден!", "warn"); return; }
+      const _en = (currentLang === 'en');
+      if (!n) { toast(_en ? '⚠️ Enter a name!' : '⚠️ Внеси имe!', "warn"); return; }
+      if (selP.length >= 8) { toast(_en ? '⚠️ Maximum 8 players!' : '⚠️ Максимум 8 играчи!', "warn"); return; }
+      if (selP.includes(n)) { toast(_en ? '⚠️ Already added!' : '⚠️ Веќе е додаден!', "warn"); return; }
       const av = getPlayerAV(n, selGender);
       playerRegistry[n] = { gender: selGender, av };
       selP.push(n);
       inp.value = "";
       inp.focus();
       renderPList();
-      toast(av + ' ' + n + ' додаден!', 'ok');
+      toast(av + ' ' + n + (_en ? ' added!' : ' додаден!'), 'ok');
     }
 
     function renderRsel() {
@@ -3801,7 +3892,14 @@
     // GAME START
     // ══════════════════════════════════════════════════════════════════
     function startGame() {
-      if (selP.length < 2) { toast("⚠️ Избери барем 2 играчи!", "warn"); return; }
+      const _sg_en = (currentLang === 'en');
+      if (selP.length < 2) { toast(_sg_en ? '⚠️ Select at least 2 players!' : '⚠️ Избери барем 2 играчи!', "warn"); return; }
+      // Lock language switcher during game
+      _langLocked = true;
+      const _lb = document.getElementById('lang-mk-btn');
+      const _lb2 = document.getElementById('lang-en-btn');
+      if (_lb) { _lb.style.opacity = '0.35'; _lb.style.pointerEvents = 'none'; }
+      if (_lb2) { _lb2.style.opacity = '0.35'; _lb2.style.pointerEvents = 'none'; }
       refreshAllP();
       ALL_ROUND_DEFS = buildAllRounds(); // rebuild with current difficulty
       const available = ALL_ROUND_DEFS.filter(rd => selRoundIds.has(rd.id) && !playedRoundIds.has(rd.id));
@@ -3823,15 +3921,33 @@
     let funRoundTotalReps = 0;     // total reps = number of players
     let allRoundAnswers = {};      // accumulated answers for ALL players this round
 
+    let _lastPlayedRoundId = null; // track last round to avoid immediate replay
+
     function startRound() {
       if (actP.length === 0) { showResult(); return; }
       // Check if all rounds exhausted
       if (curRound >= roundQueue.length) {
         if (elimP.length > 0 && actP.length <= 1) { showResult(); return; }
-        // Fun continuation: reset and loop
-        curRound = 0; playedRoundIds = new Set();
-        roundQueue = ALL_ROUND_DEFS.filter(rd => selRoundIds.has(rd.id));
-        if (roundQueue.length === 0) { showResult(); return; }
+        // Fun continuation: rebuild and shuffle, skipping last played round
+        playedRoundIds = new Set();
+        let available = ALL_ROUND_DEFS.filter(rd => selRoundIds.has(rd.id));
+        if (available.length === 0) { showResult(); return; }
+        // Shuffle to avoid same round order
+        available = shuffle(available);
+        // If more than 1 round available, skip the last played one
+        if (available.length > 1 && _lastPlayedRoundId) {
+          const idx = available.findIndex(r => r.id === _lastPlayedRoundId);
+          if (idx > 0) {
+            // Move it to end so we don't play it first
+            const [moved] = available.splice(idx, 1);
+            available.push(moved);
+          } else if (idx === 0) {
+            // It's first — rotate it to end
+            available.push(available.shift());
+          }
+        }
+        roundQueue = available;
+        curRound = 0;
       }
       // Reset per-player fun queue for this round
       funRoundPlayerQueue = [...actP];
@@ -3860,10 +3976,10 @@
         document.getElementById("q-area").innerHTML = `
       <div class="card" style="text-align:center;padding:32px">
         <div style="font-size:3.5rem;margin-bottom:10px">${getAV(currentP)}</div>
-        <div style="font-size:1.2rem;font-weight:900;color:var(--cyan);margin-bottom:4px">Ред на <strong>${currentP}</strong>!</div>
-        <div style="color:var(--muted);font-size:.83rem;margin-bottom:16px">Следен играч — рунда ${curRound + 1}. Подготви се!</div>
-        <div style="font-size:.75rem;color:var(--muted);margin-bottom:16px">Играч ${funRoundPlayIdx + 1} од ${funRoundTotalReps}</div>
-        <button class="btn btn-primary" onclick="beginCurrentPlayerRound()">▶ Јас сум подготвен!</button>
+        <div style="font-size:1.2rem;font-weight:900;color:var(--cyan);margin-bottom:4px">${t('Ред на', 'Turn of')} <strong>${currentP}</strong>!</div>
+        <div style="color:var(--muted);font-size:.83rem;margin-bottom:16px">${t('Следен играч — рунда', 'Next player — round')} ${curRound + 1}. ${t('Подготви се!', 'Get ready!')}</div>
+        <div style="font-size:.75rem;color:var(--muted);margin-bottom:16px">${t('Играч', 'Player')} ${funRoundPlayIdx + 1} ${t('од', 'of')} ${funRoundTotalReps}</div>
+        <button class="btn btn-primary" onclick="beginCurrentPlayerRound()">▶ ${t('Јас сум подготвен!', 'I\'m ready!')}</button>
       </div>`;
         document.getElementById("q-fb").innerHTML = "";
         return;
@@ -3935,6 +4051,7 @@
       </div>`: ''}
     </div>`;
       document.getElementById("q-fb").innerHTML = "";
+      _answerLocked = false; // reset for new question
       // Typing effect on question + choices fade in
       cancelTyping(); // cancel any previous typing
       const qEl2 = document.getElementById("quiz-q-text");
@@ -3945,18 +4062,22 @@
       }
       const timerSec = difficulty === 'easy' ? 25 : difficulty === 'hard' ? 12 : 18;
       startTimer(timerSec, "main-tf", () => {
+        _answerLocked = true; // lock on timeout too
         document.querySelectorAll(".choice").forEach(el => el.classList.add("c-disabled"));
         document.getElementById("ch" + corrSh)?.classList.add("c-correct");
         recordAns(player, q, null, false, "(Истече времето)");
         pStreak[player] = 0;
         document.getElementById("q-fb").innerHTML =
-          `<div class="fb fb-warn"><div class="fb-icon">⏰</div><div><strong>Времето истече!</strong><br><span style="font-size:.8rem">${q.exp}</span></div></div>
-       <button class="btn btn-primary" style="margin-top:10px;width:100%" onclick="advQ('${player}')">Следно прашање →</button>`;
+          `<div class="fb fb-warn"><div class="fb-icon">⏰</div><div><strong>${t('Времето истече!', 'Time\'s up!')}</strong><br><span style="font-size:.8rem">${q.exp}</span></div></div>
+       <button class="btn btn-primary" style="margin-top:10px;width:100%" onclick="advQ('${player}')">${t('Следно прашање →', 'Next question →')}</button>`;
         try { mascotSay('timeout'); } catch (e) { }
       });
     }
 
+    let _answerLocked = false; // guard against double-click in class mode
     function answerQ(clicked, corrIdx, isCorrect) {
+      if (_answerLocked) return; // already answered
+      _answerLocked = true;
       clearInterval(tiv);
       const p = curRoundState.currentPlayer;
       const idx = curRoundState.playerIdx[p];
@@ -3977,8 +4098,8 @@
         if (pStreak[p] === 5) checkBadge('streak5');
         const streakMsg = pStreak[p] >= 3 ? ` 🔥 STREAK x${pStreak[p]}!` : '';
         document.getElementById("q-fb").innerHTML =
-          `<div class="fb fb-ok"><div class="fb-icon">✅</div><div><strong>Точно!${streakMsg}</strong><br><span style="font-size:.8rem">${q.exp}</span></div></div>
-       <button class="btn btn-primary" style="margin-top:10px;width:100%" onclick="advQ('${p}')">Следно прашање →</button>`;
+          `<div class="fb fb-ok"><div class="fb-icon">✅</div><div><strong>${t('Точно!', 'Correct!')}${streakMsg}</strong><br><span style="font-size:.8rem">${q.exp}</span></div></div>
+       <button class="btn btn-primary" style="margin-top:10px;width:100%" onclick="advQ('${p}')">${t('Следно прашање →', 'Next question →')}</button>`;
         try { playSound('correct'); } catch (e) { }
         try { mascotSay('correct'); } catch (e) { }
         try { updateLeaderboard(); } catch (e) { }
@@ -3986,8 +4107,8 @@
       } else {
         pStreak[p] = 0;
         document.getElementById("q-fb").innerHTML =
-          `<div class="fb fb-ng"><div class="fb-icon">❌</div><div><strong>Погрешно!</strong><br><span style="font-size:.8rem">${q.exp}</span></div></div>
-       <button class="btn btn-primary" style="margin-top:10px;width:100%" onclick="advQ('${p}')">Следно прашање →</button>`;
+          `<div class="fb fb-ng"><div class="fb-icon">❌</div><div><strong>${t('Погрешно!', 'Wrong!')}</strong><br><span style="font-size:.8rem">${q.exp}</span></div></div>
+       <button class="btn btn-primary" style="margin-top:10px;width:100%" onclick="advQ('${p}')">${t('Следно прашање →', 'Next question →')}</button>`;
         try { playSound('wrong'); } catch (e) { }
         try { mascotSay('wrong'); } catch (e) { }
         try { updateLeaderboard(); } catch (e) { }
@@ -4040,6 +4161,7 @@
           answers: curRoundState.roundAnswers[lastP] || []
         };
       }
+      _lastPlayedRoundId = roundQueue[curRound].id; // remember for anti-replay
       playedRoundIds.add(roundQueue[curRound].id); // mark as played
       const results = actP.map(p => {
         const data = allRoundAnswers[p] || { qs: [], answers: [] };
@@ -4053,7 +4175,7 @@
       toElim.forEach(n => { actP = actP.filter(p => p !== n); elimP.push(n); });
       // Badge: perfect round
       const allPerfect = results.every(r => r.pct === 1.0);
-      if (allPerfect) checkBadge('perfect_round');
+      if (allPerfect) checkBadge('perfect');
       // Show round recap first, then elim screen
       showRoundRecap(() => showElimScreen(results, toElim, toSave));
     }
@@ -4062,16 +4184,16 @@
     // ELIM SCREEN
     // ══════════════════════════════════════════════════════════════════
     function showElimScreen(results, toElim, toSave) {
-      document.getElementById("elim-title").textContent = `Крај на Рунда ${curRound + 1} — ${roundQueue[curRound].label}`;
+      document.getElementById("elim-title").textContent = `${t('Крај на Рунда', 'End of Round')} ${curRound + 1} — ${roundQueue[curRound].label}`;
       const el = document.getElementById("elim-list"); el.innerHTML = "";
-      if (toElim.length === 0) el.innerHTML = `<div style="color:var(--muted);padding:10px;text-align:center">Нема елиминирани — сите имаат над 50%! 🎉</div>`;
+      if (toElim.length === 0) el.innerHTML = `<div style="color:var(--muted);padding:10px;text-align:center">${t('Нема елиминирани — сите имаат над 50%! 🎉', 'No eliminations — everyone scored above 50%! 🎉')}</div>`;
       else toElim.forEach(n => {
         const r = results.find(x => x.name === n);
         const pct = Math.round(r.pct * 100);
         const div = document.createElement("div"); div.className = "elim-entry ee-elim";
         div.innerHTML = `<div class="ee-left"><span style="font-size:1.8rem">${getAV(n)}</span>
-      <div><div style="font-weight:800">${n}</div><div style="font-size:.72rem;color:var(--red)">${r.corr}/${r.total} точни — ${pct}% ❌</div></div></div>
-      <span style="color:var(--cyan)">→ детали</span>`;
+      <div><div style="font-weight:800">${n}</div><div style="font-size:.72rem;color:var(--red)">${r.corr}/${r.total} ${t('точни', 'correct')} — ${pct}% ❌</div></div></div>
+      <span style="color:var(--cyan)">→ ${t('детали', 'details')}</span>`;
         div.onclick = () => openDetail(n); el.appendChild(div);
       });
       const sl = document.getElementById("safe-list"); sl.innerHTML = "";
@@ -4080,8 +4202,8 @@
         const pct = Math.round(r.pct * 100);
         const div = document.createElement("div"); div.className = "elim-entry ee-safe";
         div.innerHTML = `<div class="ee-left"><span style="font-size:1.8rem">${getAV(n)}</span>
-      <div><div style="font-weight:800">${n}</div><div style="font-size:.72rem;color:var(--green)">${r.corr}/${r.total} точни — ${pct}% ✅</div></div></div>
-      <span style="color:var(--cyan)">→ детали</span>`;
+      <div><div style="font-weight:800">${n}</div><div style="font-size:.72rem;color:var(--green)">${r.corr}/${r.total} ${t('точни', 'correct')} — ${pct}% ✅</div></div></div>
+      <span style="color:var(--cyan)">→ ${t('детали', 'details')}</span>`;
         div.onclick = () => openDetail(n); sl.appendChild(div);
       });
       // Winner banner
@@ -4090,11 +4212,11 @@
       const noMoreRounds = curRound + 1 >= roundQueue.length;
       if (hasWinner && actP.length === 1) {
         wb.innerHTML = `<div class="winner-banner"><div style="font-size:2.5rem">🏆</div>
-      <div style="font-size:1.1rem;font-weight:900;color:var(--yellow);margin:6px 0">${AV[allP.indexOf(actP[0]) % AV.length]} ${actP[0]} е ПОБЕДНИК!</div>
-      <div style="font-size:.82rem;color:var(--muted)">Последниот Digital Survivor!</div></div>`;
+      <div style="font-size:1.1rem;font-weight:900;color:var(--yellow);margin:6px 0">${getAV(actP[0])} ${actP[0]} ${t('е ПОБЕДНИК!', 'is the WINNER!')}</div>
+      <div style="font-size:.82rem;color:var(--muted)">${t('Последниот Digital Survivor!', 'The last Digital Survivor!')}</div></div>`;
       } else if (actP.length === 0) {
         wb.innerHTML = `<div class="winner-banner"><div style="font-size:2rem">🤝</div>
-      <div style="font-size:1rem;font-weight:800;color:var(--yellow);margin:6px 0">Нема победник — сите се елиминирани!</div></div>`;
+      <div style="font-size:1rem;font-weight:800;color:var(--yellow);margin:6px 0">${t('Нема победник — сите се елиминирани!', 'No winner — everyone was eliminated!')}</div></div>`;
       } else {
         wb.innerHTML = "";
       }
@@ -4102,27 +4224,28 @@
       const btns = document.getElementById("elim-btns"); btns.innerHTML = "";
       if (hasWinner || noMoreRounds) {
         const b1 = document.createElement("button"); b1.className = "btn btn-primary";
-        b1.textContent = "🏆 Погледни резултати"; b1.onclick = () => showResult(); btns.appendChild(b1);
+        b1.textContent = t("🏆 Погледни резултати", "🏆 View results"); b1.onclick = () => showResult(); btns.appendChild(b1);
         if (actP.length >= 1) {
           const b2 = document.createElement("button"); b2.className = "btn btn-ghost";
-          b2.textContent = "▶ Продолжи за забава (со сите играчи)";
+          b2.textContent = t("▶ Продолжи за забава (со сите играчи)", "▶ Continue for fun (with all players)");
           b2.onclick = () => {
             selP.forEach(p => { if (!actP.includes(p)) actP.push(p); });
             elimP = [];
+            actP.forEach(p => { if (!pScores[p]) pScores[p] = { correct: 0, wrong: 0, total: 0, answers: [] }; pStreak[p] = 0; });
+            // Move past current round — anti-replay in startRound handles the rest
             curRound++;
-            // Don't wrap here — startRound handles wrap properly
             showSc("sc-mini");
           }; btns.appendChild(b2);
         }
       } else {
         const b1 = document.createElement("button"); b1.className = "btn btn-primary";
-        b1.innerHTML = "➡ Следна рунда"; b1.onclick = () => { curRound++; showSc("sc-mini"); }; btns.appendChild(b1);
+        b1.innerHTML = t("➡ Следна рунда", "➡ Next round"); b1.onclick = () => { curRound++; showSc("sc-mini"); }; btns.appendChild(b1);
       }
       const bBack = document.createElement("button"); bBack.className = "btn btn-ghost";
-      bBack.textContent = "↺ Почни одново"; bBack.onclick = restartGame; btns.appendChild(bBack);
+      bBack.textContent = t("↺ Почни одново", "↺ Play again"); bBack.onclick = restartGame; btns.appendChild(bBack);
       // Tip of the round
       const tipDiv = document.getElementById("elim-tip");
-      if (tipDiv) { const tip = getRoundTip(); tipDiv.innerHTML = `<div class="tip-card"><div class="tip-icon">${tip.icon}</div><div><div class="tip-title">💡 Совет: ${tip.title}</div><div class="tip-text">${tip.text}</div></div></div>`; }
+      if (tipDiv) { const tip = getRoundTip(); tipDiv.innerHTML = `<div class="tip-card"><div class="tip-icon">${tip.icon}</div><div><div class="tip-title">💡 ${t('Совет', 'Tip')}: ${tip.title}</div><div class="tip-text">${tip.text}</div></div></div>`; }
       showSc("sc-elim");
     }
 
@@ -4131,7 +4254,8 @@
     // ══════════════════════════════════════════════════════════════════
     function doMini(type) {
       clearInterval(tiv); startBg('none');
-      if (type === 'skip') { showSc("sc-game"); startRound(); return; }
+      if (type === 'skip') { showSc("sc-game"); startRound(); return; } // legacy compat
+      if (type === 'back') { showSc("sc-elim"); return; } // go back to last elim screen
       if (type === 'stroop') { startStroop(); return; }
       if (type === 'bomb') { startBomb(); return; }
       if (type === 'wordmatch') { startWordMatch(); return; }
@@ -4243,7 +4367,7 @@
       <h3>${p} — Твојот ред!</h3>
       <p>Означи ги ќелиите со бомби. Само ти гледаш сега.<br>Скриј го екранот од другите!</p>
       <div class="bomb-progress-strip" id="bprog-strip"></div>
-      <button class="btn btn-red btn-lg" onclick="bombStartPlayerTurn('${p}')">💣 Јас сум подготвен — Почни!</button>
+      <button class="btn btn-red btn-lg" onclick="bombStartPlayerTurn('${p}')">💣 ${t('Јас сум подготвен — Почни!', 'I\'m ready — Start!')}</button>
     </div>`;
       // Progress strip
       const strip = document.getElementById("bprog-strip");
@@ -4271,12 +4395,12 @@
         </div>
       </div>
       <div class="bomb-mode-bar">
-        <button class="bmode-btn bm-bomb" id="bm-bomb" onclick="setBombMode('bomb','${p}')">💣 Означи бомба</button>
-        <button class="bmode-btn" id="bm-safe" onclick="setBombMode('safe','${p}')">✔️ Означи безбедно</button>
+        <button class="bmode-btn bm-bomb" id="bm-bomb" onclick="setBombMode('bomb','${p}')">💣 ${t('Означи бомба', 'Mark bomb')}</button>
+        <button class="bmode-btn" id="bm-safe" onclick="setBombMode('safe','${p}')">✔️ ${t('Означи безбедно', 'Mark safe')}</button>
       </div>
       <div class="bomb-grid-reveal" id="bomb-play-grid" style="grid-template-columns:repeat(${bombC},70px);margin:0 auto"></div>
       <div style="text-align:center;margin-top:14px">
-        <button class="btn btn-green" onclick="bombSubmitPlayer('${p}')">✓ Потврди одговор</button>
+        <button class="btn btn-green" onclick="bombSubmitPlayer('${p}')">✓ ${t('Потврди одговор', 'Confirm answer')}</button>
       </div>
       <div id="bomb-play-fb" style="margin-top:10px"></div>
     </div>`;
@@ -4326,8 +4450,8 @@
       }
       const fb = document.getElementById("bomb-play-fb");
       if (fb) fb.innerHTML = `<div class="fb ${ok ? "fb-ok" : "fb-ng"}"><div class="fb-icon">${ok ? "✅" : "❌"}</div>
-    <div>${timedOut ? "Времето истече! " : ""}${ok ? "Точно означивте сите бомби! 🎉" : "Погрешно — следниот пат подобро!"}</div></div>`;
-      toast(p + (ok ? " ✅ Точно!" : " ❌ Погрешно!"), ok ? "ok" : "ng");
+    <div>${timedOut ? t("Времето истече! ", "Time's up! ") : ""}${ok ? t("Точно означивте сите бомби! 🎉", "Correctly marked all bombs! 🎉") : t("Погрешно — следниот пат подобро!", "Wrong — better luck next time!")}</div></div>`;
+      toast(p + (ok ? (" ✅ " + t("Точно!", "Correct!")) : (" ❌ " + t("Погрешно!", "Wrong!"))), ok ? "ok" : "ng");
       bombPlayerIdx++;
       setTimeout(() => {
         if (bombPlayerIdx < bombPlayerQueue.length) bombNextPlayer();
@@ -4500,15 +4624,23 @@
       selP.forEach(p => { if (!actP.includes(p)) actP.push(p); });
       elimP = [];
       actP.forEach(p => { if (!pScores[p]) pScores[p] = { correct: 0, wrong: 0, total: 0, answers: [] }; pStreak[p] = 0; });
+      // Move to next round — if already at end, startRound will handle wrap
+      // with anti-replay logic (won't replay last round)
       curRound++;
-      // Don't wrap here - startRound handles exhaustion and wrap properly
       showSc("sc-mini");
     }
 
     function restartGame() {
       cancelTyping(); clearInterval(tiv); startBg('none');
       actP = []; elimP = []; curRound = 0; pScores = {};
+      _lastPlayedRoundId = null;
       playedRoundIds = new Set();
+      // Unlock lang switcher
+      _langLocked = false;
+      const _lb = document.getElementById('lang-mk-btn');
+      const _lb2 = document.getElementById('lang-en-btn');
+      if (_lb) { _lb.style.opacity = '1'; _lb.style.pointerEvents = 'auto'; }
+      if (_lb2) { _lb2.style.opacity = '1'; _lb2.style.pointerEvents = 'auto'; }
       renderRsel();
       showSc("sc-intro");
     }
@@ -4636,23 +4768,68 @@
     }
 
     // ── BADGES ────────────────────────────────────────────────────────────────────
-    function checkBadge(condId) {
-      BADGES_DEF.forEach(b => { if (b.cond === condId && !earnedBadges.has(b.id)) { earnedBadges.add(b.id); showBadgeEarned(b); } });
+    function checkBadge(badgeId) {
+      // Look up by badge ID directly
+      BADGES_DEF.forEach(b => { if (b.id === badgeId && !earnedBadges.has(b.id)) { earnedBadges.add(b.id); showBadgeEarned(b); } });
     }
     function showBadgeEarned(b) {
+      const _en = (typeof currentLang !== 'undefined' && currentLang === 'en');
       const t = document.createElement('div');
       t.style.cssText = 'position:fixed;bottom:80px;right:20px;background:var(--card);border:2px solid gold;border-radius:14px;padding:14px 18px;z-index:950;display:flex;align-items:center;gap:12px;box-shadow:0 8px 24px #0008;animation:badge-pop .5s ease';
-      t.innerHTML = `<span style="font-size:2rem">${b.icon}</span><div><div style="font-weight:900;font-size:.85rem;color:gold">Ново достигнување!</div><div style="font-weight:800;font-size:.82rem">${b.name}</div><div style="font-size:.7rem;color:var(--muted)">${b.desc}</div></div>`;
+      t.innerHTML = `<span style="font-size:2rem">${b.icon}</span><div><div style="font-weight:900;font-size:.85rem;color:gold">${_en ? 'New Achievement!' : 'Ново достигнување!'}</div><div style="font-weight:800;font-size:.82rem">${b.name}</div><div style="font-size:.7rem;color:var(--muted)">${b.desc}</div></div>`;
       document.body.appendChild(t); setTimeout(() => t.remove(), 3500);
     }
     function renderFinalBadges() {
       const d = document.getElementById('final-badges'); if (!d) return;
+      const _en = (typeof currentLang !== 'undefined' && currentLang === 'en');
       d.innerHTML = '';
-      BADGES_DEF.forEach(b => {
-        const div = document.createElement('div'); div.className = 'badge-item ' + (earnedBadges.has(b.id) ? 'earned' : 'locked');
-        div.innerHTML = `<div class="badge-icon">${earnedBadges.has(b.id) ? b.icon : '🔒'}</div><div class="badge-name">${b.name}</div><div class="badge-desc">${b.desc}</div>`;
+      // First show earned badges, then locked
+      const earned = BADGES_DEF.filter(b => earnedBadges.has(b.id));
+      const locked = BADGES_DEF.filter(b => !earnedBadges.has(b.id));
+      [...earned, ...locked].forEach(b => {
+        const isEarned = earnedBadges.has(b.id);
+        const howTo = _en ? (b.how_en || b.desc) : (b.how_mk || b.desc);
+        const div = document.createElement('div');
+        div.className = 'badge-item ' + (isEarned ? 'earned' : 'locked');
+        div.style.position = 'relative';
+        div.style.cursor = 'help';
+        // Tooltip on hover
+        div.title = ''; // clear default
+        div.setAttribute('data-how', howTo);
+        div.setAttribute('data-earned', isEarned ? '1' : '0');
+        div.innerHTML = `<div class="badge-icon">${isEarned ? b.icon : '🔒'}</div><div class="badge-name">${b.name}</div><div class="badge-desc">${b.desc}</div>`;
+        // Custom tooltip
+        div.addEventListener('mouseenter', function (e) {
+          let tip = document.getElementById('_badge_tip');
+          if (!tip) {
+            tip = document.createElement('div'); tip.id = '_badge_tip';
+            tip.style.cssText = 'position:fixed;background:var(--card);border:2px solid ' + (isEarned ? 'gold' : 'var(--b2)') + ';border-radius:12px;padding:10px 14px;font-size:.78rem;font-weight:700;z-index:1200;max-width:240px;line-height:1.5;box-shadow:0 8px 24px #0008;pointer-events:none';
+            document.body.appendChild(tip);
+          }
+          const earned2 = this.getAttribute('data-earned') === '1';
+          const how = this.getAttribute('data-how');
+          const label = _en ? 'How to earn:' : 'Како да се добие:';
+          const doneLabel = _en ? '✅ Earned!' : '✅ Освоено!';
+          tip.style.borderColor = earned2 ? 'gold' : 'var(--b2)';
+          tip.innerHTML = `<div style="font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;color:${earned2 ? 'gold' : 'var(--muted)'};margin-bottom:4px">${earned2 ? doneLabel : label}</div><div>${how}</div>`;
+          const r = this.getBoundingClientRect();
+          tip.style.left = Math.min(r.left, window.innerWidth - 260) + 'px';
+          tip.style.top = (r.top - tip.offsetHeight - 10 + window.scrollY) + 'px';
+          // Adjust after render
+          requestAnimationFrame(() => {
+            tip.style.top = (r.top + window.scrollY - tip.offsetHeight - 10) + 'px';
+          });
+        });
+        div.addEventListener('mouseleave', () => { const t = document.getElementById('_badge_tip'); if (t) t.remove(); });
         d.appendChild(div);
       });
+      // If no badges at all, show message
+      if (earned.length === 0) {
+        const msg = document.createElement('div');
+        msg.style.cssText = 'color:var(--muted);font-size:.82rem;text-align:center;width:100%;padding:10px';
+        msg.textContent = _en ? 'No achievements earned yet. Play to unlock them! Hover over locked badges to see how.' : 'Нема освоени достигнувања. Играј за да ги отклучиш! Стави го глушецот врз заклучените за да видиш како.';
+        d.appendChild(msg);
+      }
     }
 
     // ── TIPS ─────────────────────────────────────────────────────────────────────
@@ -4677,68 +4854,52 @@
       next();
     }
 
-    function showQR() {
+
+    // ── REAL QR CODE (qrcode.js) ──────────────────────────────────────────────────
+    const _GAME_URL = "https://edoo351.github.io/mygame/";
+    function showQRIntro() { showQR(true); }
+    function showQR(fromIntro) {
       const container = document.getElementById('qr-container');
       container.innerHTML = '';
-
-      // URL до играта
-      const url = window.location.href.split('?')[0];
-
+      const en = (currentLang === 'en');
+      const title = document.getElementById('qr-modal-title');
+      const desc = document.getElementById('qr-modal-desc');
+      const closeBtn = document.getElementById('qr-close-btn');
+      if (fromIntro) {
+        if (title) title.textContent = en ? 'Scan to Open the Game' : 'Скенирај за да ја отвориш играта';
+        if (desc) desc.textContent = en ? 'Scan this QR code to open Digital Survival on any device.' : 'Скенирај го QR кодот за да ја отвориш Digital Survival на кој било уред.';
+      } else {
+        if (title) title.textContent = en ? 'Share the Game' : 'Сподели ја играта';
+        if (desc) desc.textContent = en ? 'Scan to open the game on another device.' : 'Скенирај за да ја отвориш играта на друг уред.';
+      }
+      if (closeBtn) closeBtn.textContent = en ? '✓ Close' : '✓ Затвори';
+      document.getElementById('qr-url').textContent = _GAME_URL;
       try {
         new QRCode(container, {
-          text: url,
-          width: 180,
-          height: 180,
+          text: _GAME_URL,
+          width: 180, height: 180,
           colorDark: '#0f172a',
           colorLight: '#ffffff',
           correctLevel: QRCode.CorrectLevel.M
         });
       } catch (e) {
-        console.log(e);
+        // Offline fallback - draw simple QR-like pattern
+        const canvas = document.createElement('canvas');
+        canvas.width = 180; canvas.height = 180;
+        const ctx = canvas.getContext('2d');
+        ctx.fillStyle = '#fff'; ctx.fillRect(0, 0, 180, 180);
+        ctx.fillStyle = '#1e40af';
+        // Finder patterns
+        [[10, 10, 40, 40], [130, 10, 40, 40], [10, 130, 40, 40]].forEach(([x, y, w, h]) => { ctx.fillRect(x, y, w, h); ctx.fillStyle = '#fff'; ctx.fillRect(x + 6, y + 6, w - 12, h - 12); ctx.fillStyle = '#1e40af'; ctx.fillRect(x + 12, y + 12, w - 24, h - 24); ctx.fillStyle = '#1e40af'; });
+        ctx.font = 'bold 14px Nunito,sans-serif'; ctx.textAlign = 'center'; ctx.fillStyle = '#1e40af';
+        ctx.fillText('DIGITAL', 90, 88); ctx.fillText('SURVIVAL', 90, 106);
+        ctx.font = '10px monospace'; ctx.fillStyle = '#6b7280';
+        ctx.fillText('Зачувај го HTML фајлот', 90, 130);
+        container.appendChild(canvas);
       }
-
       document.getElementById('qr-modal').classList.add('show');
     }
-
-    function closeQR() {
-      document.getElementById('qr-modal').classList.remove('show');
-    }
-
-    // ── REAL QR CODE (qrcode.js) ──────────────────────────────────────────────────
-    // function showQR(){
-    //   const container=document.getElementById('qr-container');
-    //   container.innerHTML='';
-    //   const url=window.location.href.split('?')[0];
-    //   // Build game summary text for QR
-    //   const summary='Digital Survival | '+
-    //     (actP.length>0?'Победник: '+actP[0]:'Игра завршена')+
-    //     ' | '+url;
-    //   try{
-    //     new QRCode(container,{
-    //       text:summary,
-    //       width:180,height:180,
-    //       colorDark:'#0f172a',
-    //       colorLight:'#ffffff',
-    //       correctLevel:QRCode.CorrectLevel.M
-    //     });
-    //   }catch(e){
-    //     // Offline fallback - draw simple QR-like pattern
-    //     const canvas=document.createElement('canvas');
-    //     canvas.width=180;canvas.height=180;
-    //     const ctx=canvas.getContext('2d');
-    //     ctx.fillStyle='#fff';ctx.fillRect(0,0,180,180);
-    //     ctx.fillStyle='#1e40af';
-    //     // Finder patterns
-    //     [[10,10,40,40],[130,10,40,40],[10,130,40,40]].forEach(([x,y,w,h])=>{ctx.fillRect(x,y,w,h);ctx.fillStyle='#fff';ctx.fillRect(x+6,y+6,w-12,h-12);ctx.fillStyle='#1e40af';ctx.fillRect(x+12,y+12,w-24,h-24);ctx.fillStyle='#1e40af';});
-    //     ctx.font='bold 14px Nunito,sans-serif';ctx.textAlign='center';ctx.fillStyle='#1e40af';
-    //     ctx.fillText('DIGITAL',90,88);ctx.fillText('SURVIVAL',90,106);
-    //     ctx.font='10px monospace';ctx.fillStyle='#6b7280';
-    //     ctx.fillText('Зачувај го HTML фајлот',90,130);
-    //     container.appendChild(canvas);
-    //   }
-    //   document.getElementById('qr-modal').classList.add('show');
-    // }
-    // function closeQR(){document.getElementById('qr-modal').classList.remove('show');}
+    function closeQR() { document.getElementById('qr-modal').classList.remove('show'); }
 
     // ── PDF CERTIFICATE ──────────────────────────────────────────────────────────
 
@@ -4791,6 +4952,12 @@
       document.getElementById('cert-achievement').textContent = ach + '.';
       document.getElementById('cert-modal').style.display = 'block';
       document.body.style.overflow = 'hidden';
+      // Apply cert language
+      const _cen = (typeof currentLang !== 'undefined' && currentLang === 'en');
+      const _cgt = document.getElementById('cert-given-to');
+      if (_cgt) _cgt.textContent = _cen ? 'This certificate is proudly awarded to' : 'Со гордост се доделува на';
+      const _csig = document.getElementById('cert-footer-sig');
+      if (_csig) _csig.innerHTML = '🛡️ Digital Survival<br><span style="font-size:.68rem;color:#9ca3af">#ThinkBeforeYouClick</span>';
     }
     function closeCert() {
       document.getElementById('cert-modal').style.display = 'none';
@@ -5000,6 +5167,520 @@
       const exp = document.getElementById('mode-explain-text');
       if (exp) exp.className = 'mode-explain show';
     }
+
+    // ══════════════════════════════════════════════════════════════════
+    // LANGUAGE SYSTEM
+    // ══════════════════════════════════════════════════════════════════
+    let currentLang = 'mk';
+    let _langLocked = false;
+
+    function setLang(lang) {
+      if (_langLocked) return;
+
+      currentLang = lang;
+
+      // Style lang buttons
+      const mk = document.getElementById('lang-mk-btn');
+      const en = document.getElementById('lang-en-btn');
+
+      const active = 'background:#1e3a5f;border:2px solid var(--cyan);color:var(--cyan);border-radius:10px;padding:5px 16px;font-size:.8rem;font-weight:800;cursor:pointer;font-family:inherit';
+      const inactive = 'background:var(--panel);border:2px solid var(--border);color:var(--muted);border-radius:10px;padding:5px 16px;font-size:.8rem;font-weight:800;cursor:pointer;font-family:inherit';
+
+      if (mk && en) {
+        mk.style.cssText = lang === 'mk' ? active : inactive;
+        en.style.cssText = lang === 'en' ? active : inactive;
+      }
+
+      const en_ = lang === 'en';
+
+      // Hero + pills
+      const hp = document.querySelector('#intro-mk .hero p');
+
+      if (hp) {
+        hp.textContent = en_
+          ? 'Learn to protect yourself online through challenging quizzes and games! Every mistake teaches you something important.'
+          : 'Научи да се заштитиш на интернет преку предизвикувачки квизови и игри! Секоја грешка те учи нешто важно.';
+      }
+
+      const pills = document.querySelectorAll('#intro-mk .feature-pills .pill');
+
+      const mkPills = [
+        '⚠️ Phishing напади',
+        '🔐 Сајбер безбедност',
+        '📡 Медиумска писменост',
+        '💣 Меморија бомби',
+        '🧠 Stroop предизвик'
+      ];
+
+      const enPills = [
+        '⚠️ Phishing Attacks',
+        '🔐 Cyber Security',
+        '📡 Media Literacy',
+        '💣 Memory Bombs',
+        '🧠 Stroop Challenge'
+      ];
+
+      pills.forEach((p, i) => {
+        p.textContent = (en_ ? enPills : mkPills)[i] || p.textContent;
+      });
+
+      // Player section
+      const si = document.querySelector('#intro-mk .section-title');
+      if (si) si.textContent = en_
+        ? '① Choose Players (min. 2, max. 8)'
+        : '① Избери играчи (мин. 2, макс. 8)';
+
+      const cn = document.getElementById('cname');
+      if (cn) cn.placeholder = en_
+        ? 'Enter name...'
+        : 'Внеси име...';
+
+      const gm = document.getElementById('gbtn-m');
+      if (gm) gm.textContent = en_
+        ? '👦 Male'
+        : '👦 Маж';
+
+      const gf = document.getElementById('gbtn-f');
+      if (gf) gf.textContent = en_
+        ? '👧 Female'
+        : '👧 Жена';
+
+      const ab = document.getElementById('add-btn');
+      if (ab) ab.textContent = en_
+        ? '+ Add'
+        : '+ Додај';
+
+      const cr = document.getElementById('click-remove-txt');
+      if (cr) cr.textContent = en_
+        ? 'Click a player to remove them'
+        : 'Кликни на играч за да го отстраниш';
+
+      const oc = document.getElementById('or-choose-txt');
+      if (oc) oc.textContent = en_
+        ? 'OR CHOOSE FROM LIST:'
+        : 'ИЛИ ИЗБЕРИ ОД ЛИСТА:';
+
+      const sl = document.getElementById('selected-lbl');
+      if (sl) sl.textContent = en_
+        ? 'SELECTED:'
+        : 'ИЗБРАНИ:';
+
+      // Rounds section
+      const rt = document.getElementById('rounds-title');
+      if (rt) rt.textContent = en_
+        ? '② Choose Rounds'
+        : '② Избери рунди';
+
+      const pl = document.getElementById('presets-lbl');
+      if (pl) pl.textContent = en_
+        ? 'Quick presets:'
+        : 'Брзи пресети:';
+
+      const pa = document.getElementById('pset-all');
+      if (pa) pa.textContent = en_
+        ? '▶ All'
+        : '▶ Сите';
+
+      const rn = document.getElementById('rounds-note');
+
+      if (rn) {
+        rn.innerHTML = en_
+          ? '💡 Rounds that have been played <strong style="color:var(--yellow)">cannot be repeated</strong> in the same session. <span id="played-info" style="color:var(--orange)"></span>'
+          : '💡 Рунди кои биле изиграни <strong style="color:var(--yellow)">не можат да се повторат</strong> во истата сесија. <span id="played-info" style="color:var(--orange)"></span>';
+      }
+
+      // Rules
+      const rb = document.getElementById('rules-title');
+      if (rb) rb.textContent = en_
+        ? '📋 Rules'
+        : '📋 Правила';
+
+      const rbd = document.getElementById('rules-body');
+
+      if (rbd) {
+        rbd.innerHTML = en_
+          ? `🎯 Each player gets <strong style="color:var(--cyan)">different questions</strong> — no copying!<br>
+        💀 Score below <strong style="color:var(--red)">50%</strong> = eliminated at the end of the round.<br>
+        🎮 Between rounds: bonus mini-games — fun without elimination!<br>
+        👆 Click on a player for a detailed review of all their answers.`
+          : `🎯 Секој играч добива <strong style="color:var(--cyan)">различни прашања</strong> — нема копирање!<br>
+        💀 Скор под <strong style="color:var(--red)">50%</strong> = елиминација на крај на рундата.<br>
+        🎮 Меѓу рунди: бонус мини-игри — забава без елиминација!<br>
+        👆 Кликни на играч за детален преглед на сите негови одговори.`;
+      }
+
+      // Difficulty
+      const dt = document.getElementById('diff-title');
+      if (dt) dt.textContent = en_
+        ? '③ Difficulty Level'
+        : '③ Ниво на тежина';
+
+      const ds = document.getElementById('diff-sub');
+      if (ds) ds.textContent = en_
+        ? 'Adjust the difficulty of the questions!'
+        : 'Прилагоди ја тежината на прашањата!';
+
+      const del = document.getElementById('d-easy-lbl');
+      if (del) del.textContent = en_
+        ? 'Easy'
+        : 'Лесно';
+
+      const des = document.getElementById('d-easy-sub');
+      if (des) des.textContent = en_
+        ? 'Basic (10-14 y.o.)'
+        : 'Основно (10-14 год.)';
+
+      const dml = document.getElementById('d-med-lbl');
+      if (dml) dml.textContent = en_
+        ? 'Medium'
+        : 'Средно';
+
+      const dms = document.getElementById('d-med-sub');
+      if (dms) dms.textContent = en_
+        ? 'Intermediate (14-18 y.o.)'
+        : 'Средно (14-18 год.)';
+
+      const dhl = document.getElementById('d-hard-lbl');
+      if (dhl) dhl.textContent = en_
+        ? 'Hard'
+        : 'Тешко';
+
+      const dhs = document.getElementById('d-hard-sub');
+      if (dhs) dhs.textContent = en_
+        ? 'Advanced (18+ y.o.)'
+        : 'Напредно (18+ год.)';
+
+      // Mode
+      const mt = document.getElementById('mode-title');
+      if (mt) mt.textContent = en_
+        ? '④ Game Mode'
+        : '④ Режим на играње';
+
+      const mnl = document.getElementById('mode-normal-lbl');
+      if (mnl) mnl.textContent = en_
+        ? 'Competitive'
+        : 'Натпреварувачки';
+
+      const mns = document.getElementById('mode-normal-sub');
+      if (mns) mns.textContent = en_
+        ? 'Eliminations, winner'
+        : 'Елиминации, победник';
+
+      const mcl = document.getElementById('mode-class-lbl');
+      if (mcl) mcl.textContent = en_
+        ? 'Class Mode'
+        : 'Класа режим';
+
+      const mcs = document.getElementById('mode-class-sub');
+      if (mcs) mcs.textContent = en_
+        ? 'Teacher + projector'
+        : 'Наставник + проектор';
+
+      const me = document.getElementById('mode-explain-text');
+
+      if (me) {
+        me.innerHTML = en_
+          ? `<strong>🎮 Competitive mode:</strong> Each player answers questions on the same device. Below 50% correct = eliminated. Best for small groups (2-8 students).<br><br>
+        <strong>🏫 Class Mode:</strong> Teacher projects questions. Students vote with <strong>A / B / C / D</strong> buttons (shown on projector). For full class (20-30 students). One computer + projector = enough!`
+          : `<strong>🎮 Натпреварувачки режим:</strong> Секој играч добива свои прашања на исто устројство. Оној со под 50% точни е елиминиран. Погоден за мали групи (2-8 ученици).<br><br>
+        <strong>🏫 Класа режим:</strong> Наставникот проектира прашањата. Учениците гласаат со <strong>A / B / C / D</strong> копчиња (видливи на проекторот). Погоден за цела класа (20-30 ученици). Еден компјутер + проектор = доволно!`;
+      }
+
+      // Start button + footer
+      const sbt = document.getElementById('start-btn-txt');
+      if (sbt) sbt.textContent = en_
+        ? 'START GAME'
+        : 'ПОЧНИ ИГРА';
+
+      const rt2 = document.getElementById('rights-txt');
+      if (rt2) rt2.textContent = en_
+        ? 'All rights reserved'
+        : 'Сите права задржани';
+
+      // Mini-game selector
+      const miniH2 = document.querySelector('#sc-mini .mini-selector h2');
+
+      if (miniH2) {
+        miniH2.textContent = en_
+          ? 'BONUS MINI-GAME'
+          : 'БОНУС МИНИ-ИГРА';
+      }
+
+      const miniP = document.querySelector('#sc-mini .mini-selector p');
+
+      if (miniP) {
+        miniP.innerHTML = en_
+          ? 'Choose a bonus game between rounds.<br><strong style="color:var(--yellow)">No elimination — just fun!</strong>'
+          : 'Избери бонус игра меѓу рунди.<br><strong style="color:var(--yellow)">Нема елиминација — само забава!</strong>';
+      }
+
+      // Mini-game option labels
+      const miniOpts = document.querySelectorAll('#sc-mini .mini-opt');
+
+      if (miniOpts.length >= 4) {
+
+        miniOpts[0].querySelector('.mon').textContent = en_
+          ? 'Stroop Colors'
+          : 'Stroop Бои';
+
+        miniOpts[0].querySelector('.mod').textContent = en_
+          ? 'Remember colors under pressure'
+          : 'Запомни бои под притисок';
+
+        miniOpts[1].querySelector('.mon').textContent = en_
+          ? 'Bombs'
+          : 'Бомби';
+
+        miniOpts[1].querySelector('.mod').textContent = en_
+          ? 'Each player finds bombs alone'
+          : 'Секој играч сам наоѓа бомби';
+
+        miniOpts[2].querySelector('.mon').textContent = en_
+          ? 'Word Match'
+          : 'Спој зборови';
+
+        miniOpts[2].querySelector('.mod').textContent = en_
+          ? 'Match terms with definitions'
+          : 'Поврзи поими со дефиниции';
+
+        const bl = document.getElementById('mini-back-label');
+
+        if (bl) {
+          bl.textContent = en_
+            ? 'Go Back'
+            : 'Назад';
+        }
+
+        const bd = document.getElementById('mini-back-desc');
+
+        if (bd) {
+          bd.textContent = en_
+            ? 'Return to previous screen'
+            : 'Врати се на последниот екран';
+        }
+      }
+
+      // Game topbar labels
+      const tbLabels = document.querySelectorAll('.tb-label');
+
+      const mkTopbar = ['Рунда', 'Тип', 'Прашање', 'Активни'];
+      const enTopbar = ['Round', 'Type', 'Question', 'Active'];
+
+      tbLabels.forEach((el, i) => {
+        if (en_ && enTopbar[i]) {
+          el.textContent = enTopbar[i];
+        } else if (!en_ && mkTopbar[i]) {
+          el.textContent = mkTopbar[i];
+        }
+      });
+
+      // Result screen
+      const resSub = document.querySelector('#sc-result [style*="мuted"]');
+
+      if (resSub && resSub.textContent.includes('детален')) {
+        resSub.textContent = en_
+          ? 'Click on each player for a detailed overview →'
+          : 'Кликни на секој играч за детален преглед →';
+      }
+
+      const bdgTitle = document.querySelector('#sc-result [style*="yellow"]');
+
+      if (bdgTitle && bdgTitle.textContent.includes('ДОСТИГНУВ')) {
+        bdgTitle.textContent = en_
+          ? '🏅 EARNED ACHIEVEMENTS:'
+          : '🏅 ОСВОЕНИ ДОСТИГНУВАЊА:';
+      }
+
+      // Result buttons
+      const certBtn = document.querySelector('#sc-result .btn-yellow');
+
+      if (certBtn && (certBtn.textContent.includes('Серт') || certBtn.textContent.includes('Cert'))) {
+        certBtn.innerHTML = en_
+          ? '📜 Certificate'
+          : '📜 Сертификат';
+      }
+
+      const csvBtn = document.querySelector('#sc-result [onclick*="exportCSV"]');
+
+      if (csvBtn) {
+        csvBtn.textContent = en_
+          ? '📊 Export CSV'
+          : '📊 Извози CSV';
+      }
+
+      // Static mini-game screen text
+      const stroopTitle = document.getElementById('stroop-title');
+
+      if (stroopTitle) {
+        stroopTitle.textContent = en_
+          ? 'Remember the COLORS of the words!'
+          : 'Запомни ги БОИТЕ на зборовите!';
+      }
+
+      const stroopSub = document.getElementById('stroop-sub');
+
+      if (stroopSub) {
+        stroopSub.textContent = en_
+          ? 'Don\'t read the words — look at the COLOR. After 5 sec they\'ll grey out.'
+          : 'Не читај ги зборовите — гледај ја БОЈАТА. После 5 сек ќе посивеат.';
+      }
+
+      // Continue buttons
+      ['stroop-done', 'bomb-done', 'wm-done'].forEach(id => {
+        const el = document.getElementById(id);
+
+        if (el) {
+          el.textContent = en_
+            ? 'Continue →'
+            : 'Продолжи →';
+        }
+      });
+
+      const rcBtn = document.getElementById('recap-continue-btn');
+
+      if (rcBtn) {
+        rcBtn.textContent = en_
+          ? 'Continue →'
+          : 'Продолжи →';
+      }
+
+      // Progress / leaderboard labels
+      const progLabel = document.querySelector('.pdots-row span');
+
+      if (progLabel && (progLabel.textContent === 'ПРОГРЕС' || progLabel.textContent === 'PROGRESS')) {
+        progLabel.textContent = en_
+          ? 'PROGRESS'
+          : 'ПРОГРЕС';
+      }
+
+      const lbTitle = document.querySelector('#live-lb div:first-child');
+
+      if (lbTitle && (lbTitle.textContent.includes('РАНГ') || lbTitle.textContent.includes('RANK'))) {
+        lbTitle.textContent = en_
+          ? '🏆 RANKING'
+          : '🏆 РАНГ ЛИСТА';
+      }
+
+      // Rebuild rounds with correct lang
+      ALL_ROUND_DEFS = buildAllRounds();
+
+      renderRsel();
+      renderPList();
+    }
+    // ── EN Question Banks ─────────────────────────────────────────────
+    const QS_PHISHING_EASY_EN = [
+      { q: "You receive: 'Win an iPhone! Send your address!' This is...", ch: ["A real brand promotion", "A scam — you never entered any contest", "Random mass marketing", "A legitimate Facebook giveaway"], c: 1, exp: "If you didn't enter a contest, you can't win. These messages are always fake!" },
+      { q: "A friend sends: 'Someone is looking at you on Instagram!' Do you click?", ch: ["Yes, the link looks legitimate", "Yes, my friend is trustworthy", "No — I message them first to check", "Yes, just for a quick look"], c: 2, exp: "Hacked profiles send these messages. Before clicking, contact your friend directly!" },
+      { q: "A stranger online asks how old you are. You...", ch: ["Tell them — nothing secret about it", "Tell them only if they seem friendly", "Tell them because you want new friends", "Don't tell — no personal info to strangers"], c: 3, exp: "Never give personal information (age, address, school) to strangers online!" },
+      { q: "A pop-up says: 'Computer infected! Click here!' Your reaction?", ch: ["Click to remove the virus", "Follow the instructions on screen", "Close it without clicking anything", "Install antivirus through that link"], c: 2, exp: "This is fake! Such pop-ups are scams. Just close it — don't click anything!" },
+      { q: "Someone asks for your account password. Do you share it?", ch: ["Only to your best friend", "Only for a short time", "Only if in the same game", "No — passwords are never shared"], c: 3, exp: "Passwords are SECRET — never share them with anyone, even your best friend!" },
+      { q: "Email: 'You won €1000!' Do you send your details?", ch: ["Yes if the email looks official", "Yes, only IBAN without PIN", "No — didn't enter, this is a scam", "Yes, ask for details first"], c: 2, exp: "You never win money without entering. Tell a parent!" },
+      { q: "A stranger from a game asks to meet in real life. You...", ch: ["Agree if it's a public place", "Agree if you've known them online long", "Agree after more chatting", "Refuse — never meet strangers without a parent"], c: 3, exp: "Never meet people you only know online without a parent!" },
+      { q: "You see a funny photo of a classmate. Do you click 'share'?", ch: ["Yes, it's really funny", "Yes, already seen by many", "Yes, they share photos publicly", "No — ask them first if it's OK"], c: 3, exp: "Before sharing someone else's photo, always ask if it's OK!" },
+      { q: "SMS: 'Mom asks you to click here for a message.' Do you click?", ch: ["Yes, Mom wouldn't lie", "Yes, if it's in my language", "Yes, just to see the message", "No — call Mom directly first"], c: 3, exp: "Check with Mom directly first. These messages are fake!" },
+      { q: "Someone online asks you to keep a secret from your parents. You...", ch: ["OK if it's a small secret", "OK if it's just for one day", "OK if it's just for fun", "Tell your parents immediately — suspicious!"], c: 3, exp: "Any adult who asks kids to keep secrets IS SUSPICIOUS. Always tell a parent!" },
+      { q: "A site asks for your ID number for a free game. Do you give it?", ch: ["Yes if it's a big well-known game", "Yes, ID numbers aren't dangerous", "Yes, if the site has HTTPS", "No — never give your ID to anyone"], c: 3, exp: "Your ID number is very important. Never share it online!" },
+      { q: "A stranger photographs you and shares without permission. You...", ch: ["Ignore it — no real harm done", "Privately ask them to delete it", "Photograph them back", "Tell an adult — everyone has a right to privacy"], c: 3, exp: "Everyone has a right to privacy. Tell a parent or teacher — this is NOT OK!" },
+    ];
+    const QS_PHISHING_MED_EN = [
+      { q: "Email from 'PayPa1@secure-verify.net' asks for password in 24h. This is...", ch: ["Phishing — '1' instead of 'l' plus unknown domain", "Legitimate — PayPal sends urgent checks", "Spam — just delete it", "System error — confirmation needed"], c: 0, exp: "'PayPa1' with digit 1 instead of letter l = typosquatting. Legitimate PayPal only sends from @paypal.com." },
+      { q: "SMS: 'Package waiting. Pay 60den: dostava-mk.info/paket — MK Post'. Reaction?", ch: ["Pay — small safe amount", "Enter details to verify first", "Don't click — .info is not MK Post's domain", "Forward to MK Post for confirmation"], c: 2, exp: "Smishing! Official domain is .com.mk. No legitimate post requires SMS payment." },
+      { q: "QR code in a cafe: 'Scan for WiFi' → asks for Facebook password. Reaction?", ch: ["Enter it — networks require social login", "Enter only email without password", "Don't — WiFi never asks for Facebook password", "Look for another network without QR code"], c: 2, exp: "QR Phishing! WiFi access doesn't need social media. This steals your account." },
+      { q: "Attachment: 'Invoice.pdf.exe' — do you open it?", ch: ["Yes, PDF is a safe format", "Yes if antivirus is active", "Never — .exe after .pdf is malware", "Yes if the sender is known"], c: 2, exp: "Double extension trick: .pdf.exe is a program (malware), not PDF! Never open it." },
+      { q: "Email from 'mybank@gmail.com' with official logo. The problem is...", ch: ["The logo doesn't look right", "Banks don't have @gmail domain — this is phishing", "The email is in the wrong language", "Gmail can be an official bank channel"], c: 1, exp: "Legitimate bank email uses an official domain (@bank.com), NEVER @gmail." },
+      { q: "WhatsApp: 'Mom, this is my new number. Send €200 urgently!' Reaction?", ch: ["Send — Mom wouldn't lie", "Don't send — call the OLD number first", "Send half to test", "Write back for details"], c: 1, exp: "'WhatsApp Family Scam' — mass fraud. Always verify via the known old number!" },
+      { q: "A site offers free V-Bucks if you enter your password. That is...", ch: ["Legitimate if it's a big site", "Credential harvesting — steals account details", "A promotion for new players", "A technical error on the official server"], c: 1, exp: "There is NEVER free in-game currency for a password. That's account theft!" },
+      { q: "Instagram DM: '@official_prize: You won! Send ID for delivery.' Reaction?", ch: ["Send only the front of the ID", "Report the profile and don't respond", "Ask for more details first", "Send only the number without photo"], c: 1, exp: "Fake profile for identity theft. Instagram never asks for this. Report it!" },
+      { q: "Friend sends: 'Is this your photo??' + link. Reaction?", ch: ["Don't click — message them first to check", "Click — curious what photo", "Forward it to warn others", "Report the link"], c: 0, exp: "Hacked profiles mass-send these. Check with your friend first!" },
+      { q: "Email: 'amaz0n.com: problem with your order!' Notice anything?", ch: ["'amaz0n' with zero instead of 'o' is typosquatting", "Nothing — Amazon often sends these", "Looks official — same format", "If I have an order, probably legitimate"], c: 0, exp: "Typosquatting: replacing a letter with a digit. Always check the exact URL!" },
+      { q: "Ad: 'Earn $500 from home! Pay $50 for materials first.' This is...", ch: ["Legitimate if it's a registered company", "Advance-fee scam — you pay and get nothing", "Depends on whether employer is known", "Good opportunity — career investment"], c: 1, exp: "'Pay first' = 100% scam. No legitimate employer asks for money to start working." },
+      { q: "On a Zoom 'interview' they ask you to install their app. Reaction?", ch: ["Install only on personal computer", "Install if you agree to the terms", "Refuse — legitimate companies use standard tools", "Install if it's from App Store"], c: 2, exp: "RAT (Remote Access Trojan) distribution! Legitimate companies don't require their own app." },
+    ];
+    const QS_PHISHING_HARD_EN = [
+      { q: "Email Subject in Base64 encoding from unknown sender. This signals...", ch: ["Normal email — encoding is standard", "Base64 Cyrillic — technique to bypass spam filters", "Technical problem with mail provider", "Auto-generated system message"], c: 1, exp: "Base64 encoded subject is used to bypass spam filters. Don't open emails from unknowns with such subjects." },
+      { q: "A 'bank employee' asks for your PIN for a 'security check'. Why is this ALWAYS a scam?", ch: ["Banks do this type of verification", "The bank doesn't know your PIN — it's one-way hashed", "Only if the call came to your mobile", "Legitimate if they know your full name"], c: 1, exp: "PIN is one-way hashed — the bank never knows it in plain text. Asking for PIN = Vishing." },
+      { q: "A 'penetration test' company asks for admin credentials. Correct procedure is...", ch: ["Give them since it's agreed with management", "Verify via official channel before giving credentials", "Give a limited account for test purposes", "Check if an NDA contract is signed"], c: 1, exp: "Legitimate pentesters always have verification documents and special limited accounts — never admin credentials." },
+      { q: "Email passed DKIM but the domain was registered 3 days ago. That means...", ch: ["Email is safe — DKIM confirmed it", "DKIM only confirms server, fresh domain is a phishing signal", "New domain is normal corporate practice", "DKIM is outdated and shouldn't be trusted"], c: 1, exp: "DKIM verification doesn't guarantee organizational legitimacy — only that the server is consistent." },
+      { q: "Man-in-the-Browser attack is especially dangerous because...", ch: ["Malware alters transactions after confirmation — HTTPS doesn't help", "It slows all transactions for detection", "Easily detected by antivirus scanning", "Only works on outdated browsers"], c: 0, exp: "MitB works within a legitimate session — changes amounts/accounts after clicking 'Confirm'." },
+      { q: "An email with YOUR EXACT personal data claims to have monitored you. This is...", ch: ["Real threat — must react urgently", "Sextortion scam — data from a leaked database", "Spyware embedded in your device", "Legitimate security organization"], c: 1, exp: "Sextortion scam: personal data is publicly available or from a leaked database. Don't pay, report." },
+      { q: "Spear Phishing differs from regular Phishing in that it...", ch: ["Only uses SMS channel instead of email", "Is personalized — uses your personal details for credibility", "Is fully automated with bots", "Only attacks corporate networks"], c: 1, exp: "Spear phishing targets specific victims with personalized details, making it more convincing." },
+      { q: "Email Spoofing is effective because...", ch: ["It encrypts all content in the message", "Return-Path and From can differ — fake sender", "Bypasses all types of technical protection", "Leaves no traces on servers"], c: 1, exp: "Spoofing: the 'From' field is easily falsified. Check Return-Path for the real sender." },
+    ];
+    const QS_CYBER_EASY_EN = [
+      { q: "Which password is the MOST secure?", ch: ["Aleksandra2005", "MaCkA!7&xPq2", "qwerty123!", "myPassword99"], c: 1, exp: "Strong password: min. 12 chars, mixed letters, numbers, special chars. Avoid personal data!" },
+      { q: "On someone else's computer, when done you should...", ch: ["Just close the windows", "Stay logged in for next time", "Just minimize the page", "Log out and save nothing"], c: 3, exp: "On someone else's device always log out and don't save passwords!" },
+      { q: "2FA (two-factor authentication) means...", ch: ["Password plus confirmation via device or code", "Two different accounts for greater security", "Entering the same password twice", "Two types of antivirus on same device"], c: 0, exp: "2FA: something you know (password) + something you have (phone/app). Much harder to hack!" },
+      { q: "Your account password...", ch: ["Share with friends when needed", "Tell only your teacher", "Write on paper next to the computer", "Keep to yourself and never tell anyone"], c: 3, exp: "Passwords are yours alone. Nobody, ever, not even friends!" },
+      { q: "You lost your phone. First you should...", ch: ["Buy a new phone immediately", "Wait for someone to return it", "Report it and lock it remotely", "Only report it to police"], c: 2, exp: "Remote wiping prevents theft of your personal data!" },
+      { q: "Antivirus should be...", ch: ["Off for greater speed", "Installed only on new devices", "Updated and always active", "Used only when there's a problem"], c: 2, exp: "Antivirus must always be on and updated to protect you!" },
+      { q: "On public WiFi without VPN you can safely...", ch: ["Log into internet banking", "Shop online with your card", "Browse public sites and search", "Send passwords via email"], c: 2, exp: "On public WiFi without VPN only browse public, non-sensitive content!" },
+      { q: "Which device must install security updates?", ch: ["Only desktop computers", "Only Windows devices", "Only work computers and laptops", "All devices — phones, computers, tablets"], c: 3, exp: "Updates close security holes. All devices must be updated!" },
+    ];
+    const QS_CYBER_MED_EN = [
+      { q: "Ransomware attack — the BEST protection BEFORE an attack is...", ch: ["Regular backups to offline/cloud location", "Paying the ransom immediately", "Strong password on all accounts", "Installed antivirus on every device"], c: 0, exp: "Without a backup there's no way back without paying. Regular backup = real protection!" },
+      { q: "Connecting to public WiFi is risky due to...", ch: ["Slower internet speed", "Greater battery consumption", "Man-in-the-Middle attack — someone reads your messages", "Processor overheating"], c: 2, exp: "MitM: attacker sits between you and the internet. Use VPN or avoid sensitive activities!" },
+      { q: "An unknown USB device connected to the computer can...", ch: ["Only drain battery when charging", "Automatically install malware when plugged in", "Only slow down the processor", "Only read documents on the computer"], c: 1, exp: "BadUSB attacks: malicious USB is a hidden keyboard device. Never plug in unknown USB!" },
+      { q: "A Password Manager application...", ch: ["Stores passwords in unprotected text", "Shares passwords with cloud without protection", "Generates and stores encrypted strong passwords", "Requires you to remember passwords manually"], c: 2, exp: "Password manager generates unique strong passwords and stores them encrypted. One master password for everything!" },
+      { q: "HTTPS on a site means...", ch: ["The site is completely safe and legitimate", "The connection is encrypted — third parties can't read", "No malware on the site guaranteed", "The site is always fast and reliable"], c: 1, exp: "HTTPS encrypts transfer, but the site can still be phishing! HTTPS does not equal trustworthy." },
+      { q: "Social Engineering targets...", ch: ["Only technical systems and servers", "Only passwords and encryption", "People — manipulation to reveal information", "Only corporate email systems"], c: 2, exp: "People are the weakest link. Social engineering is more effective than technical attacks!" },
+      { q: "Zero-day vulnerability is dangerous because...", ch: ["It has already been found and patched", "Easily detectable by scanning", "Only works on outdated operating systems", "It attacks a vulnerability for which no patch yet exists"], c: 3, exp: "Zero-day: only the attacker knows the vulnerability. No patch exists — you can't protect yourself!" },
+      { q: "Principle of Least Privilege means...", ch: ["All users have equal rights", "Only IT department decides on access", "Passwords are shortened for security", "Users get only the rights needed for their function"], c: 3, exp: "If an account is compromised, limited rights reduce the damage. Fewer rights = less risk!" },
+    ];
+    const QS_CYBER_HARD_EN = [
+      { q: "SQL Injection is possible when the application...", ch: ["Uses an outdated database", "Doesn't validate user inputs before SQL queries", "Doesn't have enough RAM", "Has a weak network connection"], c: 1, exp: "SQL injection: unprotected input leads to malicious SQL code and database access. Parametrized queries protect you." },
+      { q: "Defense in Depth principle applies...", ch: ["One very strong central firewall", "Deep scanning of network traffic", "Multiple layers of security — if one fails, others protect", "Backup at all levels of the system"], c: 2, exp: "No system is perfect. Multiple layers mean greater resistance to attacks!" },
+      { q: "OSINT in cybersecurity is...", ch: ["Intelligence only through hacking systems", "Only government and intelligence work", "Collecting publicly available info to target victims", "A technique for network protection"], c: 2, exp: "OSINT: LinkedIn, WHOIS, social media — attackers use it for personalized attacks." },
+      { q: "Symmetric vs Asymmetric cryptography — key difference is...", ch: ["Only the key length differs", "Symmetric: same key for both; Asymmetric: public+private key pair", "RSA is older and weaker", "Processing speed is the same"], c: 1, exp: "Symmetric is faster, but key exchange is a problem. Asymmetric solves this via public key." },
+      { q: "Cross-Site Scripting (XSS) attack works via...", ch: ["Directly attacking the server", "Generating a fake SSL certificate", "Blocking network traffic", "Injecting malicious script into a web page"], c: 3, exp: "XSS: malicious script runs in the victim's browser. Sanitize input, use CSP headers!" },
+      { q: "Digital Forensics investigation requires Chain of Custody because...", ch: ["Technical reasons for data storage", "Faster processing of digital evidence", "Legal integrity — without it evidence is inadmissible", "Protecting the victim's privacy"], c: 2, exp: "Chain of Custody: documented evidence handling. Broken chain means inadmissible evidence in court!" },
+      { q: "Threat Intelligence Sharing between organizations is important because...", ch: ["It reduces security costs", "The law requires all organizations", "Collective knowledge improves response for the whole community", "Vulnerabilities are only known to targeted ones"], c: 2, exp: "Sharing IOCs: if one organization is attacked, others can quickly prepare!" },
+      { q: "Homograph Attack is effective because...", ch: ["Weak antivirus protection", "DNS resolution errors", "Visually identical Unicode characters create fake domains", "Outdated browsers without protection"], c: 2, exp: "'apple.com' with Cyrillic 'a' looks the same but leads to a fake site. Modern browsers detect it!" },
+    ];
+    const QS_MEDIA_EASY_EN = [
+      { q: "You get news: 'SHOCKING! This will CHANGE everything!' Reaction?", ch: ["Share immediately — it's important", "React with a comment immediately", "Verify before believing or sharing", "Like it to help it spread"], c: 2, exp: "Such headlines are clickbait. Always verify before sharing!" },
+      { q: "A friend shares news. You...", ch: ["Share immediately — friend is trustworthy", "Believe it because it's a known person", "Ask an adult or verify on another channel", "Save it to verify later"], c: 2, exp: "Even friends can unintentionally spread fake news. Always verify!" },
+      { q: "A funny image with text about a person — before sharing?", ch: ["Share it — it's funny and harmless", "Only send to close friends", "Just like it without sharing", "Don't share — could hurt someone"], c: 3, exp: "Fake images can cause real harm to people. Verify before sharing!" },
+      { q: "You use a fake username online. That is...", ch: ["Always illegal", "Lying — you should never do it", "Normal — for privacy protection", "Only allowed for games"], c: 2, exp: "A fake online name isn't lying — it's protecting your privacy. This is normal practice!" },
+      { q: "An online joke at someone else's expense...", ch: ["Is fun if it's just a joke", "Is legal if it's only online", "Doesn't hurt anyone if anonymous", "Can cause real harm if it spreads"], c: 3, exp: "Even online insults can cause real psychological harm. Think before you post!" },
+      { q: "When news makes you very angry, first you should...", ch: ["Share it with everyone immediately", "Comment to warn others", "Ignore it completely", "Verify if it's true before reacting"], c: 3, exp: "Emotional news is designed to make you react quickly without thinking!" },
+    ];
+    const QS_MEDIA_MED_EN = [
+      { q: "Social media algorithms create an 'echo chamber' when...", ch: ["They only show content you already agree with", "They properly filter inappropriate content", "They show you ads based on interests", "They automatically block fake profiles"], c: 0, exp: "Echo Chamber: the algorithm learns what you like and shows you only that, creating a false consensus!" },
+      { q: "Before sharing potentially fake news, best to...", ch: ["Share while it's fresh and current", "Check how many likes and shares it has", "Verify on a fact-checking site", "Only read the headline"], c: 2, exp: "Fact-checking is a crucial step. Sites like Snopes or Reuters Fact Check help!" },
+      { q: "Confirmation Bias is the tendency to...", ch: ["Seek info that confirms what you already believe", "Always trust authorities", "Always check facts before reacting", "Ignore information you don't like"], c: 0, exp: "Confirmation bias makes us accept information that confirms our existing beliefs." },
+      { q: "Native Advertising is...", ch: ["Advertising adapted for natural settings", "Paid content that looks like editorial news", "Advertising targeted at local population", "Advertising shown only on mobile devices"], c: 1, exp: "Native ads are designed to look exactly like editorial content. Always look for 'Sponsored' labels!" },
+      { q: "Deepfake technology can...", ch: ["Only improve video quality", "Only change the background of a video", "Only speed up video processing", "Create convincing video of someone saying something unreal"], c: 3, exp: "Deepfake is a powerful and dangerous technology. Check the source, look for unnatural movements." },
+    ];
+    const QS_MEDIA_HARD_EN = [
+      { q: "The difference between Disinformation and Misinformation is crucial because...", ch: ["No difference — both spread false content", "Only the publication language differs", "Disinformation is intentional, misinformation may be ignorance", "Only the publication source differs"], c: 2, exp: "Intent is key for accountability and countermeasures. Disinformation requires systematic response." },
+      { q: "Astroturfing is a technique where...", ch: ["Coordinated campaigns create fake organic popular opinion", "Organic lawns and greenery are produced", "Real likes are bought for content", "Reviews are written with real users"], c: 0, exp: "Astroturfing simulates grassroots support. Bots and fake accounts create a false perception of consensus." },
+      { q: "Filter Bubble is a concept describing...", ch: ["Only technical anti-spam filters", "Censorship of content by platforms", "Personalized environment where user is isolated by algorithms", "A system only for protecting children"], c: 2, exp: "Eli Pariser (2011): algorithms create a personalized reality. Conscious diversification is the antidote." },
+      { q: "Agency theory in the media system suggests that...", ch: ["Only journalists shape the content", "Media are always neutral by nature", "Only state media have their own agenda", "Media have interests that influence news presentation"], c: 3, exp: "All media have an agenda — commercial, political or ideological. Media-literate readers recognize this." },
+      { q: "Prebunking vs Debunking — the advantage of prebunking is...", ch: ["No significant difference", "Debunking is faster and cheaper", "Prebunking is cheaper to implement", "Preventive inoculation builds resistance before exposure"], c: 3, exp: "Prebunking (Inoculation Theory): exposure to weakened manipulation technique builds cognitive resistance." },
+    ];
+    const QS_PHISHING_VISUAL_EN = [
+      {
+        q: "Look at this email. What is the MOST suspicious sign?", visual: 'gmail',
+        content: {
+          from: 'noreply@secure-paypa1.com', subject: 'URGENT: Confirm your account within 24 hours!',
+          body: 'Dear User,<br><br>We noticed suspicious activity on your account. Please verify your details immediately to avoid suspension.',
+          flags: ['Sender domain: secure-paypa1.com (not paypal.com)', 'Subject: URGENT (pressure tactic)', 'Generic greeting (not your name)', 'Threat of suspension']
+        },
+        ch: ["The email logo looks blurry", "The sender domain: paypa1 with digit 1 instead of l", "The subject is written in all caps", "The email arrived at an unusual time"], c: 1,
+        exp: "Typosquatting: 'paypa1.com' with digit 1 instead of letter l. Always check the exact sender domain!"
+      },
+      {
+        q: "This SMS is trying to steal your data. What is the KEY giveaway?", visual: 'sms',
+        content: {
+          from: '+389 XX XXX XXX', subject: 'MKD Post',
+          body: 'Your package is waiting. Pay the customs fee of 120den via: mk-dostava-paket.info/pay to receive your package today.',
+          flags: ['Suspicious domain: mk-dostava-paket.info', 'Creates urgency (today)', 'MKD Post never sends payment links via SMS', 'Unknown sender number']
+        },
+        ch: ["The message is too short for official communication", "The suspicious domain and payment link via SMS", "The amount of 120den seems too small", "The message was sent from an unknown number"], c: 1,
+        exp: "Smishing: MKD Post NEVER sends payment links via SMS. The domain is not official. Don't click!"
+      },
+    ];
+
 
     // INIT
     ALL_ROUND_DEFS = buildAllRounds(); // safe: called after all vars declared
